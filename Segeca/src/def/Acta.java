@@ -13,6 +13,7 @@ public class Acta {
 	private Time horaInicio;
 	private Time horaFin;
 	private CCC[] ccc;
+	
 	public String getNombre() {
 		return nombre;
 	}
