@@ -10,16 +10,6 @@ public class Controller {
 		window.getFrame().setVisible(true);
 		
 		bd = new Conector.ConectorBD();
-		pruebas();
-		bd.desconectar();
-	}
-	
-	private static void pruebas(){
-		def.Persona p = new def.Persona();
-		p.setNick("Javier");
-		bd.extraerPersona(p);
-		System.out.println(p.toString());
-		
 	}
 
 }
