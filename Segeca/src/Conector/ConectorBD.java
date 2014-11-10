@@ -3,25 +3,19 @@ import java.sql.*;
 
 public class ConectorBD {
 
-	private String url;
-	private String dbName;
-	private String driver;
-	private String userName;
-	private String password;
 	private Connection conexion;
 	private Statement statement;
 
-	public ConectorBD() {
-		//crear conexión a BD con los parámetros pasados
-		url = "jdbc:mysql://192.168.1.84:3306/";
-		dbName = "SEGECA";
-		driver = "com.mysql.jdbc.Driver";
-		userName = "admin";
-		password = "Grupo10";
-
+	public ConectorBD(String host,String nombreBD, String usuario, String contraseña) {
+		//nombreBD = "SEGECA";
+		//usuario = "admin";
+		//contraseña = "Grupo10";
+		String url = "jdbc:mysql://"+ host + "/";
+		String driver = "com.mysql.jdbc.Driver";
+		
 		try {
 			Class.forName(driver).newInstance();
-			conexion = DriverManager.getConnection(url+dbName,userName,password);
+			conexion = DriverManager.getConnection(url+nombreBD,usuario,contraseña);
 			System.out.println("Estoy conectado!!!");
 			statement = conexion.createStatement();
 		} 
@@ -33,7 +27,7 @@ public class ConectorBD {
 	public void desconectar(){
 		try{
 			conexion.close();
-			System.out.println("Ya no!!");
+			System.out.println("Ya no estoy conectado!!");
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -114,4 +108,53 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener el CCC de nombre "+ ccc.getNombre_CCC());
 		}
 	}
+	
+	/*
+	 * AGENDA
+	 */
+	public void introducirAgenda(def.Agenda agenda){
+		try{
+			ResultSet resultado = statement.executeQuery("select * from Agenda where cod_agenda='"+ agenda.getCodAgenda() +"'");
+			if (resultado.next()){//Si ya estaba esta agenda actualizamos sus campos
+				statement.executeUpdate("update `Agenda` set lugar="+agenda.getLugar()+
+						", proposito='"+agenda.getProposito()+"', fecha='"+agenda.getFecha()+"', hora_fin='"+agenda.getHoraFin()
+						+"', hora_inicio='"+ agenda.getHoraInicio()+"', ccc='"+ agenda.getCcc()
+						+"' where `cod_agenda`='"+agenda.getCodAgenda()+"' limit 1;");
+			}else{//Si no, lo introudcimos por primera vez
+				statement.executeUpdate("insert into `Agenda` set lugar="+agenda.getLugar()+", proposito='"+agenda.getProposito()
+						+"', fecha='"+agenda.getFecha()+"', hora_fin='"+agenda.getHoraFin()+"', hora_inicio='"
+						+ agenda.getHoraInicio() +"', `cod_agenda`='"+agenda.getCodAgenda()+"';");
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			System.out.println("No se han podido introducir los datos de 'Agenda' con éxito");
+			System.out.println("La persona a introducir era:\n"+ agenda.toString());
+		}
+	}
+	
+	public void extraerAgenda(def.Agenda agenda){
+		try{
+			ResultSet resultado = statement.executeQuery("select * from Agenda where cod_agenda='"+ agenda.getCodAgenda() +"'");
+			if (resultado.next()){
+				String participantes = resultado.getString("participantes");
+				agenda.setParticipantes(participantes.split(" "));
+				agenda.setCodAgenda(resultado.getInt("cod_agenda"));
+				agenda.setFecha(resultado.getDate("fecha"));
+				agenda.setHoraFin(resultado.getTime("hora_fin"));
+				agenda.setHoraInicio(resultado.getTime("hora_inicio"));
+				agenda.setLugar(resultado.getString("lugar"));
+				agenda.setProposito(resultado.getString("proposito"));
+				agenda.setCcc(resultado.getString("ccc"));				
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			System.out.println("Error al intentar obtener la Agenda con códig "+ agenda.getCodAgenda());
+		}
+	}
+	
+	/*
+	 * ACTA: Pienso que debería de formar parte de agenda, ya que 
+	 * solo se añaden dos campos más y sólo hay un acta por agenda.
+	 * Estos dos objetos también irían juntos en la base de datos
+	 */
 }

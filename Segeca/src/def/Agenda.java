@@ -5,22 +5,27 @@ import java.util.Date;
 
 public class Agenda {
 	
-	private String nombre;
+	private int codAgenda;
 	private Date fecha; 
 	private String lugar;
 	private String proposito;
-	private Persona[] participantes;
+	private String[] participantes;
 	private Time horaInicio;
 	private Time horaFin;
-	private Persona[] ausencias;
-	private String resultados;
+	private String ccc;
 	
-	public String getNombre() {
-		return nombre;
+	public String toString(){
+		return "*****Agenda*****" +
+				"\n* CodAgenda: "+ codAgenda +
+				"\n* Fecha: "+ fecha +
+				"\n* horaInicio: "+ horaInicio.toString() +
+				"\n* horaFin: "+ horaFin.toString() +
+				"\n* Lugar: "+ lugar +
+				"\n* Propósito: "+ proposito +
+				"\n* Participantes: " + participantes.toString() +
+				"\n* CCC al que pertenece: " + ccc;
 	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+	
 	public Date getFecha() {
 		return fecha;
 	}
@@ -39,10 +44,10 @@ public class Agenda {
 	public void setProposito(String proposito) {
 		this.proposito = proposito;
 	}
-	public Persona[] getParticipantes() {
+	public String[] getParticipantes() {
 		return participantes;
 	}
-	public void setParticipantes(Persona[] participantes) {
+	public void setParticipantes(String[] participantes) {
 		this.participantes = participantes;
 	}
 	public Time getHoraInicio() {
@@ -57,16 +62,16 @@ public class Agenda {
 	public void setHoraFin(Time horaFin) {
 		this.horaFin = horaFin;
 	}
-	public Persona[] getAusencias() {
-		return ausencias;
+	public int getCodAgenda() {
+		return codAgenda;
 	}
-	public void setAusencias(Persona[] ausencias) {
-		this.ausencias = ausencias;
+	public void setCodAgenda(int codAgenda) {
+		this.codAgenda = codAgenda;
 	}
-	public String getResultados() {
-		return resultados;
+	public String getCcc() {
+		return ccc;
 	}
-	public void setResultados(String resultados) {
-		this.resultados = resultados;
+	public void setCcc(String ccc) {
+		this.ccc = ccc;
 	}
 }
