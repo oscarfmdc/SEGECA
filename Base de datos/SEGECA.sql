@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS `SEGECA`.`CCC` (
 `presidente` varchar(20),
 `secretario` varchar(20),
 `administrador` varchar(20),
-`miembros` varchar(100),
 
 primary key (`nombre_CCC`))
 
