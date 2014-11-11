@@ -1,6 +1,7 @@
 package Conector;
 import java.sql.*;
 
+
 public class ConectorBD {
 
 	private Connection conexion;
