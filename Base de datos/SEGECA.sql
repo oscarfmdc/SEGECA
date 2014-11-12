@@ -17,12 +17,12 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `SEGECA`.`Agenda` (
 `cod_agenda` int not null auto_increment,
-`fecha` date not null,
+`fecha` varchar(15) not null,
 `lugar` varchar(20),
 `proposito` varchar(100),
-`participantes` varchar(100),
-`hora_inicio` time,
-`hora_fin` time,
+`participantes` varchar(1000),
+`hora_inicio` varchar(10),
+`hora_fin` varchar(10),
 `ccc` varchar(100) not null,
 
 primary key (`cod_agenda`),foreign key(`ccc`) references `SEGECA`.`CCC`(`nombre_CCC`))
@@ -74,7 +74,8 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-use `SEGECA`;
+/*use `SEGECA`;
+insert into `SEGECA`.`CCC` (`miembros`,`administrador`,`secretario`,`nombre_CCC`,`presidente`) values ('GestorPC', 'GestorPC', 'GestorPC', 'Gestión de PC', 'GestorPC');
 insert into `CCC` set miembros='GestorPC', administrador='GestorPC', secretario='GestorPC', nombre_CCC='Gestión de PC', presidente='GestorPC';
 insert into `CCC` set miembros='Juan Guillermo Noelia Javier Sandra', administrador='Noelia', secretario='Guillermo', nombre_CCC='Desarrollo', presidente='Juan';
 insert into `Personas` set nick='Sandra', telefono=916257361, email='varelapatino@ejemplo.com', CCC='Desarrollo', nombre='Sandra Varela';
@@ -88,3 +89,4 @@ insert into `Agenda` set lugar='Sede (Sala de reuniones 2ª planta)', participan
 insert into `PC` set fecha='2014-03-24', prioridad='Alta', cod_PC='', valoracion='', agenda=2, descripcion='Resulta que...', motivo='Posible error de diseño en BBDD', documentos='', estado='implantada', email='usuario1@ejemplo.com', CCC='Desarrollo';
 insert into `PC` set fecha='2014-10-08', prioridad='', cod_PC='', valoracion='', agenda=1, descripcion='Parece que falta en la interfaz la forma de...', motivo='Funcionalidad Interfaz', documentos='', estado='pendiente', email='usuario2@ejemplo.com', CCC='Gestión de PC';
 insert into `Acta` set resultados='Reconocido el error de diseño en la base de datos. Se procede a su correción.', cod_acta='', ausencias='Sandra', agenda=2;
+*/

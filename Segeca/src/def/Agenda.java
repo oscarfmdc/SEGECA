@@ -1,18 +1,13 @@
-package def;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-
+package def;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,12 +17,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -54,8 +45,7 @@ public class Agenda implements Serializable {
     private Integer codAgenda;
     @Basic(optional = false)
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
-    private Date fecha;
+    private String fecha;
     @Column(name = "lugar")
     private String lugar;
     @Column(name = "proposito")
@@ -63,18 +53,12 @@ public class Agenda implements Serializable {
     @Column(name = "participantes")
     private String participantes;
     @Column(name = "hora_inicio")
-    @Temporal(TemporalType.TIME)
-    private Date horaInicio;
+    private String horaInicio;
     @Column(name = "hora_fin")
-    @Temporal(TemporalType.TIME)
-    private Date horaFin;
+    private String horaFin;
     @JoinColumn(name = "ccc", referencedColumnName = "nombre_CCC")
     @ManyToOne(optional = false)
     private Ccc ccc;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenda")
-    private Collection<Acta> actaCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "agenda")
-    private Collection<Pc> pcCollection;
 
     public Agenda() {
     }
@@ -83,7 +67,7 @@ public class Agenda implements Serializable {
         this.codAgenda = codAgenda;
     }
 
-    public Agenda(Integer codAgenda, Date fecha) {
+    public Agenda(Integer codAgenda, String fecha) {
         this.codAgenda = codAgenda;
         this.fecha = fecha;
     }
@@ -96,11 +80,11 @@ public class Agenda implements Serializable {
         this.codAgenda = codAgenda;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -128,19 +112,19 @@ public class Agenda implements Serializable {
         this.participantes = participantes;
     }
 
-    public Date getHoraInicio() {
+    public String getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(Date horaInicio) {
+    public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public Date getHoraFin() {
+    public String getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(Date horaFin) {
+    public void setHoraFin(String horaFin) {
         this.horaFin = horaFin;
     }
 
@@ -150,24 +134,6 @@ public class Agenda implements Serializable {
 
     public void setCcc(Ccc ccc) {
         this.ccc = ccc;
-    }
-
-    @XmlTransient
-    public Collection<Acta> getActaCollection() {
-        return actaCollection;
-    }
-
-    public void setActaCollection(Collection<Acta> actaCollection) {
-        this.actaCollection = actaCollection;
-    }
-
-    @XmlTransient
-    public Collection<Pc> getPcCollection() {
-        return pcCollection;
-    }
-
-    public void setPcCollection(Collection<Pc> pcCollection) {
-        this.pcCollection = pcCollection;
     }
 
     @Override
@@ -192,7 +158,7 @@ public class Agenda implements Serializable {
 
     @Override
     public String toString() {
-        return "segeca.Agenda[ codAgenda=" + codAgenda + " ]";
+        return "pruebas.Agenda[ codAgenda=" + codAgenda + " ]";
     }
     
 }
