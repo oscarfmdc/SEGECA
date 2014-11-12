@@ -23,5 +23,14 @@ public class Controller {
 		System.out.println(a.toString());
 		
 	}
+    
+    public static int prepararActa(){
+        
+        //Jtextfield
+        agenda ag = new agenda();
+        
+        actas acta = new acta();
+        acta.setCodAgenda()
+    }
 
 }
