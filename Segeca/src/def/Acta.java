@@ -1,65 +1,114 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package def;
 
-import java.sql.Time;
-import java.util.Date;
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class Acta {
+/**
+ *
+ * @author Mark
+ */
+@Entity
+@Table(name = "Acta")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Acta.findAll", query = "SELECT a FROM Acta a"),
+    @NamedQuery(name = "Acta.findByCodActa", query = "SELECT a FROM Acta a WHERE a.codActa = :codActa"),
+    @NamedQuery(name = "Acta.findByAusencias", query = "SELECT a FROM Acta a WHERE a.ausencias = :ausencias"),
+    @NamedQuery(name = "Acta.findByResultados", query = "SELECT a FROM Acta a WHERE a.resultados = :resultados")})
+public class Acta implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "cod_acta")
+    private Integer codActa;
+    @Column(name = "ausencias")
+    private String ausencias;
+    @Column(name = "resultados")
+    private String resultados;
+    @JoinColumn(name = "agenda", referencedColumnName = "cod_agenda")
+    @ManyToOne(optional = false)
+    private Agenda agenda;
 
-	private String nombre;
-	private Date fecha; 
-	private String lugar;
-	private String proposito;
-	private Persona[] participantes;
-	private Time horaInicio;
-	private Time horaFin;
-	private CCC[] ccc;
-	
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public Date getFecha() {
-		return fecha;
-	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-	public String getLugar() {
-		return lugar;
-	}
-	public void setLugar(String lugar) {
-		this.lugar = lugar;
-	}
-	public String getProposito() {
-		return proposito;
-	}
-	public void setProposito(String proposito) {
-		this.proposito = proposito;
-	}
-	public Persona[] getParticipantes() {
-		return participantes;
-	}
-	public void setParticipantes(Persona[] participantes) {
-		this.participantes = participantes;
-	}
-	public Time getHoraInicio() {
-		return horaInicio;
-	}
-	public void setHoraInicio(Time horaInicio) {
-		this.horaInicio = horaInicio;
-	}
-	public Time getHoraFin() {
-		return horaFin;
-	}
-	public void setHoraFin(Time horaFin) {
-		this.horaFin = horaFin;
-	}
-	public CCC[] getCcc() {
-		return ccc;
-	}
-	public void setCcc(CCC[] ccc) {
-		this.ccc = ccc;
-	}
+    public Acta() {
+    }
+
+    public Acta(Integer codActa) {
+        this.codActa = codActa;
+    }
+
+    public Integer getCodActa() {
+        return codActa;
+    }
+
+    public void setCodActa(Integer codActa) {
+        this.codActa = codActa;
+    }
+
+    public String getAusencias() {
+        return ausencias;
+    }
+
+    public void setAusencias(String ausencias) {
+        this.ausencias = ausencias;
+    }
+
+    public String getResultados() {
+        return resultados;
+    }
+
+    public void setResultados(String resultados) {
+        this.resultados = resultados;
+    }
+
+    public Agenda getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (codActa != null ? codActa.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Acta)) {
+            return false;
+        }
+        Acta other = (Acta) object;
+        if ((this.codActa == null && other.codActa != null) || (this.codActa != null && !this.codActa.equals(other.codActa))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "segeca.Acta[ codActa=" + codActa + " ]";
+    }
+    
 }
