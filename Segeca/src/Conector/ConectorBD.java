@@ -13,7 +13,7 @@ public class ConectorBD {
 		//contraseña = "Grupo10";
 		String url = "jdbc:mysql://"+ host + "/";
 		String driver = "com.mysql.jdbc.Driver";
-		
+
 		try {
 			Class.forName(driver).newInstance();
 			conexion = DriverManager.getConnection(url+nombreBD,usuario,contraseña);
@@ -72,11 +72,11 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la persona con nick "+ persona.getNick());
 		}
 	}
-	
+
 	/*
 	 * CCC
 	 */
-	public void introducirCCC(def.CCC ccc){
+	public void introducirCCC(def.Ccc ccc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from CCC where nombre_CCC='"+ ccc.getNombre_CCC() +"'");
 			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
@@ -95,7 +95,7 @@ public class ConectorBD {
 		}
 	}
 
-	public void extraerCCC(def.CCC ccc){
+	public void extraerCCC(def.Ccc ccc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from CCC where nombre_CCC='"+ ccc.getNombre_CCC() +"'");
 			if (resultado.next()){
@@ -109,7 +109,7 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener el CCC de nombre "+ ccc.getNombre_CCC());
 		}
 	}
-	
+
 	/*
 	 * AGENDA
 	 */
@@ -132,7 +132,7 @@ public class ConectorBD {
 			System.out.println("La persona a introducir era:\n"+ agenda.toString());
 		}
 	}
-	
+
 	public void extraerAgenda(def.Agenda agenda){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Agenda where cod_agenda='"+ agenda.getCodAgenda() +"'");
@@ -152,7 +152,7 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la Agenda con códig "+ agenda.getCodAgenda());
 		}
 	}
-	
+
 	/*
 	 * ACTA: Pienso que debería de formar parte de agenda, ya que 
 	 * solo se añaden dos campos más y sólo hay un acta por agenda.
