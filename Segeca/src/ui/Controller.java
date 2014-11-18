@@ -115,15 +115,41 @@ public class Controller {
     }
 
     /* Requisito 2.1 */
-    public static int altaCCC() {
+    // necesitamos como parametro las listas con lo que seleccione el usuario
+    public static void altaCCC(ArrayList agendas, ArrayList PCs, ArrayList personas) {
         Ccc ccc = new Ccc();
 
-        return 0;
+        // cambiar los nulls por los Jtexfield correspondientes
+        ccc.setNombreCCC(null);
+        ccc.setAdministrador(null);
+        ccc.setPresidente(null);
+        ccc.setSecretario(null);
+
+        // cambiar todos los ArrayList por las listas correspondientes que seleccione el usuario
+        // lista de agendas que trata ese CCC
+        ccc.setAgendaCollection(agendas);
+        // lista de PC que trata ese CCC
+        ccc.setPcCollection(PCs);
+        // lista de personas que integran ese CCC
+        ccc.setPersonasCollection(personas);
+
+        // Enrique, metodo para meter en la bd el ccc
+        createCCC(ccc);
+
     }
 
     /* Requisito 2.2 */
     public static int bajaCCC() {
-
+        // Cambiar null por la jlist correspondiente
+        JList listaBorrarCCC = null;
+        // comprobamos que el usuario ha seleccionado un CCC para borrar de la lista mostrada
+        String nombreBorrarCCC = (String) listaBorrarCCC.getModel().getElementAt(listaBorrarCCC.getSelectedIndex());
+        if (listaBorrarCCC.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningún CCC para dar de baja", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+        // Enrique, metodo que borra el ccc con el nombre pasado como parametro
+        deleteCCC(nombreBorrarCCC);
         return 0;
     }
 
@@ -134,21 +160,59 @@ public class Controller {
     }
 
     /* Requisito 2.4 */
-    public static int altaPersonaCC() {
+    public static int altaPersonaCCC() {
         Persona persona = new Persona();
 
+        // cambiar todos los nulls por los JTextField correspondientes en cada caso
+        JTextField nick = null;
+        // compruebo que el campo no esta vacio
+        if (nick.getText() == null) {
+            JOptionPane.showMessageDialog(null, "Debe introducir un nick para la persona", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
         persona.setNick(null);
+
+        // JTextField con el nombre de la persona
+        JTextField nombre = null;
+        // compruebo que el campo no esta vacio
+        if (nombre.getText() == null) {
+            JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
         persona.setNombre(null);
-        persona.setTelefono(666666666);
+
+        // compruebo el telefono
+        JTextField telefono = null;
+        telf = isTelefono(telefono.getText());
+        persona.setTelefono(telef);
         persona.setEmail(null);
         persona.setPermisos(null);
-        persona.setCcc(null);
-        
+
+        // Cambiar null por la jlist correspondiente
+        JList CCCs = null;
+        // comprobamos que el usuario ha seleccionado un CCC para asignar la persona a dicho CCC
+        String ccc = (String) CCCs.getModel().getElementAt(CCCs.getSelectedIndex());
+        Ccc newCCC = new Ccc();
+        newCCC.setNombreCCC(ccc);
+        persona.setCcc(newCCC);
+
+        // Enrique, metodo para introducir una persona en un CCC
+        addPersonaCCC(persona);
         return 0;
     }
 
     /* Requisito 2.5 */
     public static int bajaPersonaCCC() {
+        // Cambiar null por la jlist correspondiente
+        JList listaPersonasCCC = null;
+        // comprobamos que el usuario ha seleccionado una persona de un CCC para darla de baja
+        String bajaPersonaCCC = (String) listaPersonasCCC.getModel().getElementAt(listaPersonasCCC.getSelectedIndex());
+        if (listaPersonasCCC.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningúna persona para dar de baja en el CCC", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+        // Enrique, metodo que da de baja a una persona de un CCC
+        deletePersonaCCC(bajaPersonaCCC);
 
         return 0;
     }
@@ -177,5 +241,19 @@ public class Controller {
             return false;
         }
         return true;
+    }
+
+    // metodo que comprueba y pasa a entero un telefono
+    public static int isTelefono(String telefono) {
+        int telefonoInt = 0;
+        if (telefono.length() != 9) {
+            JOptionPane.showMessageDialog(null, "Tamaño del numero de telefono invalido. Deben ser 9 digitos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            telefonoInt = Integer.parseInt(telefono); // este null es el JTextField del numero y lo convierto a int
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Inserte numero de telefono valido. Introducir solo digitos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return telefonoInt;
     }
 }
