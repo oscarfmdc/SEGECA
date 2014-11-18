@@ -1,7 +1,6 @@
 package ui;
 
 import def.*;
-import java.awt.Color;
 import java.text.*;
 import java.util.*;
 import javax.swing.*;
