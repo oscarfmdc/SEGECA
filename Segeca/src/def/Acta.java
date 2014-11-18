@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Mark
  */
-@Entity
+
 @Table(name = "Acta")
 @XmlRootElement
 @NamedQueries({
