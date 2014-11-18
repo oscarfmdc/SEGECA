@@ -3,15 +3,16 @@ package ui;
 import def.*;
 import java.text.*;
 import java.util.*;
+
 import javax.swing.*;
 
 public class Controller {
 
-    static Conector.ConectorBD bd;
+    private static Conector.ConectorBD bd;
+    private static UI window;
 
-    public static void main(String[] args) {
-
-        UI window = new UI();
+    public Controller(){
+    	window = new UI();
         window.getFrame().setVisible(true);
 
         bd = new Conector.ConectorBD("192.168.1.84:3306", "SEGECA", "admin", "Grupo10");
