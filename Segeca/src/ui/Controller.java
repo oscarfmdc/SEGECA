@@ -48,6 +48,7 @@ public class Controller {
         ccc.setNombreCCC(nombreCCC);
 
         // rellenamos los campos de la agenda
+        // Cambiar nulls por varibales correspondientes
         ag.setCcc(ccc);
         ag.setFecha(null);
         ag.setLugar(null);
@@ -56,6 +57,9 @@ public class Controller {
         ag.setProposito(null);
         ag.setCodAgenda(0);
         ag.setParticipantes(null);
+
+        // Método que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
+        createAgenda(ag);
 
         return 0;
     }
@@ -103,10 +107,15 @@ public class Controller {
     }
 
     /* Requisito 1.1 */
-    public static int prepararActa() {
+    // Tenéis que pasarnos un código de agenda que debereis calcular mostrando las agendas disponibles al usuario    
+    public static int prepararActa(int codAgenda) {
         Acta acta = new Acta();
 
-        acta.setAgenda(null);// se cambia por el Jtexfield que contenga la agenda correspondiente a ese acts
+        Agenda ag = new Agenda();
+        acta.setAgenda(ag);
+        ag.setCodAgenda(codAgenda);
+
+        acta.setAgenda(ag);// se cambia por el Jtexfield que contenga la agenda correspondiente a ese acts
         acta.setCodActa(0);
         acta.setAusencias(null);// Jtexfield con los nombre de los ausentes
         acta.setResultados(null);// Jtexfiled con los resultados obtenidos
@@ -128,8 +137,25 @@ public class Controller {
     }
 
     /* Requisito 2.3 */
-    public static int modMiembrosCCC() {
+    // Necesitamos que nos paséis el código de la persona para pode realizar la modificacion 
+    public static int modMiembrosCCC(String codPersona) {
 
+        Persona prsn = new Persona();
+        prsn.setNick(codPersona);
+
+        // Establecemos todos los campos que corresponden a las personas
+        prsn.setCcc(null);//JtextField correspondiente al nombre del CCC
+        prsn.setEmail(null);//JTextField correspondiente al email
+
+        JTextField nombre = null;//JTextField correspondiente al nombre
+
+        if (nombre.getText() == null) {
+            JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        prsn.setNombre(nombre.getText());
+        // Comprobación numero de telefono valido  Marcos
+        prsn.setTelefono(0);
         return 0;
     }
 
@@ -143,13 +169,13 @@ public class Controller {
         persona.setEmail(null);
         persona.setPermisos(null);
         persona.setCcc(null);
-        
+
         return 0;
     }
 
     /* Requisito 2.5 */
     public static int bajaPersonaCCC() {
-
+        J
         return 0;
     }
 
