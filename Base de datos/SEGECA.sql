@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `SEGECA`.`PC` (
 `motivo` varchar(500),
 `descripcion` varchar(500),
 `prioridad` varchar(100),
-`fecha`date,
+`fecha` varchar(10),
 `agenda` int not null,
 `estado` enum ('aceptada','rechazada','aplazada','pendiente','implantada','retirada'),
 `CCC` varchar(100) not null,
