@@ -3,6 +3,7 @@ package ui;
 import def.*;
 import java.text.*;
 import java.util.*;
+
 import javax.swing.*;
 
 public class Controller {
@@ -10,8 +11,13 @@ public class Controller {
     private static Conector.ConectorBD bd;
     private static UI window;
 
+<<<<<<< HEAD
     public Controller() {
         window = new UI();
+=======
+    public Controller(){
+    	window = new UI();
+>>>>>>> upstream/master
         window.getFrame().setVisible(true);
 
         bd = new Conector.ConectorBD("192.168.1.84:3306", "SEGECA", "admin", "Grupo10");
@@ -161,7 +167,10 @@ public class Controller {
         }
         // Enrique, metodo que borra el ccc con el nombre pasado como parametro
         deleteCCC(nombreBorrarCCC);
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
         return 0;
     }
 
@@ -181,13 +190,19 @@ public class Controller {
         if (nombre.getText() == null) {
             JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
         }
+<<<<<<< HEAD
 
         prsn.setNombre(nombre.getText());
         // Comprobación numero de telefono valido
         JTextField telefono = null;
         telf = isTelefono(telefono.getText());
         prsn.setTelefono(telf);
+=======
+>>>>>>> upstream/master
 
+        prsn.setNombre(nombre.getText());
+        // Comprobación numero de telefono valido  Marcos
+        prsn.setTelefono(0);
         return 0;
     }
 
@@ -217,26 +232,37 @@ public class Controller {
         JTextField telefono = null;
         telf = isTelefono(telefono.getText());
         persona.setTelefono(telef);
+<<<<<<< HEAD
 
         persona.setEmail(null);
         persona.setPermisos(null);
 
+=======
+        persona.setEmail(null);
+        persona.setPermisos(null);
+>>>>>>> upstream/master
         // Cambiar null por la jlist correspondiente
         JList CCCs = null;
         // comprobamos que el usuario ha seleccionado un CCC para asignar la persona a dicho CCC
         String ccc = (String) CCCs.getModel().getElementAt(CCCs.getSelectedIndex());
+<<<<<<< HEAD
         if (CCCs.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC en el que ingresar dicha persona", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
         // creamos un objeto Ccc con el nombre del CCC que ha seleccionado el usuario
+=======
+>>>>>>> upstream/master
         Ccc newCCC = new Ccc();
         newCCC.setNombreCCC(ccc);
         persona.setCcc(newCCC);
 
         // Enrique, metodo para introducir una persona en un CCC
         addPersonaCCC(persona);
+<<<<<<< HEAD
 
+=======
+>>>>>>> upstream/master
         return 0;
     }
 
@@ -245,14 +271,22 @@ public class Controller {
         // Cambiar null por la jlist correspondiente
         JList listaPersonasCCC = null;
         // comprobamos que el usuario ha seleccionado una persona de un CCC para darla de baja
+<<<<<<< HEAD
         String bajaPrsn = (String) listaPersonasCCC.getModel().getElementAt(listaPersonasCCC.getSelectedIndex());
+=======
+        String bajaPersonaCCC = (String) listaPersonasCCC.getModel().getElementAt(listaPersonasCCC.getSelectedIndex());
+>>>>>>> upstream/master
         if (listaPersonasCCC.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningúna persona para dar de baja en el CCC", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
         // Enrique, metodo que da de baja a una persona de un CCC
+<<<<<<< HEAD
         deletePersonaCCC(bajaPrsn);
 
+=======
+        deletePersonaCCC(bajaPersonaCCC);
+>>>>>>> upstream/master
         return 0;
     }
 
@@ -286,12 +320,20 @@ public class Controller {
     public static int isTelefono(String telefono) {
         int telefonoInt = 0;
         if (telefono.length() != 9) {
+<<<<<<< HEAD
             JOptionPane.showMessageDialog(null, "Tamaño del número de telefono invalido. Deben ser 9 digitos", "Error", JOptionPane.ERROR_MESSAGE);
+=======
+            JOptionPane.showMessageDialog(null, "Tamaño del numero de telefono invalido. Deben ser 9 digitos", "Error", JOptionPane.ERROR_MESSAGE);
+>>>>>>> upstream/master
         }
         try {
             telefonoInt = Integer.parseInt(telefono); // este null es el JTextField del numero y lo convierto a int
         } catch (NumberFormatException e) {
+<<<<<<< HEAD
             JOptionPane.showMessageDialog(null, "Inserte número de telefono valido. Introducir solo digitos", "Error", JOptionPane.ERROR_MESSAGE);
+=======
+            JOptionPane.showMessageDialog(null, "Inserte numero de telefono valido. Introducir solo digitos", "Error", JOptionPane.ERROR_MESSAGE);
+>>>>>>> upstream/master
         }
         return telefonoInt;
     }
