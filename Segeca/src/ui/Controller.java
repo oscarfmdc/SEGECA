@@ -115,11 +115,8 @@ public class Controller {
         acta.setAgenda(ag);
         ag.setCodAgenda(codAgenda);
 
-        acta.setAgenda(ag);// se cambia por el Jtexfield que contenga la agenda correspondiente a ese acts
-        acta.setCodActa(0);
         acta.setAusencias(null);// Jtexfield con los nombre de los ausentes
         acta.setResultados(null);// Jtexfiled con los resultados obtenidos
-
         // Enrique, metodo que crea el acta en la BD
         createActa(acta);
 
@@ -187,9 +184,7 @@ public class Controller {
         JTextField telefono = null;
         telf = isTelefono(telefono.getText());
         prsn.setTelefono(telf);
-        prsn.setNombre(nombre.getText());
-        // Comprobación numero de telefono valido  Marcos
-        prsn.setTelefono(0);
+
         return 0;
     }
 
