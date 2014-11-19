@@ -25,7 +25,6 @@ public class Pc implements Serializable {
     private String valoracion;
     private String documentos;
     private Ccc ccc;
-
     private Agenda agenda;
 
     public Pc() {
@@ -122,27 +121,4 @@ public class Pc implements Serializable {
     public void setAgenda(Agenda agenda) {
         this.agenda = agenda;
     }
-
-    public int hashCode() {
-        int hash = 0;
-        hash += (codPC != null ? codPC.hashCode() : 0);
-        return hash;
-    }
-
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pc)) {
-            return false;
-        }
-        Pc other = (Pc) object;
-        if ((this.codPC == null && other.codPC != null) || (this.codPC != null && !this.codPC.equals(other.codPC))) {
-            return false;
-        }
-        return true;
-    }
-
-    public String toString() {
-        return "segeca.Pc[ codPC=" + codPC + " ]";
-    }
-    
 }

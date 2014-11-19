@@ -79,29 +79,5 @@ public class Persona implements Serializable {
 
     public void setCcc(Ccc ccc) {
         this.ccc = ccc;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (nick != null ? nick.hashCode() : 0);
-        return hash;
-    }
-
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Persona)) {
-            return false;
-        }
-        Persona other = (Persona) object;
-        if ((this.nick == null && other.nick != null) || (this.nick != null && !this.nick.equals(other.nick))) {
-            return false;
-        }
-        return true;
-    }
-
-    public String toString() {
-        return "segeca.Personas[ nick=" + nick + " ]";
-    }
-    
+    } 
 }

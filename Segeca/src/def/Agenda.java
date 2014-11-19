@@ -98,27 +98,4 @@ public class Agenda implements Serializable {
     public void setCcc(Ccc ccc) {
         this.ccc = ccc;
     }
-
-    public int hashCode() {
-        int hash = 0;
-        hash += (codAgenda != null ? codAgenda.hashCode() : 0);
-        return hash;
-    }
-    
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Agenda)) {
-            return false;
-        }
-        Agenda other = (Agenda) object;
-        if ((this.codAgenda == null && other.codAgenda != null) || (this.codAgenda != null && !this.codAgenda.equals(other.codAgenda))) {
-            return false;
-        }
-        return true;
-    }
-
-    public String toString() {
-        return "pruebas.Agenda[ codAgenda=" + codAgenda + " ]";
-    }
-    
 }

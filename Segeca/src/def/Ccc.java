@@ -86,27 +86,4 @@ public class Ccc implements Serializable {
     public void setPcCollection(Collection<Pc> pcCollection) {
         this.pcCollection = pcCollection;
     }
-
-    public int hashCode() {
-        int hash = 0;
-        hash += (nombreCCC != null ? nombreCCC.hashCode() : 0);
-        return hash;
-    }
-
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Ccc)) {
-            return false;
-        }
-        Ccc other = (Ccc) object;
-        if ((this.nombreCCC == null && other.nombreCCC != null) || (this.nombreCCC != null && !this.nombreCCC.equals(other.nombreCCC))) {
-            return false;
-        }
-        return true;
-    }
-
-    public String toString() {
-        return "segeca.Ccc[ nombreCCC=" + nombreCCC + " ]";
-    }
-    
 }
