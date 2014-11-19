@@ -120,6 +120,9 @@ public class Controller {
         acta.setAusencias(null);// Jtexfield con los nombre de los ausentes
         acta.setResultados(null);// Jtexfiled con los resultados obtenidos
 
+        // Enrique, metodo que crea el acta en la BD
+        createActa(acta);
+
         return 0;
     }
 
@@ -180,6 +183,11 @@ public class Controller {
         }
 
         prsn.setNombre(nombre.getText());
+        // Comprobación numero de telefono valido
+        JTextField telefono = null;
+        telf = isTelefono(telefono.getText());
+        prsn.setTelefono(telf);
+        prsn.setNombre(nombre.getText());
         // Comprobación numero de telefono valido  Marcos
         prsn.setTelefono(0);
         return 0;
@@ -213,10 +221,16 @@ public class Controller {
         persona.setTelefono(telef);
         persona.setEmail(null);
         persona.setPermisos(null);
+
         // Cambiar null por la jlist correspondiente
         JList CCCs = null;
         // comprobamos que el usuario ha seleccionado un CCC para asignar la persona a dicho CCC
         String ccc = (String) CCCs.getModel().getElementAt(CCCs.getSelectedIndex());
+        if (CCCs.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC en el que ingresar dicha persona", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+        // creamos un objeto Ccc con el nombre del CCC que ha seleccionado el usuario
         Ccc newCCC = new Ccc();
         newCCC.setNombreCCC(ccc);
         persona.setCcc(newCCC);
@@ -232,6 +246,7 @@ public class Controller {
         JList listaPersonasCCC = null;
         // comprobamos que el usuario ha seleccionado una persona de un CCC para darla de baja
         String bajaPersonaCCC = (String) listaPersonasCCC.getModel().getElementAt(listaPersonasCCC.getSelectedIndex());
+
         if (listaPersonasCCC.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningúna persona para dar de baja en el CCC", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
