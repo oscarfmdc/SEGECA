@@ -1,18 +1,17 @@
 package ui;
 
 import def.*;
-import java.awt.Color;
 import java.text.*;
 import java.util.*;
 import javax.swing.*;
 
 public class Controller {
 
-    static Conector.ConectorBD bd;
+    private static Conector.ConectorBD bd;
+    private static UI window;
 
-    public static void main(String[] args) {
-
-        UI window = new UI();
+    public Controller() {
+        window = new UI();
         window.getFrame().setVisible(true);
 
         bd = new Conector.ConectorBD("192.168.1.84:3306", "SEGECA", "admin", "Grupo10");
@@ -48,6 +47,7 @@ public class Controller {
         ccc.setNombreCCC(nombreCCC);
 
         // rellenamos los campos de la agenda
+        // Cambiar nulls por varibales correspondientes
         ag.setCcc(ccc);
         ag.setFecha(null);
         ag.setLugar(null);
@@ -56,6 +56,9 @@ public class Controller {
         ag.setProposito(null);
         ag.setCodAgenda(0);
         ag.setParticipantes(null);
+
+        // Método que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
+        createAgenda(ag);
 
         return 0;
     }
@@ -103,13 +106,21 @@ public class Controller {
     }
 
     /* Requisito 1.1 */
-    public static int prepararActa() {
+    // Tenéis que pasarnos un código de agenda que debereis calcular mostrando las agendas disponibles al usuario    
+    public static int prepararActa(int codAgenda) {
         Acta acta = new Acta();
 
-        acta.setAgenda(null);// se cambia por el Jtexfield que contenga la agenda correspondiente a ese acts
+        Agenda ag = new Agenda();
+        acta.setAgenda(ag);
+        ag.setCodAgenda(codAgenda);
+
+        acta.setAgenda(ag);// se cambia por el Jtexfield que contenga la agenda correspondiente a ese acts
         acta.setCodActa(0);
         acta.setAusencias(null);// Jtexfield con los nombre de los ausentes
         acta.setResultados(null);// Jtexfiled con los resultados obtenidos
+
+        // Enrique, metodo que crea el acta en la BD
+        createActa(acta);
 
         return 0;
     }
@@ -150,11 +161,32 @@ public class Controller {
         }
         // Enrique, metodo que borra el ccc con el nombre pasado como parametro
         deleteCCC(nombreBorrarCCC);
+
         return 0;
     }
 
     /* Requisito 2.3 */
-    public static int modMiembrosCCC() {
+    // Necesitamos que nos paséis el código de la persona para pode realizar la modificacion 
+    public static int modMiembrosCCC(String codPersona) {
+
+        Persona prsn = new Persona();
+        prsn.setNick(codPersona);
+
+        // Establecemos todos los campos que corresponden a las personas
+        prsn.setCcc(null);//JtextField correspondiente al nombre del CCC
+        prsn.setEmail(null);//JTextField correspondiente al email
+
+        JTextField nombre = null;//JTextField correspondiente al nombre
+
+        if (nombre.getText() == null) {
+            JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        prsn.setNombre(nombre.getText());
+        // Comprobación numero de telefono valido
+        JTextField telefono = null;
+        telf = isTelefono(telefono.getText());
+        prsn.setTelefono(telf);
 
         return 0;
     }
@@ -185,6 +217,7 @@ public class Controller {
         JTextField telefono = null;
         telf = isTelefono(telefono.getText());
         persona.setTelefono(telef);
+
         persona.setEmail(null);
         persona.setPermisos(null);
 
@@ -192,12 +225,18 @@ public class Controller {
         JList CCCs = null;
         // comprobamos que el usuario ha seleccionado un CCC para asignar la persona a dicho CCC
         String ccc = (String) CCCs.getModel().getElementAt(CCCs.getSelectedIndex());
+        if (CCCs.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC en el que ingresar dicha persona", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+        // creamos un objeto Ccc con el nombre del CCC que ha seleccionado el usuario
         Ccc newCCC = new Ccc();
         newCCC.setNombreCCC(ccc);
         persona.setCcc(newCCC);
 
         // Enrique, metodo para introducir una persona en un CCC
         addPersonaCCC(persona);
+
         return 0;
     }
 
@@ -206,13 +245,13 @@ public class Controller {
         // Cambiar null por la jlist correspondiente
         JList listaPersonasCCC = null;
         // comprobamos que el usuario ha seleccionado una persona de un CCC para darla de baja
-        String bajaPersonaCCC = (String) listaPersonasCCC.getModel().getElementAt(listaPersonasCCC.getSelectedIndex());
+        String bajaPrsn = (String) listaPersonasCCC.getModel().getElementAt(listaPersonasCCC.getSelectedIndex());
         if (listaPersonasCCC.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningúna persona para dar de baja en el CCC", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
         // Enrique, metodo que da de baja a una persona de un CCC
-        deletePersonaCCC(bajaPersonaCCC);
+        deletePersonaCCC(bajaPrsn);
 
         return 0;
     }
@@ -247,12 +286,12 @@ public class Controller {
     public static int isTelefono(String telefono) {
         int telefonoInt = 0;
         if (telefono.length() != 9) {
-            JOptionPane.showMessageDialog(null, "Tamaño del numero de telefono invalido. Deben ser 9 digitos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Tamaño del número de telefono invalido. Deben ser 9 digitos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         try {
             telefonoInt = Integer.parseInt(telefono); // este null es el JTextField del numero y lo convierto a int
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Inserte numero de telefono valido. Introducir solo digitos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Inserte número de telefono valido. Introducir solo digitos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return telefonoInt;
     }
