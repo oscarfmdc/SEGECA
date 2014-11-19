@@ -240,14 +240,14 @@ public class Controller {
         // Cambiar null por la jlist correspondiente
         JList listaPersonasCCC = null;
         // comprobamos que el usuario ha seleccionado una persona de un CCC para darla de baja
-        String bajaPersonaCCC = (String) listaPersonasCCC.getModel().getElementAt(listaPersonasCCC.getSelectedIndex());
+        String bajaPrsnCCC = (String) listaPersonasCCC.getModel().getElementAt(listaPersonasCCC.getSelectedIndex());
 
         if (listaPersonasCCC.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningúna persona para dar de baja en el CCC", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
         // Enrique, metodo que da de baja a una persona de un CCC
-        deletePersonaCCC(bajaPersonaCCC);
+        deletePersonaCCC(bajaPrsnCCC);
         return 0;
     }
 
