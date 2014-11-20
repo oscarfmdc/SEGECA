@@ -39,7 +39,7 @@ public class ConectorBD {
 	/*
 	 * PERSONA
 	 */
-	public void introducirPersona(def.Persona persona){
+	public void createPersona(def.Persona persona){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Personas where nick='"+ persona.getNick() +"'");
 			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
@@ -58,7 +58,7 @@ public class ConectorBD {
 		}
 	}
 
-	public void extraerPersona(def.Persona persona){
+	public void extractPersona(def.Persona persona){
 		try{
 			ResultSet resultadoPersona = statement.executeQuery("select * from Personas where nick='"+ persona.getNick() +"'");
 			if (resultadoPersona.next()){
@@ -75,11 +75,25 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la persona con nick "+ persona.getNick());
 		}
 	}
+	public void deletePersona(Persona persona){
+		try {
+			statement.executeUpdate("delete from `Persona` where `nick`='"+ persona.getNick() +"' limit 1");
+		} catch (SQLException e) {
+			System.out.println("Error al intentar eliminar la persona: " + persona.getNick());
+		}
+	}
 
+	public void addPersonaCCC(Persona persona){
+		createPersona(persona);
+	}
+	public void editPerson(Persona persona){
+		createPersona(persona);
+	}
+	
 	/*
 	 * CCC
 	 */
-	public void introducirCCC(def.Ccc ccc){
+	public void createCCC(Ccc ccc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from CCC where nombre_CCC='"+ ccc.getNombreCCC() +"'");
 			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
@@ -98,7 +112,7 @@ public class ConectorBD {
 		}
 	}
 
-	public void extraerCCC(def.Ccc ccc){
+	public void extractCCC(def.Ccc ccc){
 		LinkedList<def.Persona> listaPersonas= new LinkedList<def.Persona>();
 		LinkedList<def.Agenda> listaAgendas= new LinkedList<def.Agenda>();
 		LinkedList<def.Pc> listaPc= new LinkedList<def.Pc>();
@@ -118,7 +132,7 @@ public class ConectorBD {
 			}			
 			Iterator<Persona> personaIterator = listaPersonas.iterator();
 			while(personaIterator.hasNext()){
-				extraerPersona(personaIterator.next());
+				extractPersona(personaIterator.next());
 			}
 			
 			resultado = statement.executeQuery("select * from Agenda where ccc='" + ccc.getNombreCCC() + "';");
@@ -129,7 +143,7 @@ public class ConectorBD {
 			}
 			Iterator<Agenda> agendaIterator = listaAgendas.iterator();
 			while(agendaIterator.hasNext()){
-				extraerAgenda(agendaIterator.next());
+				extractAgenda(agendaIterator.next());
 			}
 			
 			resultado = statement.executeQuery("select * from PC where CCC='" + ccc.getNombreCCC() + "';");
@@ -140,14 +154,22 @@ public class ConectorBD {
 			}
 			Iterator<Pc> pcIterator = listaPc.iterator();
 			while(pcIterator.hasNext()){
-				extraerPc(pcIterator.next());
+				extractPc(pcIterator.next());
 			}
 			ccc.setPersonasCollection(listaPersonas);
 			ccc.setAgendaCollection(listaAgendas);
 			ccc.setPcCollection(listaPc);
 		}catch (Exception e){
 			e.printStackTrace();
-			System.out.println("Error al intentar obtener el CCC de nombre '"+ ccc.getNombreCCC()+"'");
+			System.out.println("Error al intentar obtener el CCC de nombre: "+ ccc.getNombreCCC());
+		}
+	}
+	
+	public void deleteCCC(Ccc ccc){
+		try {
+			statement.executeUpdate("delete from `CCC` where `nombre_CCC`='"+ ccc.getNombreCCC() +"' limit 1");
+		} catch (SQLException e) {
+			System.out.println("Error al intentar eliminar el CCC: " + ccc.getNombreCCC());
 		}
 	}
 	
@@ -168,7 +190,7 @@ public class ConectorBD {
 	/*
 	 * AGENDA
 	 */
-	public void introducirAgenda(def.Agenda agenda){
+	public void createAgenda(Agenda agenda){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Agenda where cod_agenda='"+ agenda.getCodAgenda() +"'");
 			if (resultado.next()){//Si ya estaba esta agenda actualizamos sus campos
@@ -187,7 +209,7 @@ public class ConectorBD {
 		}
 	}
 
-	public void extraerAgenda(def.Agenda agenda){
+	public void extractAgenda(def.Agenda agenda){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Agenda where cod_agenda='"+ agenda.getCodAgenda() +"'");
 			if (resultado.next()){
@@ -202,20 +224,21 @@ public class ConectorBD {
 				agenda.setProposito(resultado.getString("proposito"));		
 			}
 		}catch (Exception e){
-			System.out.println("Error al intentar obtener la Agenda con código "+ agenda.getCodAgenda());
+			System.out.println("Error al intentar obtener la Agenda con código: "+ agenda.getCodAgenda());
 		}
 	}
 	
 	/*
 	 * PC
 	 */
-	public void extraerPc(def.Pc pc){
+	
+	public void createPc(Pc pc){
+		//TODO no prioritario
+	}
+	public void extractPc(Pc pc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from PC where cod_PC='"+ pc.getCodPC() +"'");
 			if (resultado.next()){
-				def.Agenda agenda = new def.Agenda(resultado.getInt("agenda"));
-				extraerAgenda(agenda);
-				pc.setAgenda(agenda);
 				def.Ccc ccc = new def.Ccc(resultado.getString("CCC"));
 				pc.setCcc(ccc);
 				pc.setDescripcion(resultado.getString("descripcion"));
@@ -227,9 +250,61 @@ public class ConectorBD {
 				pc.setMotivo(resultado.getString("motivo"));
 				pc.setPrioridad(resultado.getString("prioridad"));
 				pc.setValoracion(resultado.getString("valoracion"));
+				def.Agenda agenda = new def.Agenda(resultado.getInt("agenda"));
+				extractAgenda(agenda);
+				pc.setAgenda(agenda);
 			}
-		}catch (Exception E){
-			
+		}catch (Exception e){
+			e.printStackTrace();
+			System.out.println("Error al intentar obtener la PC con código: "+ pc.getCodPC());
 		}
 	}
+		
+	/*
+	 * ACTA
+	 */
+	public void createActa(Acta acta){
+		try{
+			ResultSet resultado = statement.executeQuery("select * from Acta where cod_acta='"+ acta.getCodActa() +"'");
+			if (resultado.next()){//Si ya estaba este acta actualizamos sus campos
+				statement.executeUpdate("update `Acta` set agenda="+acta.getAgenda().getCodAgenda()+
+						", ausencias='"+acta.getAusencias()+"', resultados='"+acta.getResultados()
+						+"' where `cod_acta`='"+acta.getCodActa()+"' limit 1;");
+			}else{//Si no, lo introuducimos por primera vez
+				statement.executeUpdate("insert into `Acta` set agenda="+acta.getAgenda().getCodAgenda()+
+						", ausencias='"+acta.getAusencias()+"', resultados='"+acta.getResultados()
+						+"', `cod_acta`='"+acta.getCodActa()+"' limit 1;");
+			}
+		}catch (Exception e){
+			System.out.println("No se han podido introducir los datos del Acta con éxito");
+			System.out.println("El acta a introducir era:\n"+ acta.toString());
+		}
+	}
+	public void extractActa(Acta acta){
+		try{
+			ResultSet resultado = statement.executeQuery("select * from Acta where cod_acta='"+ acta.getCodActa() +"'");
+			if (resultado.next()){
+				acta.setAusencias(resultado.getString("ausencias"));
+				acta.setResultados(resultado.getString("resultados"));
+				def.Agenda agenda = new def.Agenda(resultado.getInt("agenda"));
+				acta.setAgenda(agenda);
+				extractAgenda(agenda);
+			}
+		}catch (Exception E){
+			System.out.println("Error al intentar obtener el Acta con código: "+ acta.getCodActa());
+		}
+	}
+	
+	/*
+	 * Prioritario:
+	 * Introducir y extraer acta HECHO
+	 * delete CCC HECHO
+	 * delete persona HECHO
+	 * 
+	 * No Prioritario:
+	 * Introducir PC no quiero hacerla porque esta todavia mal en la BD (con date e vez de String)
+	 * comprobar correcto funcionamiento de extraerPC HECHO
+	 * resto de deletes
+	 */
+	
 }
