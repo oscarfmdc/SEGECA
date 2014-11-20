@@ -97,11 +97,30 @@ public class Controller {
         //cambiar nulls por jtexfield correspondiente a las horas de inicio y fin de agenda
         JTextField horaInicio = null;
         JTextField horaFin = null;
-
+        
         if (!isHoraValida(horaInicio.getText()) || !isHoraValida(horaFin.getText())) {
             return -1;
         }
+        
+         Date parsedHoraIn = null;
+         Date parsedHoraFin = null;
+         
+        // Comprobamos que la hora de inicio es anterior a la hora de fin de la reunión
+        try {
+            SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            formatoHora.setLenient(false);
+            parsedHoraIn = formatoHora.parse(horaInicio.getText());
+            parsedHoraFin = formatoHora.parse(horaFin.getText());
+        } catch (java.text.ParseException ex) {
+        }
 
+        if(!parsedHoraIn.before(parsedHoraFin))
+        {
+            JOptionPane.showMessageDialog(null, "La hora de inicio debe ser anterior a la hora de fin.", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+        
+        
         return 0;
 
     }
@@ -185,6 +204,8 @@ public class Controller {
         telf = isTelefono(telefono.getText());
         prsn.setTelefono(telf);
 
+        // Modificamos la persona con los parámtetros correspondientes, (enrique)
+        editPerson(prsn);
         return 0;
     }
 
@@ -253,14 +274,26 @@ public class Controller {
 
     // metodo que comprueba el formato de la fecha
     private static boolean isFechaValida(String fecha) {
+        Date parsedDate=null;
+        
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             formatoFecha.setLenient(false);
-            formatoFecha.parse(fecha);
+            parsedDate = formatoFecha.parse(fecha);
         } catch (java.text.ParseException ex) {
             JOptionPane.showMessageDialog(null, "El formato de la fecha no es correcto", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+        
+        // Fecha actual
+        Calendar fechaActual = Calendar.getInstance();
+        
+        // Comprobamos que la fecha es posterior a la fecha actual.
+        if(!parsedDate.after(fechaActual.getTime())){
+            JOptionPane.showMessageDialog(null, "La fecha de la reunión debe ser posterior a la fecha actual.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }            
+        
         return true;
     }
 
@@ -274,6 +307,7 @@ public class Controller {
             JOptionPane.showMessageDialog(null, "El formato de la hora no es correcto", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+         
         return true;
     }
 
