@@ -61,6 +61,8 @@ public class Controller {
         // Método que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
         createAgenda(ag);
 
+        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
+        
         return 0;
     }
 
@@ -139,6 +141,8 @@ public class Controller {
         // Enrique, metodo que crea el acta en la BD
         createActa(acta);
 
+        JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        
         return 0;
     }
 
@@ -163,6 +167,8 @@ public class Controller {
 
         // Enrique, metodo para meter en la bd el ccc
         createCCC(ccc);
+        
+        JOptionPane.showMessageDialog(null, "Se ha creado correctamente un nuevo CCC.", "Información", JOptionPane.INFORMATION_MESSAGE);
 
     }
 
@@ -178,6 +184,8 @@ public class Controller {
         }
         // Enrique, metodo que borra el ccc con el nombre pasado como parametro
         deleteCCC(nombreBorrarCCC);
+        
+        JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente el CCC seleccionado.", "Información", JOptionPane.INFORMATION_MESSAGE);
         return 0;
     }
 
@@ -204,8 +212,11 @@ public class Controller {
         telf = isTelefono(telefono.getText());
         prsn.setTelefono(telf);
 
-        // Modificamos la persona con los parámtetros correspondientes, (enrique)
+        // Modificamos la persona con los parámtetros correspondientes, (enrique)        
         editPerson(prsn);
+        
+        JOptionPane.showMessageDialog(null, "os datos del Miembro del CCC se han modificado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        
         return 0;
     }
 
@@ -243,7 +254,7 @@ public class Controller {
         // comprobamos que el usuario ha seleccionado un CCC para asignar la persona a dicho CCC
         String ccc = (String) CCCs.getModel().getElementAt(CCCs.getSelectedIndex());
         if (CCCs.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC en el que ingresar dicha persona", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC en el que ingresar dicha persona.", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
         // creamos un objeto Ccc con el nombre del CCC que ha seleccionado el usuario
@@ -253,6 +264,9 @@ public class Controller {
 
         // Enrique, metodo para introducir una persona en un CCC
         addPersonaCCC(persona);
+        
+        JOptionPane.showMessageDialog(null, "Se ha dado de alta un nuevo miembro en el CCC seleccionado.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        
         return 0;
     }
 
@@ -269,6 +283,9 @@ public class Controller {
         }
         // Enrique, metodo que da de baja a una persona de un CCC
         deletePersonaCCC(bajaPrsnCCC);
+        
+        JOptionPane.showMessageDialog(null, "Se ha eliminado del CCC seleccionado al correspondiente miembro.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        
         return 0;
     }
 
