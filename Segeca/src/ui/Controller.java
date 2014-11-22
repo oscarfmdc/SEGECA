@@ -148,7 +148,7 @@ public class Controller {
 
     /* Requisito 2.1 */
     // necesitamos como parametro las listas con lo que seleccione el usuario
-    public static void altaCCC(ArrayList agendas, ArrayList PCs, ArrayList personas) {
+    public static void altaCCC(ArrayList personas) {
         Ccc ccc = new Ccc();
 
         // cambiar los nulls por los Jtexfield correspondientes
@@ -157,11 +157,8 @@ public class Controller {
         ccc.setPresidente(null);
         ccc.setSecretario(null);
 
-        // cambiar todos los ArrayList por las listas correspondientes que seleccione el usuario
-        // lista de agendas que trata ese CCC
-        ccc.setAgendaCollection(agendas);
-        // lista de PC que trata ese CCC
-        ccc.setPcCollection(PCs);
+        // cambiar el arrayList por las listas correspondientes que seleccione el usuario
+        
         // lista de personas que integran ese CCC
         ccc.setPersonasCollection(personas);
 
@@ -215,7 +212,7 @@ public class Controller {
         // Modificamos la persona con los parámtetros correspondientes, (enrique)        
         editPerson(prsn);
         
-        JOptionPane.showMessageDialog(null, "os datos del Miembro del CCC se han modificado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Los datos del Miembro del CCC se han modificado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         
         return 0;
     }
