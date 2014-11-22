@@ -11,6 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.SystemColor;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
+import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
 public class UI {
 
 	static private JFrame frame;
@@ -46,10 +51,23 @@ public class UI {
 	static private JTextField textFieldHoraInicioAgendas;
 	static private JTextField textFieldHoraFinAgendas;
 	static private JTextField textFieldCCCAgendas;
-	
+
 	//CCC
 	static private JPanel panelCCC;
-
+	static private JComboBox comboBox;
+	private String[] listaCCC = {"Nuevo","CC1","CC2","CCC3"};
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JLabel lblAdministrador;
+	private JLabel lblMiembros;
+	private JLabel lblPeticiones;
+	private JLabel lblAgendas;
+	///CCC Datos
+	static private JPanel panelDatos;
+	private JLabel lblMiembro;
+	
 
 	public UI() {
 		initialize();
@@ -58,16 +76,145 @@ public class UI {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 800);
+		frame.setBounds(100, 100, 1000, 751);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-		frame.getContentPane().setLayout(null);
 
+
+
+
+		//Panel CCC
+
+		panelCCC = new JPanel();
+		panelCCC.setBounds(0, 44, 994, 620);
+		panelCCC.setLayout(null);
+		panelCCC.setVisible(false);
+		frame.getContentPane().setLayout(null);
+		
+		JPanel panelPersona = new JPanel();
+		panelPersona.setBounds(0, 44, 994, 620);
+		panelPersona.setVisible(false);
+		frame.getContentPane().add(panelPersona);
+		
+		lblMiembro = new JLabel("Miembro");
+		lblMiembro.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		panelPersona.add(lblMiembro);
+		frame.getContentPane().add(panelCCC);
+
+		JLabel lblCcc = new JLabel("CCC");
+		lblCcc.setBounds(118, 27, 257, 37);
+		lblCcc.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		panelCCC.add(lblCcc);
+		comboBox = new JComboBox(listaCCC);
+		comboBox.setBounds(118, 91, 142, 20);
+		panelCCC.add(comboBox);
+
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setBounds(296, 90, 89, 23);
+		panelCCC.add(btnEditar);
+
+		JButton btnBaja = new JButton("Dar de baja");
+		btnBaja.setBounds(423, 90, 117, 23);
+		panelCCC.add(btnBaja);
+
+		JButton btnNuevoCcc = new JButton("Crear CCC");
+		btnNuevoCcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelCCC.setVisible(false);
+			}
+		});
+		btnNuevoCcc.setBounds(574, 90, 109, 23);
+		panelCCC.add(btnNuevoCcc);
+
+		//CCCDatos
+		panelDatos = new JPanel();
+		panelDatos.setBounds(118, 136, 806, 290);
+		panelCCC.add(panelDatos);
+		panelDatos.setLayout(null);
+
+		JLabel lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(20, 11, 111, 14);
+		panelDatos.add(lblNombre);
+
+		textField_4 = new JTextField();
+		textField_4.setBounds(201, 11, 252, 20);
+		panelDatos.add(textField_4);
+		textField_4.setColumns(10);
+
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(201, 49, 252, 20);
+		panelDatos.add(textField_5);
+
+		JLabel lblPresidente = new JLabel("Presidente");
+		lblPresidente.setBounds(20, 49, 111, 14);
+		panelDatos.add(lblPresidente);
+
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(201, 87, 252, 20);
+		panelDatos.add(textField_6);
+
+		JLabel lblSecretario = new JLabel("Secretario");
+		lblSecretario.setBounds(20, 90, 111, 14);
+		panelDatos.add(lblSecretario);
+
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(201, 125, 252, 20);
+		panelDatos.add(textField_7);
+
+		lblAdministrador = new JLabel("Administrador");
+		lblAdministrador.setBounds(20, 128, 111, 14);
+		panelDatos.add(lblAdministrador);
+
+		lblMiembros = new JLabel("Miembros");
+		lblMiembros.setBounds(20, 166, 111, 14);
+		panelDatos.add(lblMiembros);
+
+		lblPeticiones = new JLabel("Peticiones");
+		lblPeticiones.setBounds(20, 242, 111, 14);
+		panelDatos.add(lblPeticiones);
+
+		lblAgendas = new JLabel("Agendas");
+		lblAgendas.setBounds(20, 204, 111, 14);
+		panelDatos.add(lblAgendas);
+
+		JComboBox comboBox_1 = new JComboBox(new Object[]{});
+		comboBox_1.setBounds(201, 163, 193, 20);
+		panelDatos.add(comboBox_1);
+
+		JComboBox comboBox_2 = new JComboBox(new Object[]{});
+		comboBox_2.setBounds(201, 201, 193, 20);
+		panelDatos.add(comboBox_2);
+
+		JComboBox comboBox_3 = new JComboBox(new Object[]{});
+		comboBox_3.setBounds(201, 239, 193, 20);
+		panelDatos.add(comboBox_3);
+
+		JButton button = new JButton("Editar");
+		button.setBounds(416, 160, 89, 23);
+		panelDatos.add(button);
+
+		JButton button_1 = new JButton("Dar de baja");
+		button_1.setBounds(515, 160, 117, 23);
+		panelDatos.add(button_1);
+
+		JButton btnNuevo = new JButton("Nuevo Miembro");
+		btnNuevo.setBounds(642, 160, 135, 23);
+		panelDatos.add(btnNuevo);
+
+		JButton btnMostrar = new JButton("Mostrar");
+		btnMostrar.setBounds(416, 200, 89, 23);
+		panelDatos.add(btnMostrar);
+
+		JButton btnMostrar_1 = new JButton("Mostrar");
+		btnMostrar_1.setBounds(416, 238, 89, 23);
+		panelDatos.add(btnMostrar_1);
 
 		//Panel Agendas
-		
+
 		panelAgendas = new JPanel();
-		panelAgendas.setBounds(0, 44, 994, 728);
+		panelAgendas.setBounds(0, 44, 994, 620);
 		panelAgendas.setVisible(false);
 		panelAgendas.setLayout(null);
 		frame.getContentPane().add(panelAgendas);
@@ -170,11 +317,14 @@ public class UI {
 				panelPrincipal.setVisible(true);
 			}
 		});	
-	
+
+
+
+
 		//Panel Actas
-		
+
 		panelActas = new JPanel();
-		panelActas.setBounds(0, 44, 994, 728);
+		panelActas.setBounds(0, 44, 994, 620);
 		panelActas.setVisible(false);
 		frame.getContentPane().add(panelActas);
 		panelActas.setLayout(null);
@@ -276,24 +426,11 @@ public class UI {
 			}
 		});	
 
-		//Panel CCC
-		
-		panelCCC = new JPanel();
-		panelCCC.setBounds(0, 44, 994, 728);
-		panelCCC.setVisible(false);
-		panelCCC.setLayout(null);
-		frame.getContentPane().add(panelCCC);
-		
-		JLabel lblCcc = new JLabel("CCC");
-		lblCcc.setBounds(118, 27, 257, 37);
-		lblCcc.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		panelCCC.add(lblCcc);
-		
 		//Panel Principal
-		
+
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBackground(SystemColor.activeCaption);
 		panelPrincipal.setBounds(0, 0, 994, 44);
+		panelPrincipal.setBackground(SystemColor.activeCaption);
 		frame.getContentPane().add(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		botonAgendas = new JButton("Agendas");
@@ -314,6 +451,17 @@ public class UI {
 		botonActas = new JButton("Actas");
 		botonActas.setBounds(10, 11, 79, 23);
 		panelPrincipal.add(botonActas);
+		
+		JPanel panelOutput = new JPanel();
+		panelOutput.setBounds(0, 666, 994, 54);
+		frame.getContentPane().add(panelOutput);
+		panelOutput.setBackground(SystemColor.activeCaptionBorder);
+		panelOutput.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Output");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel.setBounds(27, 11, 935, 26);
+		panelOutput.add(lblNewLabel);
 		botonActas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelActas.setVisible(true);
