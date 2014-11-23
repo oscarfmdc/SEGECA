@@ -24,7 +24,7 @@ public class Controller {
     private static void pruebas() {
         def.Agenda a = new def.Agenda();
         a.setCodAgenda(2);
-        bd.extraerAgenda(a);
+        bd.extractAgenda(a);
         System.out.println(a.toString());
 
     }
@@ -58,8 +58,8 @@ public class Controller {
         ag.setCodAgenda(0);
         ag.setParticipantes(null);
 
-        // Método que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
-        createAgenda(ag);
+        // M�todo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
+        bd.createAgenda(ag);
 
         JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
         
@@ -139,7 +139,7 @@ public class Controller {
         acta.setAusencias(null);// Jtexfield con los nombre de los ausentes
         acta.setResultados(null);// Jtexfiled con los resultados obtenidos
         // Enrique, metodo que crea el acta en la BD
-        createActa(acta);
+        bd.createActa(acta);
 
         JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         
@@ -163,7 +163,7 @@ public class Controller {
         ccc.setPersonasCollection(personas);
 
         // Enrique, metodo para meter en la bd el ccc
-        createCCC(ccc);
+        bd.createCCC(ccc);
         
         JOptionPane.showMessageDialog(null, "Se ha creado correctamente un nuevo CCC.", "Información", JOptionPane.INFORMATION_MESSAGE);
 
@@ -180,7 +180,7 @@ public class Controller {
             return -1;
         }
         // Enrique, metodo que borra el ccc con el nombre pasado como parametro
-        deleteCCC(nombreBorrarCCC);
+        bd.deleteCCC(nombreBorrarCCC);
         
         JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente el CCC seleccionado.", "Información", JOptionPane.INFORMATION_MESSAGE);
         return 0;
@@ -206,11 +206,11 @@ public class Controller {
         prsn.setNombre(nombre.getText());
         // Comprobación numero de telefono valido
         JTextField telefono = null;
-        telf = isTelefono(telefono.getText());
+        int telf = isTelefono(telefono.getText());
         prsn.setTelefono(telf);
 
         // Modificamos la persona con los parámtetros correspondientes, (enrique)        
-        editPerson(prsn);
+        bd.editPerson(prsn);
         
         JOptionPane.showMessageDialog(null, "Los datos del Miembro del CCC se han modificado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         
@@ -241,8 +241,8 @@ public class Controller {
 
         // compruebo el telefono
         JTextField telefono = null;
-        telf = isTelefono(telefono.getText());
-        persona.setTelefono(telef);
+        int telf =isTelefono(telefono.getText());
+        persona.setTelefono(telf);
         persona.setEmail(null);
         persona.setPermisos(null);
 
@@ -260,11 +260,25 @@ public class Controller {
         persona.setCcc(newCCC);
 
         // Enrique, metodo para introducir una persona en un CCC
-        addPersonaCCC(persona);
+        bd.addPersonaCCC(persona);
         
         JOptionPane.showMessageDialog(null, "Se ha dado de alta un nuevo miembro en el CCC seleccionado.", "Información", JOptionPane.INFORMATION_MESSAGE);
         
         return 0;
+    }
+    
+ // metodo que comprueba y pasa a entero un telefono
+    public static int isTelefono(String telefono) {
+        int telefonoInt = 0;
+        if (telefono.length() != 9) {
+            JOptionPane.showMessageDialog(null, "Tamaño del numero de telefono invalido. Deben ser 9 digitos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        try {
+            telefonoInt = Integer.parseInt(telefono); // este null es el JTextField del numero y lo convierto a int
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Inserte numero de telefono valido. Introducir solo digitos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return telefonoInt;
     }
 
     /* Requisito 2.5 */
@@ -279,7 +293,7 @@ public class Controller {
             return -1;
         }
         // Enrique, metodo que da de baja a una persona de un CCC
-        deletePersonaCCC(bajaPrsnCCC);
+        //bd.deletePersonaCCC(bajaPrsnCCC);
         
         JOptionPane.showMessageDialog(null, "Se ha eliminado del CCC seleccionado al correspondiente miembro.", "Información", JOptionPane.INFORMATION_MESSAGE);
         
@@ -323,19 +337,5 @@ public class Controller {
         }
          
         return true;
-    }
-
-    // metodo que comprueba y pasa a entero un telefono
-    public static int isTelefono(String telefono) {
-        int telefonoInt = 0;
-        if (telefono.length() != 9) {
-            JOptionPane.showMessageDialog(null, "Tamaño del numero de telefono invalido. Deben ser 9 digitos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        try {
-            telefonoInt = Integer.parseInt(telefono); // este null es el JTextField del numero y lo convierto a int
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Inserte numero de telefono valido. Introducir solo digitos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        return telefonoInt;
     }
 }

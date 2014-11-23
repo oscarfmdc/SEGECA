@@ -9,16 +9,16 @@ public class ConectorBD {
 	private Connection conexion;
 	private Statement statement;
 
-	public ConectorBD(String host,String nombreBD, String usuario, String contraseña) {
+	public ConectorBD(String host,String nombreBD, String usuario, String password) {
 		//nombreBD = "SEGECA";
 		//usuario = "admin";
-		//contraseña = "Grupo10";
+		//password = "Grupo10";
 		String url = "jdbc:mysql://"+ host + "/";
 		String driver = "com.mysql.jdbc.Driver";
 
 		try {
 			Class.forName(driver).newInstance();
-			conexion = DriverManager.getConnection(url+nombreBD,usuario,contraseña);
+			conexion = DriverManager.getConnection(url+nombreBD,usuario,password);
 			System.out.println("Estoy conectado!!!");
 			statement = conexion.createStatement();
 		} 
@@ -89,7 +89,7 @@ public class ConectorBD {
 	public void editPerson(Persona persona){
 		createPersona(persona);
 	}
-	
+
 	/*
 	 * CCC
 	 */
@@ -119,7 +119,7 @@ public class ConectorBD {
 		try{
 			ResultSet resultado = statement.executeQuery("select * from CCC where nombre_CCC='"+ ccc.getNombreCCC() +"'");
 			if (resultado.next()){
-				
+
 				ccc.setAdministrador(resultado.getString("administrador"));
 				ccc.setNombreCCC(resultado.getString("nombre_CCC"));
 				ccc.setSecretario(resultado.getString("secretario"));
@@ -134,7 +134,7 @@ public class ConectorBD {
 			while(personaIterator.hasNext()){
 				extractPersona(personaIterator.next());
 			}
-			
+
 			resultado = statement.executeQuery("select * from Agenda where ccc='" + ccc.getNombreCCC() + "';");
 			while(resultado.next()){
 				def.Agenda a = new def.Agenda(resultado.getInt("cod_agenda"));
@@ -145,7 +145,7 @@ public class ConectorBD {
 			while(agendaIterator.hasNext()){
 				extractAgenda(agendaIterator.next());
 			}
-			
+
 			resultado = statement.executeQuery("select * from PC where CCC='" + ccc.getNombreCCC() + "';");
 			while(resultado.next()){
 				def.Pc a = new def.Pc(resultado.getInt("cod_PC"));
@@ -164,15 +164,15 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener el CCC de nombre: "+ ccc.getNombreCCC());
 		}
 	}
-	
-	public void deleteCCC(Ccc ccc){
+
+	public void deleteCCC(String nombreCcc){
 		try {
-			statement.executeUpdate("delete from `CCC` where `nombre_CCC`='"+ ccc.getNombreCCC() +"' limit 1");
+			statement.executeUpdate("delete from `CCC` where `nombre_CCC`='"+ nombreCcc +"' limit 1");
 		} catch (SQLException e) {
-			System.out.println("Error al intentar eliminar el CCC: " + ccc.getNombreCCC());
+			System.out.println("Error al intentar eliminar el CCC: " + nombreCcc);
 		}
 	}
-	
+
 	//Obtener listado de CCC
 	public LinkedList<String> extraerListaCCC(){
 		LinkedList<String> lista = new LinkedList<String>();
@@ -227,11 +227,11 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la Agenda con código: "+ agenda.getCodAgenda());
 		}
 	}
-	
+
 	/*
 	 * PC
 	 */
-	
+
 	public void createPc(Pc pc){
 		//TODO no prioritario
 	}
@@ -246,7 +246,7 @@ public class ConectorBD {
 				pc.setEmail(resultado.getString("email"));
 				pc.setEstado(resultado.getString("estado"));
 				//set fecha hay que cambiarlo cuando cambie la base de datos
-				pc.setFecha(resultado.getDate("fecha"));
+				pc.setFecha(resultado.getString("fecha"));
 				pc.setMotivo(resultado.getString("motivo"));
 				pc.setPrioridad(resultado.getString("prioridad"));
 				pc.setValoracion(resultado.getString("valoracion"));
@@ -259,7 +259,7 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la PC con código: "+ pc.getCodPC());
 		}
 	}
-		
+
 	/*
 	 * ACTA
 	 */
@@ -294,7 +294,7 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener el Acta con código: "+ acta.getCodActa());
 		}
 	}
-	
+
 	/*
 	 * Prioritario:
 	 * Introducir y extraer acta HECHO
@@ -306,5 +306,5 @@ public class ConectorBD {
 	 * comprobar correcto funcionamiento de extraerPC HECHO
 	 * resto de deletes
 	 */
-	
+
 }
