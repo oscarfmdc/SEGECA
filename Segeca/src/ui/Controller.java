@@ -1,6 +1,7 @@
 package ui;
 
 import def.*;
+
 import java.text.*;
 import java.util.*;
 
@@ -11,6 +12,7 @@ public class Controller {
     private static Conector.ConectorBD bd;
 
     public Controller(){
+    	UI.initialize();
         UI.getFrame().setVisible(true);
         bd = new Conector.ConectorBD("192.168.1.84:3306", "SEGECA", "admin", "Grupo10");
         pruebas();
@@ -55,18 +57,18 @@ public class Controller {
     }
 
     /* metodo auxiliar para comprobar todos los campos de la agenda */
+    // Devuelve falso si fallo
     private static boolean comprobarAgenda() {
 
         String ccc = UI.textFieldCCCAgendas.getText();
         
-        // Si no hay seleccionado ningun CCC
-        if (ccc == null) {
+        if (ccc == null || ccc.equals("")) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningún CCC", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         // Comprobación Fecha
         // cambiar null por jTextField correspondiente a fecha agenda
-        JTextField fechaAgenda = null;
+        JTextField fechaAgenda = UI.textFieldFechaAgendas;
 
         if (!isFechaValida(fechaAgenda.getText())) {
             return false;
@@ -114,11 +116,14 @@ public class Controller {
 
     /* Requisito 1.1 */
     // Tenéis que pasarnos un código de agenda que debereis calcular mostrando las agendas disponibles al usuario    
-    public static int prepararActa(int codAgenda) {
+    public static int prepararActa() {
         Acta acta = new Acta();
 
         Agenda ag = new Agenda();
         acta.setAgenda(ag);
+        
+        // El código se extrae desde aqui
+        int codAgenda = 0;
         ag.setCodAgenda(codAgenda);
 
         acta.setAusencias(null);// Jtexfield con los nombre de los ausentes

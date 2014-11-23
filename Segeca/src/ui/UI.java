@@ -69,7 +69,7 @@ public class UI {
 		initialize();
 	}
 
-	private void initialize() {
+	static void initialize() {
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 751);
@@ -405,7 +405,7 @@ public class UI {
 		panelActas.add(buttonOkActas);
 		buttonOkActas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//Controller.prepararActa();
+				Controller.prepararActa();
 				panelActas.setVisible(false);
 			}
 		});	
