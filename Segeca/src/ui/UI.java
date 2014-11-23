@@ -9,9 +9,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import java.awt.Font;
 import java.awt.SystemColor;
+
 import javax.swing.JComboBox;
+
+import def.Agenda;
+import def.Ccc;
 public class UI {
 
 	static JFrame frame;
@@ -86,6 +91,124 @@ public class UI {
 		JPanel panelPersona = new JPanel();
 		panelPersona.setBounds(0, 44, 994, 620);
 		panelPersona.setVisible(false);
+		
+				//Panel Agendas
+		
+				panelAgendas = new JPanel();
+				panelAgendas.setBounds(0, 44, 994, 620);
+				panelAgendas.setVisible(false);
+				panelAgendas.setLayout(null);
+				frame.getContentPane().add(panelAgendas);
+				
+						JLabel labelAgendas = new JLabel("AGENDAS");
+						labelAgendas.setFont(new Font("Tahoma", Font.PLAIN, 32));
+						labelAgendas.setBounds(118, 27, 257, 37);
+						panelAgendas.add(labelAgendas);
+						
+								JLabel labelNombreAgendas = new JLabel("Nombre");
+								labelNombreAgendas.setToolTipText("nombre del acta");
+								labelNombreAgendas.setBounds(118, 101, 97, 14);
+								panelAgendas.add(labelNombreAgendas);
+								
+										JLabel labelFechaAgendas = new JLabel("Fecha");
+										labelFechaAgendas.setBounds(118, 148, 97, 14);
+										panelAgendas.add(labelFechaAgendas);
+										
+												JLabel lblLugarAgendas = new JLabel("Lugar");
+												lblLugarAgendas.setBounds(118, 195, 97, 14);
+												panelAgendas.add(lblLugarAgendas);
+												
+														JLabel lblPropositoAgendas = new JLabel("Proposito");
+														lblPropositoAgendas.setBounds(118, 242, 97, 14);
+														panelAgendas.add(lblPropositoAgendas);
+														
+																JLabel lblParticipantesAgendas = new JLabel("Participantes");
+																lblParticipantesAgendas.setBounds(118, 289, 97, 14);
+																panelAgendas.add(lblParticipantesAgendas);
+																
+																		JLabel lblHoraInicioAgendas = new JLabel("Hora Inicio");
+																		lblHoraInicioAgendas.setBounds(118, 336, 97, 14);
+																		panelAgendas.add(lblHoraInicioAgendas);
+																		
+																				JLabel lblHoraFinAgendas = new JLabel("Hora Fin");
+																				lblHoraFinAgendas.setBounds(118, 383, 97, 14);
+																				panelAgendas.add(lblHoraFinAgendas);
+																				
+																						JLabel lblCCCAgendas = new JLabel("CCC");
+																						lblCCCAgendas.setBounds(118, 430, 97, 14);
+																						panelAgendas.add(lblCCCAgendas);
+																						
+																								textFieldNombreAgendas = new JTextField();
+																								textFieldNombreAgendas.setBounds(340, 98, 393, 20);
+																								panelAgendas.add(textFieldNombreAgendas);
+																								textFieldNombreAgendas.setColumns(10);
+																								
+																										textFieldFechaAgendas = new JTextField();
+																										textFieldFechaAgendas.setColumns(10);
+																										textFieldFechaAgendas.setBounds(340, 142, 393, 20);
+																										panelAgendas.add(textFieldFechaAgendas);
+																										
+																												textFieldLugarAgendas = new JTextField();
+																												textFieldLugarAgendas.setColumns(10);
+																												textFieldLugarAgendas.setBounds(340, 189, 393, 20);
+																												panelAgendas.add(textFieldLugarAgendas);
+																												
+																														textFieldPropositoAgendas = new JTextField();
+																														textFieldPropositoAgendas.setColumns(10);
+																														textFieldPropositoAgendas.setBounds(340, 236, 393, 20);
+																														panelAgendas.add(textFieldPropositoAgendas);
+																														
+																																textFieldParticipantesAgendas = new JTextField();
+																																textFieldParticipantesAgendas.setColumns(10);
+																																textFieldParticipantesAgendas.setBounds(340, 283, 393, 20);
+																																panelAgendas.add(textFieldParticipantesAgendas);
+																																
+																																		textFieldHoraInicioAgendas = new JTextField();
+																																		textFieldHoraInicioAgendas.setColumns(10);
+																																		textFieldHoraInicioAgendas.setBounds(340, 330, 393, 20);
+																																		panelAgendas.add(textFieldHoraInicioAgendas);
+																																		
+																																				textFieldHoraFinAgendas = new JTextField();
+																																				textFieldHoraFinAgendas.setColumns(10);
+																																				textFieldHoraFinAgendas.setBounds(340, 377, 393, 20);
+																																				panelAgendas.add(textFieldHoraFinAgendas);
+																																				
+																																						textFieldCCCAgendas = new JTextField();
+																																						textFieldCCCAgendas.setColumns(10);
+																																						textFieldCCCAgendas.setBounds(340, 424, 393, 20);
+																																						panelAgendas.add(textFieldCCCAgendas);
+																																						
+																																								buttonOkAgendas = new JButton("OK");
+																																								buttonOkAgendas.setBounds(636, 494, 97, 37);
+																																								panelAgendas.add(buttonOkAgendas);
+																																								buttonOkAgendas.addActionListener(new ActionListener() {
+																																									public void actionPerformed(ActionEvent arg0) {
+																																										Agenda newAgenda = new Agenda();
+																																										Ccc newCcc = new Ccc();
+																																										newAgenda.setFecha(textFieldFechaAgendas.getText());
+																																										newAgenda.setLugar(textFieldLugarAgendas.getText());
+																																										newAgenda.setProposito(textFieldPropositoAgendas.getText());
+																																										newAgenda.setParticipantes(textFieldParticipantesAgendas.getText());
+																																										newAgenda.setHoraInicio(textFieldHoraInicioAgendas.getText());
+																																										newAgenda.setHoraFin(textFieldHoraFinAgendas.getText());
+																																										
+																																										newCcc.setNombreCCC(textFieldCCCAgendas.getText());
+																																										newAgenda.setCcc(newCcc);
+																																										Controller.prepararAgenda();
+																																										panelAgendas.setVisible(false);
+																																										panelPrincipal.setVisible(true);
+																																									}
+																																								});	
+																																								
+																																										buttonCancelarAgendas = new JButton("Cancelar");
+																																										buttonCancelarAgendas.setBounds(340, 494, 103, 37);
+																																										panelAgendas.add(buttonCancelarAgendas);
+																																										buttonCancelarAgendas.addActionListener(new ActionListener() {
+																																											public void actionPerformed(ActionEvent arg0) {
+																																												panelAgendas.setVisible(false);
+																																												panelPrincipal.setVisible(true);
+																																											}
+																																										});	
 		frame.getContentPane().add(panelPersona);
 		
 		lblMiembro = new JLabel("Miembro");
@@ -203,113 +326,6 @@ public class UI {
 		JButton btnMostrar_1 = new JButton("Mostrar");
 		btnMostrar_1.setBounds(416, 238, 89, 23);
 		panelDatos.add(btnMostrar_1);
-
-		//Panel Agendas
-
-		panelAgendas = new JPanel();
-		panelAgendas.setBounds(0, 44, 994, 620);
-		panelAgendas.setVisible(false);
-		panelAgendas.setLayout(null);
-		frame.getContentPane().add(panelAgendas);
-
-		JLabel labelAgendas = new JLabel("AGENDAS");
-		labelAgendas.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		labelAgendas.setBounds(118, 27, 257, 37);
-		panelAgendas.add(labelAgendas);
-
-		JLabel labelNombreAgendas = new JLabel("Nombre");
-		labelNombreAgendas.setToolTipText("nombre del acta");
-		labelNombreAgendas.setBounds(118, 101, 97, 14);
-		panelAgendas.add(labelNombreAgendas);
-
-		JLabel labelFechaAgendas = new JLabel("Fecha");
-		labelFechaAgendas.setBounds(118, 148, 97, 14);
-		panelAgendas.add(labelFechaAgendas);
-
-		JLabel lblLugarAgendas = new JLabel("Lugar");
-		lblLugarAgendas.setBounds(118, 195, 97, 14);
-		panelAgendas.add(lblLugarAgendas);
-
-		JLabel lblPropositoAgendas = new JLabel("Proposito");
-		lblPropositoAgendas.setBounds(118, 242, 97, 14);
-		panelAgendas.add(lblPropositoAgendas);
-
-		JLabel lblParticipantesAgendas = new JLabel("Participantes");
-		lblParticipantesAgendas.setBounds(118, 289, 97, 14);
-		panelAgendas.add(lblParticipantesAgendas);
-
-		JLabel lblHoraInicioAgendas = new JLabel("Hora Inicio");
-		lblHoraInicioAgendas.setBounds(118, 336, 97, 14);
-		panelAgendas.add(lblHoraInicioAgendas);
-
-		JLabel lblHoraFinAgendas = new JLabel("Hora Fin");
-		lblHoraFinAgendas.setBounds(118, 383, 97, 14);
-		panelAgendas.add(lblHoraFinAgendas);
-
-		JLabel lblCCCAgendas = new JLabel("CCC");
-		lblCCCAgendas.setBounds(118, 430, 97, 14);
-		panelAgendas.add(lblCCCAgendas);
-
-		textFieldNombreAgendas = new JTextField();
-		textFieldNombreAgendas.setBounds(340, 98, 393, 20);
-		panelAgendas.add(textFieldNombreAgendas);
-		textFieldNombreAgendas.setColumns(10);
-
-		textFieldFechaAgendas = new JTextField();
-		textFieldFechaAgendas.setColumns(10);
-		textFieldFechaAgendas.setBounds(340, 142, 393, 20);
-		panelAgendas.add(textFieldFechaAgendas);
-
-		textFieldLugarAgendas = new JTextField();
-		textFieldLugarAgendas.setColumns(10);
-		textFieldLugarAgendas.setBounds(340, 189, 393, 20);
-		panelAgendas.add(textFieldLugarAgendas);
-
-		textFieldPropositoAgendas = new JTextField();
-		textFieldPropositoAgendas.setColumns(10);
-		textFieldPropositoAgendas.setBounds(340, 236, 393, 20);
-		panelAgendas.add(textFieldPropositoAgendas);
-
-		textFieldParticipantesAgendas = new JTextField();
-		textFieldParticipantesAgendas.setColumns(10);
-		textFieldParticipantesAgendas.setBounds(340, 283, 393, 20);
-		panelAgendas.add(textFieldParticipantesAgendas);
-
-		textFieldHoraInicioAgendas = new JTextField();
-		textFieldHoraInicioAgendas.setColumns(10);
-		textFieldHoraInicioAgendas.setBounds(340, 330, 393, 20);
-		panelAgendas.add(textFieldHoraInicioAgendas);
-
-		textFieldHoraFinAgendas = new JTextField();
-		textFieldHoraFinAgendas.setColumns(10);
-		textFieldHoraFinAgendas.setBounds(340, 377, 393, 20);
-		panelAgendas.add(textFieldHoraFinAgendas);
-
-		textFieldCCCAgendas = new JTextField();
-		textFieldCCCAgendas.setColumns(10);
-		textFieldCCCAgendas.setBounds(340, 424, 393, 20);
-		panelAgendas.add(textFieldCCCAgendas);
-
-		buttonOkAgendas = new JButton("OK");
-		buttonOkAgendas.setBounds(636, 494, 97, 37);
-		panelAgendas.add(buttonOkAgendas);
-		buttonOkAgendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Controller.prepararAgenda();
-				panelAgendas.setVisible(false);
-				panelPrincipal.setVisible(true);
-			}
-		});	
-
-		buttonCancelarAgendas = new JButton("Cancelar");
-		buttonCancelarAgendas.setBounds(340, 494, 103, 37);
-		panelAgendas.add(buttonCancelarAgendas);
-		buttonCancelarAgendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelAgendas.setVisible(false);
-				panelPrincipal.setVisible(true);
-			}
-		});	
 
 
 
