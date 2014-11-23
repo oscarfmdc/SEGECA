@@ -46,7 +46,7 @@ public class Controller {
         // MÃ©todo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
         bd.createAgenda(ag);
 
-        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informaciónn", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informaciï¿½nn", JOptionPane.INFORMATION_MESSAGE);
         
         return 0;
     }
@@ -124,11 +124,10 @@ public class Controller {
         acta.setAusencias(UI.textFieldAusencias.getText());// Jtexfield con los nombre de los ausentes
         acta.setResultados(UI.textFieldResultados.getText());// Jtexfiled con los resultados obtenidos
         acta.setAgenda(UI.textFieldAgenda.getText());
-        acta.getCodActa(0);
         // Enrique, metodo que crea el acta en la BD
         bd.createActa(acta);
 
-        JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
         
         return 0;
     }
@@ -139,7 +138,7 @@ public class Controller {
         Ccc ccc = new Ccc();
 
         // cambiar los nulls por los Jtexfield correspondientes
-        ccc.setNombreCCC(UI.textFieldNombreCcc.getText());
+        ccc.setNombreCCC(UI.textFieldNombreCCC.getText());
         ccc.setAdministrador(UI.textFieldAdministrador.getText());
         ccc.setPresidente(UI.textFieldPresidente.getText());
         ccc.setSecretario(UI.textFieldSecretario.getText());
@@ -159,7 +158,7 @@ public class Controller {
     /* Requisito 2.2 */
     public static int bajaCCC() {
         // Cambiar null por la jlist correspondiente
-        JComboBox listaBorrarCCC = UI.comboBox;
+        JComboBox listaBorrarCCC = UI.comboBoxCCC;
         // comprobamos que el usuario ha seleccionado un CCC para borrar de la lista mostrada
         String nombreBorrarCCC = (String) listaBorrarCCC.getModel().getElementAt(listaBorrarCCC.getSelectedIndex());
         if (listaBorrarCCC.getSelectedIndex() == -1) {

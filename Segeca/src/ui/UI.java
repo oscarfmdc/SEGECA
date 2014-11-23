@@ -57,16 +57,22 @@ public class UI {
 	///CCC Datos
 	static JPanel panelDatos;
 	static JLabel lblMiembro;
-	private static JTextField textFieldAgenda;
-	private static JLabel lblNick;
-	private static JTextField textFieldNick;
-	private static JTextField textFieldNombreMiembro;
-	private static JTextField textFieldEmail;
-	private static JTextField textFieldTelefono;
-	private static JTextField textFieldPermisos;
-	private static JTextField textFieldCCCMiembro;
+	static JTextField textFieldAgenda;
 	
-
+	//Miembro
+	static JPanel panelMiembro;
+	static JLabel lblNick;
+	static JTextField textFieldNick;
+	static JTextField textFieldNombreMiembro;
+	static JTextField textFieldEmail;
+	static JTextField textFieldTelefono;
+	static JTextField textFieldPermisos;
+	static JTextField textFieldCCCMiembro;
+	
+	
+	
+	
+	
 	public UI() {
 		initialize();
 	}
@@ -112,7 +118,7 @@ public class UI {
 												panelMiembro.add(lblMiembro);
 												
 												lblNick = new JLabel("Nick");
-												lblNick.setBounds(134, 138, 48, 14);
+												lblNick.setBounds(134, 138, 128, 14);
 												panelMiembro.add(lblNick);
 												
 												textFieldNick = new JTextField();
@@ -121,7 +127,7 @@ public class UI {
 												panelMiembro.add(textFieldNick);
 												
 												JLabel lblNombre_1 = new JLabel("Nombre");
-												lblNombre_1.setBounds(134, 190, 48, 14);
+												lblNombre_1.setBounds(134, 190, 128, 14);
 												panelMiembro.add(lblNombre_1);
 												
 												textFieldNombreMiembro = new JTextField();
@@ -130,7 +136,7 @@ public class UI {
 												panelMiembro.add(textFieldNombreMiembro);
 												
 												JLabel lblEmail = new JLabel("E-Mail");
-												lblEmail.setBounds(134, 240, 48, 14);
+												lblEmail.setBounds(134, 240, 128, 14);
 												panelMiembro.add(lblEmail);
 												
 												textFieldEmail = new JTextField();
@@ -139,7 +145,7 @@ public class UI {
 												panelMiembro.add(textFieldEmail);
 												
 												JLabel lblTelefono = new JLabel("Telefono");
-												lblTelefono.setBounds(134, 291, 48, 14);
+												lblTelefono.setBounds(134, 291, 128, 14);
 												panelMiembro.add(lblTelefono);
 												
 												textFieldTelefono = new JTextField();
@@ -148,7 +154,7 @@ public class UI {
 												panelMiembro.add(textFieldTelefono);
 												
 												JLabel lblPermisos = new JLabel("Permisos");
-												lblPermisos.setBounds(134, 341, 48, 14);
+												lblPermisos.setBounds(134, 341, 128, 14);
 												panelMiembro.add(lblPermisos);
 												
 												textFieldPermisos = new JTextField();
@@ -157,7 +163,7 @@ public class UI {
 												panelMiembro.add(textFieldPermisos);
 												
 												JLabel lblCcc_1 = new JLabel("CCC");
-												lblCcc_1.setBounds(134, 388, 48, 14);
+												lblCcc_1.setBounds(134, 388, 128, 14);
 												panelMiembro.add(lblCcc_1);
 												
 												textFieldCCCMiembro = new JTextField();
