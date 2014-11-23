@@ -14,7 +14,7 @@ public class Controller {
     public Controller(){
     	UI.initialize();
         UI.getFrame().setVisible(true);
-        bd = new Conector.ConectorBD("192.168.1.84:3306", "SEGECA", "admin", "Grupo10");
+        bd = new Conector.ConectorBD("ortinson.no-ip.org:62000", "SEGECA", "admin", "Grupo10");
         pruebas();
         bd.desconectar();
     }
