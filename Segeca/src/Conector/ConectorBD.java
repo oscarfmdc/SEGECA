@@ -75,6 +75,7 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la persona con nick "+ persona.getNick());
 		}
 	}
+	
 	public void deletePersona(Persona persona){
 		try {
 			statement.executeUpdate("delete from `Persona` where `nick`='"+ persona.getNick() +"' limit 1");

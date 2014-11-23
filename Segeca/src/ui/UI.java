@@ -14,55 +14,55 @@ import java.awt.SystemColor;
 import javax.swing.JComboBox;
 public class UI {
 
-	static private JFrame frame;
+	static JFrame frame;
 
 	//Panel ppal
-	static private JPanel panelPrincipal;
-	static private JButton botonActas;
-	static private JButton botonAgendas;
-	static private JButton botonCCC;
+	static JPanel panelPrincipal;
+	static JButton botonActas;
+	static JButton botonAgendas;
+	static JButton botonCCC;
 
 	//Actas
-	static private JPanel panelActas;
-	static private JButton buttonOkActas;
-	static private JButton buttonCancelarActas;
-	static private JTextField textFieldNombreActas;
-	static private JTextField textFieldFechaActas;
-	static private JTextField textFieldLugarActas;
-	static private JTextField textFieldPropositoActas;
-	static private JTextField textFieldParticipantesActas;
-	static private JTextField textFieldHoraInicioActas;
-	static private JTextField textFieldHoraFinActas;
-	static private JTextField textFieldCCCActas;
+	static JPanel panelActas;
+	static JButton buttonOkActas;
+	static JButton buttonCancelarActas;
+	static JTextField textFieldNombreActas;
+	static JTextField textFieldFechaActas;
+	static JTextField textFieldLugarActas;
+	static JTextField textFieldPropositoActas;
+	static JTextField textFieldParticipantesActas;
+	static JTextField textFieldHoraInicioActas;
+	static JTextField textFieldHoraFinActas;
+	static JTextField textFieldCCCActas;
 
 	//Agendas
-	static private JPanel panelAgendas;
-	static private JButton buttonOkAgendas;
-	static private JButton buttonCancelarAgendas;
-	static private JTextField textFieldNombreAgendas;
-	static private JTextField textFieldFechaAgendas;
-	static private JTextField textFieldLugarAgendas;
-	static private JTextField textFieldPropositoAgendas;
-	static private JTextField textFieldParticipantesAgendas;
-	static private JTextField textFieldHoraInicioAgendas;
-	static private JTextField textFieldHoraFinAgendas;
-	static private JTextField textFieldCCCAgendas;
+	static JPanel panelAgendas;
+	static JButton buttonOkAgendas;
+	static JButton buttonCancelarAgendas;
+	static JTextField textFieldNombreAgendas;
+	static JTextField textFieldFechaAgendas;
+	static JTextField textFieldLugarAgendas;
+	static JTextField textFieldPropositoAgendas;
+	static JTextField textFieldParticipantesAgendas;
+	static JTextField textFieldHoraInicioAgendas;
+	static JTextField textFieldHoraFinAgendas;
+	static JTextField textFieldCCCAgendas;
 
 	//CCC
-	private static JPanel panelCCC;
-	private static JComboBox<?> comboBox;
-	private String[] listaCCC = {"Nuevo","CC1","CC2","CCC3"};
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JLabel lblAdministrador;
-	private JLabel lblMiembros;
-	private JLabel lblPeticiones;
-	private JLabel lblAgendas;
+	static JPanel panelCCC;
+	static JComboBox<?> comboBox;
+	static String[] listaCCC = {"Nuevo","CC1","CC2","CCC3"};
+	static JTextField textField_4;
+	static JTextField textField_5;
+	static JTextField textField_6;
+	static JTextField textField_7;
+	static JLabel lblAdministrador;
+	static JLabel lblMiembros;
+	static JLabel lblPeticiones;
+	static JLabel lblAgendas;
 	///CCC Datos
-	static private JPanel panelDatos;
-	private JLabel lblMiembro;
+	static JPanel panelDatos;
+	static JLabel lblMiembro;
 	
 
 	public UI() {
@@ -74,9 +74,6 @@ public class UI {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1000, 751);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
 
 		//Panel CCC
 
@@ -476,7 +473,7 @@ public class UI {
 
 	}
 
-	public JFrame getFrame() {
+	public static JFrame getFrame() {
 		return frame;
 	}
 }

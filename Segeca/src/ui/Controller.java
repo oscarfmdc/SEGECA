@@ -9,12 +9,9 @@ import javax.swing.*;
 public class Controller {
 
     private static Conector.ConectorBD bd;
-    private static UI window;
 
     public Controller(){
-    	window = new UI();
-        window.getFrame().setVisible(true);
-
+        UI.getFrame().setVisible(true);
         bd = new Conector.ConectorBD("192.168.1.84:3306", "SEGECA", "admin", "Grupo10");
         pruebas();
         bd.desconectar();
@@ -23,7 +20,7 @@ public class Controller {
     /* Requisito 1.2 */
     public static int prepararAgenda() {
         // comprobamos que los datos recibidos sean correctos
-        if (comprobarAgenda() == -1) {
+        if (!comprobarAgenda()) {
             return -1;
         }
         Agenda ag = new Agenda();
@@ -49,7 +46,7 @@ public class Controller {
         ag.setCodAgenda(0);
         ag.setParticipantes(null);
 
-        // M�todo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
+        // Método que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
         bd.createAgenda(ag);
 
         JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -58,15 +55,12 @@ public class Controller {
     }
 
     /* metodo auxiliar para comprobar todos los campos de la agenda */
-    private static int comprobarAgenda() {
+    private static boolean comprobarAgenda() {
 
-        // Esta Jlist se refiere a los nombres de CCC
-        // HAY QUE CREAR ESTA LISTA QUE CONTENDRA TODOS LOS NOMBRES DEL CCC
-        // Cambiar null por la jlist correspondiente
-        JList listaCCC = null;
-
+        String ccc = UI.textFieldCCCAgendas.getText();
+        
         // Si no hay seleccionado ningun CCC
-        if (listaCCC.getSelectedIndex() == -1) {
+        if (ccc == null) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningún CCC", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -75,7 +69,7 @@ public class Controller {
         JTextField fechaAgenda = null;
 
         if (!isFechaValida(fechaAgenda.getText())) {
-            return -1;
+            return false;
         }
 
         // Comprobacion lugar
@@ -92,7 +86,7 @@ public class Controller {
         JTextField horaFin = null;
         
         if (!isHoraValida(horaInicio.getText()) || !isHoraValida(horaFin.getText())) {
-            return -1;
+            return false;
         }
         
          Date parsedHoraIn = null;
@@ -110,11 +104,11 @@ public class Controller {
         if(!parsedHoraIn.before(parsedHoraFin))
         {
             JOptionPane.showMessageDialog(null, "La hora de inicio debe ser anterior a la hora de fin.", "Error", JOptionPane.ERROR_MESSAGE);
-            return -1;
+            return false;
         }
         
         
-        return 0;
+        return true;
 
     }
 
@@ -325,12 +319,11 @@ public class Controller {
         } catch (java.text.ParseException ex) {
             JOptionPane.showMessageDialog(null, "El formato de la hora no es correcto", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
-        }
-         
+        }         
         return true;
     }
     
- // Test agenda
+    // Test agenda
     private static void pruebas() {
         def.Agenda a = new def.Agenda();
         a.setCodAgenda(2);
