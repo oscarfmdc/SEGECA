@@ -27,31 +27,26 @@ public class Controller {
         }
         Agenda ag = new Agenda();
 
-        // CCC agenda
-        // Esta Jlist se refiere a los nombres de CCC
-        // HAY QUE CREAR ESTA LISTA QUE CONTENDRA TODOS LOS NOMBRES DEL CCC
-        // Cambiar null por la jlist correspondiente
-        JList listaCCC = null;
-        String nombreCCC = (String) listaCCC.getModel().getElementAt(listaCCC.getSelectedIndex());
-
+        String nombreCCC = UI.textFieldCCCAgendas.getText();
+        
         Ccc ccc = new Ccc();
         ccc.setNombreCCC(nombreCCC);
 
         // rellenamos los campos de la agenda
         // Cambiar nulls por varibales correspondientes
         ag.setCcc(ccc);
-        ag.setFecha(null);
-        ag.setLugar(null);
-        ag.setHoraInicio(null);
-        ag.setHoraFin(null);
-        ag.setProposito(null);
+        ag.setFecha(UI.textFieldFechaAgendas.getText());
+        ag.setLugar(UI.textFieldLugarAgendas.getText());
+        ag.setHoraInicio(UI.textFieldHoraInicioAgendas.getText());
+        ag.setHoraFin(UI.textFieldHoraFinAgendas.getText());
+        ag.setProposito(UI.textFieldPropositoAgendas.getText());
         ag.setCodAgenda(0);
-        ag.setParticipantes(null);
+        ag.setParticipantes(UI.textFieldParticipantesAgendas.getText());
 
         // MÃ©todo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
         bd.createAgenda(ag);
 
-        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informaciónn", JOptionPane.INFORMATION_MESSAGE);
         
         return 0;
     }
@@ -76,7 +71,7 @@ public class Controller {
 
         // Comprobacion lugar
         // cambiar null por jTexfield correspondiente a lugar de Agenda
-        JTextField lugarAgenda = null;
+        JTextField lugarAgenda = UI.textFieldLugarAgendas;
 
         if (lugarAgenda.getText().length() > 20) {
             JOptionPane.showMessageDialog(null, "Error al introducir el lugar de la Agenda", "Error", JOptionPane.ERROR_MESSAGE);
@@ -84,8 +79,8 @@ public class Controller {
 
         //Comprobamos hora inicio/fin
         //cambiar nulls por jtexfield correspondiente a las horas de inicio y fin de agenda
-        JTextField horaInicio = null;
-        JTextField horaFin = null;
+        JTextField horaInicio = UI.textFieldHoraInicioAgendas;
+        JTextField horaFin = UI.textFieldHoraFinAgendas;
         
         if (!isHoraValida(horaInicio.getText()) || !isHoraValida(horaFin.getText())) {
             return false;
@@ -126,12 +121,14 @@ public class Controller {
         int codAgenda = 0;
         ag.setCodAgenda(codAgenda);
 
-        acta.setAusencias(null);// Jtexfield con los nombre de los ausentes
-        acta.setResultados(null);// Jtexfiled con los resultados obtenidos
+        acta.setAusencias(UI.textFieldAusencias.getText());// Jtexfield con los nombre de los ausentes
+        acta.setResultados(UI.textFieldResultados.getText());// Jtexfiled con los resultados obtenidos
+        acta.setAgenda(UI.textFieldAgenda.getText());
+        acta.getCodActa(0);
         // Enrique, metodo que crea el acta en la BD
         bd.createActa(acta);
 
-        JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         
         return 0;
     }
@@ -142,10 +139,10 @@ public class Controller {
         Ccc ccc = new Ccc();
 
         // cambiar los nulls por los Jtexfield correspondientes
-        ccc.setNombreCCC(null);
-        ccc.setAdministrador(null);
-        ccc.setPresidente(null);
-        ccc.setSecretario(null);
+        ccc.setNombreCCC(UI.textFieldNombreCcc.getText());
+        ccc.setAdministrador(UI.textFieldAdministrador.getText());
+        ccc.setPresidente(UI.textFieldPresidente.getText());
+        ccc.setSecretario(UI.textFieldSecretario.getText());
 
         // cambiar el arrayList por las listas correspondientes que seleccione el usuario
         
@@ -162,7 +159,7 @@ public class Controller {
     /* Requisito 2.2 */
     public static int bajaCCC() {
         // Cambiar null por la jlist correspondiente
-        JList listaBorrarCCC = null;
+        JComboBox listaBorrarCCC = UI.comboBox;
         // comprobamos que el usuario ha seleccionado un CCC para borrar de la lista mostrada
         String nombreBorrarCCC = (String) listaBorrarCCC.getModel().getElementAt(listaBorrarCCC.getSelectedIndex());
         if (listaBorrarCCC.getSelectedIndex() == -1) {
