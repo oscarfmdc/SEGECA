@@ -11,11 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.SystemColor;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
 public class UI {
 
 	static private JFrame frame;
@@ -53,8 +49,8 @@ public class UI {
 	static private JTextField textFieldCCCAgendas;
 
 	//CCC
-	static private JPanel panelCCC;
-	static private JComboBox comboBox;
+	private static JPanel panelCCC;
+	private static JComboBox<?> comboBox;
 	private String[] listaCCC = {"Nuevo","CC1","CC2","CCC3"};
 	private JTextField textField_4;
 	private JTextField textField_5;

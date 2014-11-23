@@ -20,15 +20,6 @@ public class Controller {
         bd.desconectar();
     }
 
-    //Basurilla para comprobar el funcionamiento de ConectorBD
-    private static void pruebas() {
-        def.Agenda a = new def.Agenda();
-        a.setCodAgenda(2);
-        bd.extractAgenda(a);
-        System.out.println(a.toString());
-
-    }
-
     /* Requisito 1.2 */
     public static int prepararAgenda() {
         // comprobamos que los datos recibidos sean correctos
@@ -337,5 +328,14 @@ public class Controller {
         }
          
         return true;
+    }
+    
+ // Test agenda
+    private static void pruebas() {
+        def.Agenda a = new def.Agenda();
+        a.setCodAgenda(2);
+        bd.extractAgenda(a);
+        System.out.println(a.toString());
+
     }
 }
