@@ -281,7 +281,7 @@ public class Controller {
             return -1;
         }
         // Enrique, metodo que da de baja a una persona de un CCC
-        //bd.deletePersonaCCC(bajaPrsnCCC);
+        bd.deletePersonaCCC(bajaPrsnCCC);
         
         JOptionPane.showMessageDialog(null, "Se ha eliminado del CCC seleccionado al correspondiente miembro.", "Información", JOptionPane.INFORMATION_MESSAGE);
         
@@ -329,7 +329,7 @@ public class Controller {
     // Test agenda
     private static void pruebas() {
         def.Agenda a = new def.Agenda();
-        a.setCodAgenda(1);
+        a.setCodAgenda(3);
         bd.extractAgenda(a);
         System.out.println(a.toString());
         
@@ -434,6 +434,7 @@ public class Controller {
         ArrayList personas = new ArrayList();
         personas.add("Jaime, Marco");
         cc1.setPersonasCollection(personas);
+        bd.createCCC(cc1);
         // comprobacion
 
         // Prueba 8
@@ -442,6 +443,44 @@ public class Controller {
 
         // Prueba 9
         System.out.println("**** Prueba 9: Modificación de miembro de CCC ****");
+        Persona prsn = new Persona();
+        prsn.setNick("k3xr");
+        Ccc ccc1 = new Ccc();
+        ccc1.setNombreCCC("CCC_1 ");
+        prsn.setCcc(ccc1);
+        prsn.setEmail("email@ejemplo.es");
+        prsn.setNombre("Óscar");
+        prsn.setTelefono(666123456);
+        bd.editPerson(prsn);
         
+        // Prueba 10
+        System.out.println("**** Prueba 10: Modificación de miembro de CCC 2 ****");
+        Persona prsn2 = new Persona();
+        prsn2.setNick("k3xr");
+        Ccc ccc2 = new Ccc();
+        ccc2.setNombreCCC("CCC_1 ");
+        prsn2.setCcc(ccc2);
+        prsn2.setEmail("email@ejemplo.es");
+        prsn2.setNombre("Óscar");
+        prsn2.setTelefono(666456);
+        bd.editPerson(prsn2);
+        // debe devolver error, porque el numero de telefono no es valido
+
+        // Prueba 11
+        System.out.println("**** Prueba 11: Alta miembro en un CCC ****");
+        Persona prsn_ccc = new Persona();
+        prsn_ccc.setNick("k3xr");
+        Ccc ccc = new Ccc();
+        ccc.setNombreCCC("CCC_1 ");
+        prsn_ccc.setCcc(ccc);
+        prsn_ccc.setEmail("email@ejemplo.es");
+        prsn_ccc.setNombre("Óscar");
+        prsn_ccc.setTelefono(666456123);
+        bd.addPersonaCCC(prsn_ccc);
+
+        // Prueba 12
+        System.out.println("**** Prueba 12: Baja miembro en un CCC ****");
+        bd.deletePersonaCCC("Marco");
+
     }
 }
