@@ -9,16 +9,16 @@ public class ConectorBD {
 	private Connection conexion;
 	private Statement statement;
 
-	public ConectorBD(String host,String nombreBD, String usuario, String contraseña) {
+	public ConectorBD(String host,String nombreBD, String usuario, String password) {
 		//nombreBD = "SEGECA";
 		//usuario = "admin";
-		//contraseña = "Grupo10";
+		//password = "Grupo10";
 		String url = "jdbc:mysql://"+ host + "/";
 		String driver = "com.mysql.jdbc.Driver";
 
 		try {
 			Class.forName(driver).newInstance();
-			conexion = DriverManager.getConnection(url+nombreBD,usuario,contraseña);
+			conexion = DriverManager.getConnection(url+nombreBD,usuario,password);
 			System.out.println("Estoy conectado!!!");
 			statement = conexion.createStatement();
 		} 
@@ -165,11 +165,11 @@ public class ConectorBD {
 		}
 	}
 	
-	public void deleteCCC(Ccc ccc){
+	public void deleteCCC(String nombreCcc){
 		try {
-			statement.executeUpdate("delete from `CCC` where `nombre_CCC`='"+ ccc.getNombreCCC() +"' limit 1");
+			statement.executeUpdate("delete from `CCC` where `nombre_CCC`='"+ nombreCcc +"' limit 1");
 		} catch (SQLException e) {
-			System.out.println("Error al intentar eliminar el CCC: " + ccc.getNombreCCC());
+			System.out.println("Error al intentar eliminar el CCC: " + nombreCcc);
 		}
 	}
 	
@@ -251,7 +251,7 @@ public class ConectorBD {
 				pc.setEmail(resultado.getString("email"));
 				pc.setEstado(resultado.getString("estado"));
 				//set fecha hay que cambiarlo cuando cambie la base de datos
-				pc.setFecha(resultado.getDate("fecha"));
+				pc.setFecha(resultado.getString("fecha"));
 				pc.setMotivo(resultado.getString("motivo"));
 				pc.setPrioridad(resultado.getString("prioridad"));
 				pc.setValoracion(resultado.getString("valoracion"));
