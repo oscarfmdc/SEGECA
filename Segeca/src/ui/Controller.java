@@ -217,29 +217,31 @@ public class Controller {
         Persona persona = new Persona();
 
         // cambiar todos los nulls por los JTextField correspondientes en cada caso
-        JTextField nick = null;
+        JTextField nick = UI.textFieldNick;
         // compruebo que el campo no esta vacio
         if (nick.getText() == null) {
             JOptionPane.showMessageDialog(null, "Debe introducir un nick para la persona", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
+        } else {
+            persona.setNick(nick.getText());
         }
-        persona.setNick(null);
 
         // JTextField con el nombre de la persona
-        JTextField nombre = null;
+        JTextField nombre = UI.textFieldNombreMiembro;
         // compruebo que el campo no esta vacio
         if (nombre.getText() == null) {
             JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
+        } else {
+            persona.setNombre(nombre.getText());
         }
-        persona.setNombre(null);
 
         // compruebo el telefono
-        JTextField telefono = null;
+        JTextField telefono = UI.textFieldTelefono;
         int telf =isTelefono(telefono.getText());
         persona.setTelefono(telf);
-        persona.setEmail(null);
-        persona.setPermisos(null);
+        persona.setEmail(UI.textFieldEmail.getText());
+        persona.setPermisos(UI.textFieldPermisos.getText());
 
         // Cambiar null por la jlist correspondiente
         JList CCCs = null;
@@ -336,9 +338,119 @@ public class Controller {
     // Test agenda
     private static void pruebas() {
         def.Agenda a = new def.Agenda();
-        a.setCodAgenda(2);
+        a.setCodAgenda(1);
         bd.extractAgenda(a);
         System.out.println(a.toString());
+        
+        /* Pruebas para la preaparcion de Agendas y Actas */
+        System.out.println("**** Prueba 1: Preparacion de agenda 1 ****");
+        Agenda ag1 = new Agenda();
+        Ccc ccc_ag1 = new Ccc();
+        ccc_ag1.setNombreCCC("CCC1");
+        ag1.setCcc(ccc_ag1);
+        ag1.setCodAgenda();
+        ag1.setFecha("25/12/2014");
+        ag1.setLugar("ETSIINF");
+        ag1.setHoraInicio("19:00");
+        ag1.setHoraFin("19:30");
+        ag1.setProposito("Planificar el proyecto");
+        ag1.setParticipantes("Marcos,Oscar");
+        bd.createAgenda(ag1);
+        // comprobacion
+        Agenda ag1_cmp = bd.extractAgenda(ag1);
+        System.out.println("Lugar: " + ag1_cmp.getLugar() + "\n" + "CCC: " + ag1_cmp.getCcc().getNombreCCC() +"\n" + "Fecha: " + ag1_cmp.getFecha() + "\n" + "Hora Inicio: " + ag1_cmp.getHoraInicio() + "\n" + "Hora Fin: " + ag1_cmp.getHoraFin() + "\n" + "Proposito: " + ag1_cmp.getProposito() + "\n" + "Participantes: " + ag1_cmp.getParticipantes() + "\n");
 
+        // Prueba 2, prueba con error
+        System.out.println("**** Prueba 2: Preparacion de agenda 2 ****");
+        Agenda ag2 = new Agenda();
+        Ccc ccc_ag2 = new Ccc();
+        ccc_ag2.setNombreCCC("CCC1");
+        ag2.setCcc(ccc_ag2);
+        ag2.setCodAgenda();
+        ag2.setFecha("25/12/2012");
+        ag2.setLugar("ETSIINF");
+        ag2.setHoraInicio("19:00");
+        ag2.setHoraFin("19:30");
+        ag2.setProposito("Planificar el proyecto");
+        ag2.setParticipantes("Marcos,Oscar");
+        bd.createAgenda(ag2);
+        // debe devolver error porque la fecha es posterior a la actual 2012<2014
+ 
+        // Prueba 3, prueba con error
+        System.out.println("**** Prueba 3: Preparacion de agenda 3 ****");
+        Agenda ag3 = new Agenda();
+        Ccc ccc_ag3 = new Ccc();
+        ccc_ag3.setNombreCCC("CCC1");
+        ag3.setCcc(ccc_ag3);
+        ag3.setCodAgenda();
+        ag3.setFecha("25/12/2014");
+        ag3.setLugar("ETSIINF");
+        ag3.setHoraInicio("19:00");
+        ag3.setHoraFin("18:30");
+        ag3.setProposito("Planificar el proyecto");
+        ag3.setParticipantes("Marcos,Oscar");
+        bd.createAgenda(ag3);
+        // debe devolver error porque la hora de fin es anterior a la hora de inicio
+        
+        // Prueba 4, prueba con error
+        System.out.println("**** Prueba 4: Preparacion de agenda 4 ****");
+        Agenda ag4 = new Agenda();
+        Ccc ccc_ag4 = new Ccc();
+        ccc_ag4.setNombreCCC("CCC1");
+        ag4.setCcc(ccc_ag4);
+        ag4.setCodAgenda();
+        ag4.setFecha("25 de diciembre");
+        ag4.setLugar("ETSIINF");
+        ag4.setHoraInicio("19:00");
+        ag4.setHoraFin("19:30");
+        ag4.setProposito("Planificar el proyecto");
+        ag4.setParticipantes("Marcos,Oscar");
+        bd.createAgenda(ag4);
+        // debe devolver error porque la fecha no es valida
+        
+        // Prueba 5, prueba con error
+        System.out.println("**** Prueba 5: Preparacion de agenda 5 ****");
+        Agenda ag5 = new Agenda();
+        Ccc ccc_ag5 = new Ccc();
+        ccc_ag5.setNombreCCC("CCC1");
+        ag5.setCcc(ccc_ag5);
+        ag5.setCodAgenda();
+        ag5.setFecha("25 de diciembre");
+        ag5.setLugar("ETSIINF");
+        ag5.setHoraInicio("");
+        ag5.setHoraFin("19:30");
+        ag5.setProposito("Planificar el proyecto");
+        ag5.setParticipantes("Marcos,Oscar");
+        bd.createAgenda(ag5);
+        // debe devolver error porque la hora de inicio no es valida
+        
+        // Prueba 6
+        System.out.println("**** Prueba 6: Preparacion de acta 1 ****");
+        Acta ac1 = new Acta();
+        ac1.setAgenda();
+        ac1.setAusencias("Javier, Nacho");
+        ac1.setResultados("Asignación de tareas a los participantes.");
+        bd.createActa(ac1);
+        // comprobacion
+
+        // Prueba 7
+        System.out.println("**** Prueba 7: Alta de nuevo CCC ****");
+        Ccc cc1 = new Ccc();
+        cc1.setNombreCCC("CCC_SEGECA");
+        cc1.setAdministrador("Pepe");
+        cc1.setPresidente("Martín");
+        cc1.setSecretario("Óscar");
+        ArrayList personas = new ArrayList();
+        personas.add("Jaime, Marco");
+        cc1.setPersonasCollection(personas);
+        // comprobacion
+
+        // Prueba 8
+        System.out.println("**** Prueba 8: Baja de CCC existente ****");
+        bd.deleteCCC("CCC_SEGECA");
+
+        // Prueba 9
+        System.out.println("**** Prueba 9: Modificación de miembro de CCC ****");
+        
     }
 }
