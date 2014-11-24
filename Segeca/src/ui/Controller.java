@@ -123,7 +123,7 @@ public class Controller {
 
         acta.setAusencias(UI.textFieldAusencias.getText());// Jtexfield con los nombre de los ausentes
         acta.setResultados(UI.textFieldResultados.getText());// Jtexfiled con los resultados obtenidos
-        acta.setAgenda(UI.textFieldAgenda.getText());
+        acta.setAgenda(ag);
         // Enrique, metodo que crea el acta en la BD
         bd.createActa(acta);
 
