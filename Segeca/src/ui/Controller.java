@@ -6,6 +6,7 @@ import java.text.*;
 import java.util.*;
 
 import javax.swing.*;
+import pruebas.stubs;
 
 public class Controller {
 
@@ -44,10 +45,12 @@ public class Controller {
         ag.setCodAgenda(0);
         ag.setParticipantes(UI.textFieldParticipantesAgendas.getText());
 
-        // Método que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
-        bd.createAgenda(ag);
-
-        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informaciónn", JOptionPane.INFORMATION_MESSAGE);
+        // Mï¿½todo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
+        //bd.createAgenda(ag);
+        //Stub para simular el modulo, en la version final comentar
+        stubs.createAgenda(ag);
+        
+        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informaciï¿½nn", JOptionPane.INFORMATION_MESSAGE);
         
         return 0;
     }
@@ -59,10 +62,10 @@ public class Controller {
         String ccc = UI.textFieldCCCAgendas.getText();
         
         if (ccc == null || ccc.equals("")) {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningún CCC", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningï¿½n CCC", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Comprobación Fecha
+        // Comprobaciï¿½n Fecha
         // cambiar null por jTextField correspondiente a fecha agenda
         JTextField fechaAgenda = UI.textFieldFechaAgendas;
 
@@ -111,21 +114,21 @@ public class Controller {
     }
 
     /* Requisito 1.1 */
-    // Tenéis que pasarnos un código de agenda que debereis calcular mostrando las agendas disponibles al usuario ???
+    // Tenï¿½is que pasarnos un cï¿½digo de agenda que debereis calcular mostrando las agendas disponibles al usuario ???
     public static int prepararActa() {
         Acta acta = new Acta();
 
         Agenda ag = new Agenda();
         acta.setAgenda(ag);
         
-        // El código se extrae desde aqui
+        // El cï¿½digo se extrae desde aqui
         int codAgenda = 0;
         ag.setCodAgenda(codAgenda);
 
         acta.setAusencias(UI.textFieldAusencias.getText());// Jtexfield con los nombre de los ausentes
         acta.setResultados(UI.textFieldResultados.getText());// Jtexfiled con los resultados obtenidos
         
-        //Cogemos el código de agenda de la interfaz gráfica
+        //Cogemos el cï¿½digo de agenda de la interfaz grï¿½fica
         Agenda newAgenda = new Agenda();
         newAgenda.setCodAgenda(Integer.parseInt((UI.textFieldAgenda.getText())));
         //Buscamos la agenda en la base de datos y obtenemos el objeto Agenda completo
@@ -288,7 +291,7 @@ public class Controller {
         if (listaPersonasCCC.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningÃºna persona para dar de baja en el CCC", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
-        }
+        }        
         // Enrique, metodo que da de baja a una persona de un CCC
         bd.deletePersonaCCC(bajaPrsnCCC);
         
@@ -336,30 +339,22 @@ public class Controller {
     }
     
     // Test agenda
-    private static void pruebas() {
-        def.Agenda a = new def.Agenda();
-        a.setCodAgenda(3);
-        bd.extractAgenda(a);
-        System.out.println(a.toString());
-        
-        /* Pruebas para la preaparcion de Agendas y Actas */
+    private static void pruebas() {     
+        /* Pruebas para la preparcion de Agendas y Actas */
         System.out.println("**** Prueba 1: Preparacion de agenda 1 ****");
-        Agenda ag1 = new Agenda();
-        Ccc ccc_ag1 = new Ccc();
-        ccc_ag1.setNombreCCC("CCC1");
-        ag1.setCcc(ccc_ag1);
-        ag1.setCodAgenda();
-        ag1.setFecha("25/12/2014");
-        ag1.setLugar("ETSIINF");
-        ag1.setHoraInicio("19:00");
-        ag1.setHoraFin("19:30");
-        ag1.setProposito("Planificar el proyecto");
-        ag1.setParticipantes("Marcos,Oscar");
-        bd.createAgenda(ag1);
-        // comprobacion
-        Agenda ag1_cmp = bd.extractAgenda(ag1);
-        System.out.println("Lugar: " + ag1_cmp.getLugar() + "\n" + "CCC: " + ag1_cmp.getCcc().getNombreCCC() +"\n" + "Fecha: " + ag1_cmp.getFecha() + "\n" + "Hora Inicio: " + ag1_cmp.getHoraInicio() + "\n" + "Hora Fin: " + ag1_cmp.getHoraFin() + "\n" + "Proposito: " + ag1_cmp.getProposito() + "\n" + "Participantes: " + ag1_cmp.getParticipantes() + "\n");
+        
+        // Establecemos jTextFields
+        UI.textFieldLugarAgendas.setText("ETSIINF");
+        UI.textFieldCCCAgendas.setText("CCC1");
+        UI.textFieldFechaAgendas.setText("25/12/2014");
+        UI.textFieldHoraInicioAgendas.setText("19:00");
+        UI.textFieldHoraFinAgendas.setText("19:30");
+        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
+        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
 
+        // Llamamos a la funcion a testear
+        prepararAgenda();
+        
         // Prueba 2, prueba con error
         System.out.println("**** Prueba 2: Preparacion de agenda 2 ****");
         Agenda ag2 = new Agenda();

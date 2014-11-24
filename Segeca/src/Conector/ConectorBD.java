@@ -1,4 +1,4 @@
-﻿package Conector;
+package Conector;
 
 import java.sql.*;
 import java.util.*;
