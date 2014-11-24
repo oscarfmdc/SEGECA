@@ -97,7 +97,7 @@ public class UI {
         panelCCC.setLayout(null);
         panelCCC.setVisible(false);
 
-        JPanel panelMiembro = new JPanel();
+        panelMiembro = new JPanel();
         panelMiembro.setBounds(0, 44, 994, 620);
         panelMiembro.setVisible(false);
         frame.getContentPane().add(panelMiembro);
@@ -280,7 +280,7 @@ public class UI {
         JButton buttoNuevoMiembro = new JButton("Nuevo Miembro");
         buttoNuevoMiembro.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                panelMiembro.setVisible(true);
+            	panelMiembro.setVisible(true);
                 panelCCC.setVisible(false);
                 panelDatos.setVisible(false);
             }
