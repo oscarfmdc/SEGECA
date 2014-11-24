@@ -205,7 +205,7 @@ public class ConectorBD {
 						+ agenda.getHoraInicio() +"', `cod_agenda`='"+agenda.getCodAgenda()+"';");
 			}
 		}catch (Exception e){
-			System.out.println("No se han podido introducir los datos de 'Agenda' con Ã©xito");
+			System.out.println("No se han podido introducir los datos de 'Agenda' con éxito");
 			System.out.println("La agenda a introducir era:\n"+ agenda.toString());
 		}
 	}
@@ -277,7 +277,7 @@ public class ConectorBD {
 						+"', `cod_acta`='"+acta.getCodActa()+"' limit 1;");
 			}
 		}catch (Exception e){
-			System.out.println("No se han podido introducir los datos del Acta con Ã©xito");
+			System.out.println("No se han podido introducir los datos del Acta con éxito");
 			System.out.println("El acta a introducir era:\n"+ acta.toString());
 		}
 	}

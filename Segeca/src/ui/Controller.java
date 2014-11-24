@@ -15,8 +15,8 @@ public class Controller {
     	UI.initialize();
         UI.getFrame().setVisible(true);
         bd = new Conector.ConectorBD("ortinson.no-ip.org:62000", "SEGECA", "admin", "Grupo10");
-        pruebas();
-        bd.desconectar();
+        //pruebas();
+        //bd.desconectar();
     }
 
     /* Requisito 1.2 */
@@ -29,6 +29,7 @@ public class Controller {
 
         String nombreCCC = UI.textFieldCCCAgendas.getText();
         
+        //Debemos de comprobar si el Ccc ya existe
         Ccc ccc = new Ccc();
         ccc.setNombreCCC(nombreCCC);
 
@@ -43,10 +44,10 @@ public class Controller {
         ag.setCodAgenda(0);
         ag.setParticipantes(UI.textFieldParticipantesAgendas.getText());
 
-        // M茅todo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
+        // M閠odo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
         bd.createAgenda(ag);
 
-        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informaci锟絥n", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informaci髇n", JOptionPane.INFORMATION_MESSAGE);
         
         return 0;
     }
@@ -58,10 +59,10 @@ public class Controller {
         String ccc = UI.textFieldCCCAgendas.getText();
         
         if (ccc == null || ccc.equals("")) {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ning煤n CCC", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ning鷑 CCC", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Comprobaci贸n Fecha
+        // Comprobaci髇 Fecha
         // cambiar null por jTextField correspondiente a fecha agenda
         JTextField fechaAgenda = UI.textFieldFechaAgendas;
 
@@ -110,21 +111,29 @@ public class Controller {
     }
 
     /* Requisito 1.1 */
-    // Ten茅is que pasarnos un c贸digo de agenda que debereis calcular mostrando las agendas disponibles al usuario    
+    // Ten閕s que pasarnos un c骴igo de agenda que debereis calcular mostrando las agendas disponibles al usuario ???
     public static int prepararActa() {
         Acta acta = new Acta();
 
         Agenda ag = new Agenda();
         acta.setAgenda(ag);
         
-        // El c贸digo se extrae desde aqui
+        // El c骴igo se extrae desde aqui
         int codAgenda = 0;
         ag.setCodAgenda(codAgenda);
 
         acta.setAusencias(UI.textFieldAusencias.getText());// Jtexfield con los nombre de los ausentes
         acta.setResultados(UI.textFieldResultados.getText());// Jtexfiled con los resultados obtenidos
-        acta.setAgenda(UI.textFieldAgenda.getText());
-        // Enrique, metodo que crea el acta en la BD
+        
+        //Cogemos el c骴igo de agenda de la interfaz gr醘ica
+        Agenda newAgenda = new Agenda();
+        newAgenda.setCodAgenda(Integer.parseInt((UI.textFieldAgenda.getText())));
+        //Buscamos la agenda en la base de datos y obtenemos el objeto Agenda completo
+        bd.extractAgenda(newAgenda);
+        //Asociamos la agenda a nuestro acta
+        acta.setAgenda(newAgenda);
+        
+        //Metodo que crea el acta en la BD
         bd.createActa(acta);
 
         JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "Informaci贸n", JOptionPane.INFORMATION_MESSAGE);
