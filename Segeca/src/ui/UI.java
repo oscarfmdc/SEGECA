@@ -106,7 +106,7 @@ public class UI {
 												panelCCC.setLayout(null);
 												panelCCC.setVisible(false);
 												
-												JPanel panelMiembro = new JPanel();
+												final JPanel panelMiembro = new JPanel();
 												panelMiembro.setBounds(0, 44, 994, 620);
 												panelMiembro.setVisible(false);
 												frame.getContentPane().add(panelMiembro);
