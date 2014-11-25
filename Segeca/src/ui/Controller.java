@@ -448,7 +448,7 @@ public class Controller {
         UI.textFieldNombreMiembro.setText("Óscar");
         UI.textFieldTelefono.setText("666123456");
         // Llamamos a la funcion a testear
-        modMiembrosCCC("k3xr");
+        modMiembrosCCC();
         
         /* Prueba 10 */
         System.out.println("**** Prueba 10: Modificación de miembro de CCC 2 ****");
@@ -458,7 +458,7 @@ public class Controller {
         UI.textFieldNombreMiembro.setText("Óscar");
         UI.textFieldTelefono.setText("666456");
         // Llamamos a la funcion a testear
-        modMiembrosCCC("k3xr");
+        modMiembrosCCC();
         // debe devolver error, porque el numero de telefono no es valido
 
         /* Prueba 11 */

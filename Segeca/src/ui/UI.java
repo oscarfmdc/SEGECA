@@ -9,8 +9,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import java.awt.Font;
 import java.awt.SystemColor;
+
 import javax.swing.JComboBox;
 
 public class UI {
@@ -277,15 +279,15 @@ public class UI {
 		lblAgendas.setBounds(20, 204, 111, 14);
 		panelDatos.add(lblAgendas);
 
-		comboBoxMiembros = new JComboBox(new Object[]{});
+		comboBoxMiembros = new JComboBox<String>();
 		comboBoxMiembros.setBounds(201, 163, 193, 20);
 		panelDatos.add(comboBoxMiembros);
 
-		comboBoxAgendas = new JComboBox(new Object[]{});
+		comboBoxAgendas = new JComboBox<String>();
 		comboBoxAgendas.setBounds(201, 201, 193, 20);
 		panelDatos.add(comboBoxAgendas);
 
-		comboBoxPeticiones = new JComboBox(new Object[]{});
+		comboBoxPeticiones = new JComboBox<String>();
 		comboBoxPeticiones.setBounds(201, 239, 193, 20);
 		panelDatos.add(comboBoxPeticiones);
 
