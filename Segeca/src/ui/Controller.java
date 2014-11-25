@@ -45,12 +45,12 @@ public class Controller {
         ag.setCodAgenda(0);
         ag.setParticipantes(UI.textFieldParticipantesAgendas.getText());
 
-        // M�todo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
+        // Metodo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
         //bd.createAgenda(ag);
         //Stub para simular el modulo, en la version final comentar
         stubs.createAgenda(ag);
         
-        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informaci�nn", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         
         return 0;
     }
@@ -62,10 +62,10 @@ public class Controller {
         String ccc = UI.textFieldCCCAgendas.getText();
         
         if (ccc == null || ccc.equals("")) {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ning�n CCC", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-        // Comprobaci�n Fecha
+        // Comprobacion Fecha
         // cambiar null por jTextField correspondiente a fecha agenda
         JTextField fechaAgenda = UI.textFieldFechaAgendas;
 
@@ -114,21 +114,21 @@ public class Controller {
     }
 
     /* Requisito 1.1 */
-    // Ten�is que pasarnos un c�digo de agenda que debereis calcular mostrando las agendas disponibles al usuario ???
+    // Teneis que pasarnos un codigo de agenda que debereis calcular mostrando las agendas disponibles al usuario ???
     public static int prepararActa() {
         Acta acta = new Acta();
 
         Agenda ag = new Agenda();
         acta.setAgenda(ag);
         
-        // El c�digo se extrae desde aqui
+        // El codigo se extrae desde aqui
         int codAgenda = 0;
         ag.setCodAgenda(codAgenda);
 
         acta.setAusencias(UI.textFieldAusencias.getText());// Jtexfield con los nombre de los ausentes
         acta.setResultados(UI.textFieldResultados.getText());// Jtexfiled con los resultados obtenidos
         
-        //Cogemos el c�digo de agenda de la interfaz gr�fica
+        //Cogemos el codigo de agenda de la interfaz grafica
         Agenda newAgenda = new Agenda();
         newAgenda.setCodAgenda(Integer.parseInt((UI.textFieldAgenda.getText())));
         //Buscamos la agenda en la base de datos y obtenemos el objeto Agenda completo
@@ -338,11 +338,9 @@ public class Controller {
         return true;
     }
     
-    // Test agenda
     private static void pruebas() {     
         /* Pruebas para la preparcion de Agendas y Actas */
         System.out.println("**** Prueba 1: Preparacion de agenda 1 ****");
-        
         // Establecemos jTextFields
         UI.textFieldLugarAgendas.setText("ETSIINF");
         UI.textFieldCCCAgendas.setText("CCC1");
@@ -351,140 +349,127 @@ public class Controller {
         UI.textFieldHoraFinAgendas.setText("19:30");
         UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
         UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
-
         // Llamamos a la funcion a testear
         prepararAgenda();
-        
-        // Prueba 2, prueba con error
+
+        /* Prueba 2, prueba con error */
         System.out.println("**** Prueba 2: Preparacion de agenda 2 ****");
-        Agenda ag2 = new Agenda();
-        Ccc ccc_ag2 = new Ccc();
-        ccc_ag2.setNombreCCC("CCC1");
-        ag2.setCcc(ccc_ag2);
-        ag2.setCodAgenda();
-        ag2.setFecha("25/12/2012");
-        ag2.setLugar("ETSIINF");
-        ag2.setHoraInicio("19:00");
-        ag2.setHoraFin("19:30");
-        ag2.setProposito("Planificar el proyecto");
-        ag2.setParticipantes("Marcos,Oscar");
-        bd.createAgenda(ag2);
+        // Establecemos jTextFields
+        UI.textFieldLugarAgendas.setText("ETSIINF");
+        UI.textFieldCCCAgendas.setText("CCC1");
+        UI.textFieldFechaAgendas.setText("25/12/2012");
+        UI.textFieldHoraInicioAgendas.setText("19:00");
+        UI.textFieldHoraFinAgendas.setText("19:30");
+        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
+        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
+        // Llamamos a la funcion a testear
+        prepararAgenda();
         // debe devolver error porque la fecha es posterior a la actual 2012<2014
  
-        // Prueba 3, prueba con error
+        /* Prueba 3, prueba con error */
         System.out.println("**** Prueba 3: Preparacion de agenda 3 ****");
-        Agenda ag3 = new Agenda();
-        Ccc ccc_ag3 = new Ccc();
-        ccc_ag3.setNombreCCC("CCC1");
-        ag3.setCcc(ccc_ag3);
-        ag3.setCodAgenda();
-        ag3.setFecha("25/12/2014");
-        ag3.setLugar("ETSIINF");
-        ag3.setHoraInicio("19:00");
-        ag3.setHoraFin("18:30");
-        ag3.setProposito("Planificar el proyecto");
-        ag3.setParticipantes("Marcos,Oscar");
-        bd.createAgenda(ag3);
+        // Establecemos jTextFields
+        UI.textFieldLugarAgendas.setText("ETSIINF");
+        UI.textFieldCCCAgendas.setText("CCC1");
+        UI.textFieldFechaAgendas.setText("25/12/2014");
+        UI.textFieldHoraInicioAgendas.setText("19:00");
+        UI.textFieldHoraFinAgendas.setText("18:30");
+        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
+        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
+        // Llamamos a la funcion a testear
+        prepararAgenda();
         // debe devolver error porque la hora de fin es anterior a la hora de inicio
         
-        // Prueba 4, prueba con error
+        /* Prueba 4, prueba con error */
         System.out.println("**** Prueba 4: Preparacion de agenda 4 ****");
-        Agenda ag4 = new Agenda();
-        Ccc ccc_ag4 = new Ccc();
-        ccc_ag4.setNombreCCC("CCC1");
-        ag4.setCcc(ccc_ag4);
-        ag4.setCodAgenda();
-        ag4.setFecha("25 de diciembre");
-        ag4.setLugar("ETSIINF");
-        ag4.setHoraInicio("19:00");
-        ag4.setHoraFin("19:30");
-        ag4.setProposito("Planificar el proyecto");
-        ag4.setParticipantes("Marcos,Oscar");
-        bd.createAgenda(ag4);
+        // Establecemos jTextFields
+        UI.textFieldLugarAgendas.setText("ETSIINF");
+        UI.textFieldCCCAgendas.setText("CCC1");
+        UI.textFieldFechaAgendas.setText("25 de diciembre");
+        UI.textFieldHoraInicioAgendas.setText("19:00");
+        UI.textFieldHoraFinAgendas.setText("19:30");
+        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
+        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
+        // Llamamos a la funcion a testear
+        prepararAgenda();
         // debe devolver error porque la fecha no es valida
         
-        // Prueba 5, prueba con error
+        /* Prueba 5, prueba con error */
         System.out.println("**** Prueba 5: Preparacion de agenda 5 ****");
-        Agenda ag5 = new Agenda();
-        Ccc ccc_ag5 = new Ccc();
-        ccc_ag5.setNombreCCC("CCC1");
-        ag5.setCcc(ccc_ag5);
-        ag5.setCodAgenda();
-        ag5.setFecha("25 de diciembre");
-        ag5.setLugar("ETSIINF");
-        ag5.setHoraInicio("");
-        ag5.setHoraFin("19:30");
-        ag5.setProposito("Planificar el proyecto");
-        ag5.setParticipantes("Marcos,Oscar");
-        bd.createAgenda(ag5);
+        // Establecemos jTextFields
+        UI.textFieldLugarAgendas.setText("ETSIINF");
+        UI.textFieldCCCAgendas.setText("CCC1");
+        UI.textFieldFechaAgendas.setText("25/12/2015");
+        UI.textFieldHoraInicioAgendas.setText("");
+        UI.textFieldHoraFinAgendas.setText("19:30");
+        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
+        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
+        // Llamamos a la funcion a testear
+        prepararAgenda();        
         // debe devolver error porque la hora de inicio no es valida
         
-        // Prueba 6
+        /* Prueba 6 */
         System.out.println("**** Prueba 6: Preparacion de acta 1 ****");
-        Acta ac1 = new Acta();
-        ac1.setAgenda();
-        ac1.setAusencias("Javier, Nacho");
-        ac1.setResultados("Asignación de tareas a los participantes.");
-        bd.createActa(ac1);
-        // comprobacion
+        // Establecemos jTextFields
+        UI.textFieldAgenda.setText(""); /* que agenda ponemos??? */
+        UI.textFieldAusencias.setText("Javier, Nacho");
+        UI.textFieldResultados.setText("Asignación de tareas a los participantes.");
+        // Llamamos a la funcion a testear
+        prepararActa();
 
-        // Prueba 7
+        /* Prueba 7 */
         System.out.println("**** Prueba 7: Alta de nuevo CCC ****");
-        Ccc cc1 = new Ccc();
-        cc1.setNombreCCC("CCC_SEGECA");
-        cc1.setAdministrador("Pepe");
-        cc1.setPresidente("Martín");
-        cc1.setSecretario("Óscar");
+        // Establecemos jTextFields
+        UI.textFieldNombreCCC.setText("CCC_SEGECA");
+        UI.textFieldAdministrador.setText("Pepe");
+        UI.textFieldPresidente.setText("Martín");
+        UI.textFieldSecretario.setText("Óscar");
         ArrayList personas = new ArrayList();
         personas.add("Jaime, Marco");
-        cc1.setPersonasCollection(personas);
-        bd.createCCC(cc1);
-        // comprobacion
-
-        // Prueba 8
-        System.out.println("**** Prueba 8: Baja de CCC existente ****");
-        bd.deleteCCC("CCC_SEGECA");
-
-        // Prueba 9
-        System.out.println("**** Prueba 9: Modificación de miembro de CCC ****");
-        Persona prsn = new Persona();
-        prsn.setNick("k3xr");
-        Ccc ccc1 = new Ccc();
-        ccc1.setNombreCCC("CCC_1 ");
-        prsn.setCcc(ccc1);
-        prsn.setEmail("email@ejemplo.es");
-        prsn.setNombre("Óscar");
-        prsn.setTelefono(666123456);
-        bd.editPerson(prsn);
+        // Llamamos a la funcion a testear
+        altaCCC(personas);
         
-        // Prueba 10
+        /* Prueba 8 */
+        System.out.println("**** Prueba 8: Baja de CCC existente ****");
+        //bd.deleteCCC("CCC_SEGECA");
+        bajaCCC();
+
+        /* Prueba 9 */
+        System.out.println("**** Prueba 9: Modificación de miembro de CCC ****");
+        // Establecemos jTextFields
+        UI.textFieldCCCMiembro.setText("CCC_1");
+        UI.textFieldEmail.setText("email@ejemplo.es");
+        UI.textFieldNombreMiembro.setText("Óscar");
+        UI.textFieldTelefono.setText("666123456");
+        // Llamamos a la funcion a testear
+        modMiembrosCCC("k3xr");
+        
+        /* Prueba 10 */
         System.out.println("**** Prueba 10: Modificación de miembro de CCC 2 ****");
-        Persona prsn2 = new Persona();
-        prsn2.setNick("k3xr");
-        Ccc ccc2 = new Ccc();
-        ccc2.setNombreCCC("CCC_1 ");
-        prsn2.setCcc(ccc2);
-        prsn2.setEmail("email@ejemplo.es");
-        prsn2.setNombre("Óscar");
-        prsn2.setTelefono(666456);
-        bd.editPerson(prsn2);
+        // Establecemos jTextFields
+        UI.textFieldCCCMiembro.setText("CCC_1");
+        UI.textFieldEmail.setText("email@ejemplo.es");
+        UI.textFieldNombreMiembro.setText("Óscar");
+        UI.textFieldTelefono.setText("666456");
+        // Llamamos a la funcion a testear
+        modMiembrosCCC("k3xr");
         // debe devolver error, porque el numero de telefono no es valido
 
-        // Prueba 11
+        /* Prueba 11 */
         System.out.println("**** Prueba 11: Alta miembro en un CCC ****");
-        Persona prsn_ccc = new Persona();
-        prsn_ccc.setNick("k3xr");
-        Ccc ccc = new Ccc();
-        ccc.setNombreCCC("CCC_1 ");
-        prsn_ccc.setCcc(ccc);
-        prsn_ccc.setEmail("email@ejemplo.es");
-        prsn_ccc.setNombre("Óscar");
-        prsn_ccc.setTelefono(666456123);
-        bd.addPersonaCCC(prsn_ccc);
+         // Establecemos jTextFields
+        UI.textFieldNick.setText("k3xr");
+        UI.textFieldCCCMiembro.setText("CCC_1");
+        UI.textFieldEmail.setText("email@ejemplo.es");
+        UI.textFieldNombreMiembro.setText("Óscar");
+        UI.textFieldTelefono.setText("666456123");       
+        //Llamamos a la funcion a testear
+        altaPersonaCCC();
 
-        // Prueba 12
+        /* Prueba 12 */
         System.out.println("**** Prueba 12: Baja miembro en un CCC ****");
-        bd.deletePersonaCCC("Marco");
+        //bd.deletePersonaCCC("Marco");
+        bajaPersonaCCC();
 
     }
 }
