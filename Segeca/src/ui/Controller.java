@@ -463,15 +463,39 @@ public class Controller {
 	}
 
 	//Rellenar info CCC
-	public static void cccSelected(){
-		Ccc selected = new Ccc((String) UI.comboBoxCCC.getSelectedItem());
-		bd.extractCCC(selected);
-		UI.textFieldNombreCCC.setText(selected.getNombreCCC());
-		UI.textFieldPresidente.setText(selected.getPresidente());
-		UI.textFieldSecretario.setText(selected.getSecretario());
-		UI.textFieldAdministrador.setText(selected.getAdministrador());
-		UI.comboBoxMiembros = new JComboBox<String>((String[]) selected.getPersonasCollection().toArray());
-		UI.comboBoxAgendas = new JComboBox<String>((String[]) selected.getAgendaCollection().toArray());
-		UI.comboBoxPeticiones = new JComboBox<String>((String[]) selected.getPcCollection().toArray());
-	}
+    public static void cccSelected(){
+    	Ccc selected = new Ccc((String) UI.comboBoxCCC.getSelectedItem());
+    	bd.extractCCC(selected);
+    	UI.textFieldNombreCCC.setText(selected.getNombreCCC());
+    	UI.textFieldPresidente.setText(selected.getPresidente());
+    	UI.textFieldSecretario.setText(selected.getSecretario());
+    	UI.textFieldAdministrador.setText(selected.getAdministrador());
+    	Collection<Persona> personas = selected.getPersonasCollection();
+    	String[] nombresPersonas = new String[personas.size()];
+    	Iterator<Persona> itPersonas = personas.iterator();
+    	int c = 0;
+    	while(itPersonas.hasNext()){
+    		nombresPersonas[c]=itPersonas.next().getNombre();
+    		c++;
+    	}
+    	Collection<Agenda> agendas = selected.getAgendaCollection();
+    	String[] nombresAgendas = new String[agendas.size()];
+    	Iterator<Agenda> itAgendas = agendas.iterator();
+    	c = 0;
+    	while(itAgendas.hasNext()){
+    		nombresAgendas[c]=itAgendas.next().getFecha();
+    		c++;
+    	}
+    	Collection<Pc> pcs = selected.getPcCollection();
+    	String[] nombresPcs = new String[pcs.size()];
+    	Iterator<Pc> itPcs = pcs.iterator();
+    	c = 0;
+    	while(itPcs.hasNext()){
+    		nombresPcs[c]=itPcs.next().getFecha();
+    		c++;
+    	}
+    	UI.comboBoxMiembros = new JComboBox<String>(nombresPersonas);
+    	UI.comboBoxAgendas = new JComboBox<String>(nombresAgendas);
+    	UI.comboBoxPeticiones = new JComboBox<String>(nombresPcs);
+    }
 }
