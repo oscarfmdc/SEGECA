@@ -219,7 +219,6 @@ public class UI {
 		buttonNuevoCCC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Controller.altaCCC();
-				panelCCC.setVisible(false);
 			}
 		});
 		buttonNuevoCCC.setBounds(564, 445, 109, 23);
