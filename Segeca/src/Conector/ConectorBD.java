@@ -25,7 +25,8 @@ public class ConectorBD {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		pruebasUnitarias();
+		//Este método sólo se le llama cuando se desean hacer las pruebas unitarias
+		//pruebasUnitarias();
 	}
 
 	public void desconectar(){
