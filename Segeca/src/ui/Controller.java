@@ -6,16 +6,18 @@ import java.text.*;
 import java.util.*;
 
 import javax.swing.*;
-import pruebas.stubs;
+
+//import pruebas.stubs;
 
 public class Controller {
 
     private static Conector.ConectorBD bd;
 
     public Controller(){
+    	bd = new Conector.ConectorBD("ortinson.no-ip.org:62000", "SEGECA", "admin", "Grupo10");
+    	UI.comboBoxCCC = new JComboBox(bd.extraerListaCCC().toArray());
     	UI.initialize();
         UI.getFrame().setVisible(true);
-        bd = new Conector.ConectorBD("ortinson.no-ip.org:62000", "SEGECA", "admin", "Grupo10");
         //pruebas();
         //bd.desconectar();
     }
@@ -48,7 +50,7 @@ public class Controller {
         // M�todo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
         //bd.createAgenda(ag);
         //Stub para simular el modulo, en la version final comentar
-        stubs.createAgenda(ag);
+//        stubs.createAgenda(ag);
         
         JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informaci�nn", JOptionPane.INFORMATION_MESSAGE);
         
@@ -186,16 +188,17 @@ public class Controller {
 
     /* Requisito 2.3 */
     // Necesitamos que nos paséis el código de la persona para pode realizar la modificacion 
-    public static int modMiembrosCCC(String codPersona) {
+    public static int modMiembrosCCC() {
 
         Persona prsn = new Persona();
-        prsn.setNick(codPersona);
+        prsn.setNick(UI.textFieldNick.getText());
 
         // Establecemos todos los campos que corresponden a las personas
-        prsn.setCcc(null);//JtextField correspondiente al nombre del CCC
-        prsn.setEmail(null);//JTextField correspondiente al email
+        Ccc cccPrsn = new Ccc((String) UI.comboBoxCCC.getSelectedItem()); 
+        prsn.setCcc(cccPrsn);
+        prsn.setEmail(UI.textFieldEmail.getText());//JTextField correspondiente al email
 
-        JTextField nombre = null;//JTextField correspondiente al nombre
+        JTextField nombre = UI.textFieldNombreMiembro;//JTextField correspondiente al nombre
 
         if (nombre.getText() == null) {
             JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
@@ -203,9 +206,12 @@ public class Controller {
 
         prsn.setNombre(nombre.getText());
         // Comprobación numero de telefono valido
-        JTextField telefono = null;
+        JTextField telefono = UI.textFieldTelefono;
         int telf = isTelefono(telefono.getText());
         prsn.setTelefono(telf);
+        
+        //permisos
+        prsn.setPermisos(UI.textFieldPermisos.getText());
 
         // Modificamos la persona con los parámtetros correspondientes, (enrique)        
         bd.editPerson(prsn);
@@ -247,9 +253,9 @@ public class Controller {
         persona.setPermisos(UI.textFieldPermisos.getText());
 
         // Cambiar null por la jlist correspondiente
-        JList CCCs = null;
+        JComboBox CCCs = UI.comboBoxCCC;
         // comprobamos que el usuario ha seleccionado un CCC para asignar la persona a dicho CCC
-        String ccc = (String) CCCs.getModel().getElementAt(CCCs.getSelectedIndex());
+        String ccc = (String) CCCs.getSelectedItem();
         if (CCCs.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC en el que ingresar dicha persona.", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
@@ -284,9 +290,9 @@ public class Controller {
     /* Requisito 2.5 */
     public static int bajaPersonaCCC() {
         // Cambiar null por la jlist correspondiente
-        JList listaPersonasCCC = null;
+        JComboBox listaPersonasCCC = UI.comboBoxMiembros;
         // comprobamos que el usuario ha seleccionado una persona de un CCC para darla de baja
-        String bajaPrsnCCC = (String) listaPersonasCCC.getModel().getElementAt(listaPersonasCCC.getSelectedIndex());
+        String bajaPrsnCCC = (String) listaPersonasCCC.getSelectedItem();
 
         if (listaPersonasCCC.getSelectedIndex() == -1) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningúna persona para dar de baja en el CCC", "Error", JOptionPane.ERROR_MESSAGE);
@@ -486,5 +492,18 @@ public class Controller {
         System.out.println("**** Prueba 12: Baja miembro en un CCC ****");
         bd.deletePersonaCCC("Marco");
 
+    }
+    
+    //Rellenar info CCC
+    public static void cccSelected(){
+    	Ccc selected = new Ccc((String) UI.comboBoxCCC.getSelectedItem());
+    	bd.extractCCC(selected);
+    	UI.textFieldNombreCCC.setText(selected.getNombreCCC());
+    	UI.textFieldPresidente.setText(selected.getPresidente());
+    	UI.textFieldSecretario.setText(selected.getSecretario());
+    	UI.textFieldAdministrador.setText(selected.getAdministrador());
+    	UI.comboBoxMiembros = new JComboBox<String>((String[]) selected.getPersonasCollection().toArray());
+    	UI.comboBoxAgendas = new JComboBox<String>((String[]) selected.getAgendaCollection().toArray());
+    	UI.comboBoxPeticiones = new JComboBox<String>((String[]) selected.getPcCollection().toArray());
     }
 }
