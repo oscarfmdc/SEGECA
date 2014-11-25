@@ -75,11 +75,11 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la persona con nick "+ persona.getNick());
 		}
 	}
-	public void deletePersona(Persona persona){
+	public void deletePersonaCCC(String persona){
 		try {
-			statement.executeUpdate("delete from `Persona` where `nick`='"+ persona.getNick() +"' limit 1");
+			statement.executeUpdate("delete from `Persona` where `nick`='"+ persona +"' limit 1");
 		} catch (SQLException e) {
-			System.out.println("Error al intentar eliminar la persona: " + persona.getNick());
+			System.out.println("Error al intentar eliminar la persona: " + persona);
 		}
 	}
 
