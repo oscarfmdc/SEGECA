@@ -173,7 +173,7 @@ public class UI {
 				panelMiembro.setVisible(false);
 				panelDatos.setVisible(true);
 				panelCCC.setVisible(true);
-				
+
 			}
 		});
 		buttonOkMiembro.setBounds(585, 494, 97, 20);
@@ -218,7 +218,7 @@ public class UI {
 		JButton buttonNuevoCCC = new JButton("Crear CCC");
 		buttonNuevoCCC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Controller.altaCCC(null);
+				Controller.altaCCC();
 				panelCCC.setVisible(false);
 			}
 		});
