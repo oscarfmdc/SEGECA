@@ -43,11 +43,13 @@ public class Controller {
         ag.setHoraInicio(UI.textFieldHoraInicioAgendas.getText());
         ag.setHoraFin(UI.textFieldHoraFinAgendas.getText());
         ag.setProposito(UI.textFieldPropositoAgendas.getText());
-        ag.setCodAgenda(0);
+        ag.setCodAgenda(null);
         ag.setParticipantes(UI.textFieldParticipantesAgendas.getText());
 
         // Metodo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
         bd.createAgenda(ag);
+        bd.extractAgendaX(ag);//ESTA BUSCANDO POR FECHA\\\\\\\\\\\\CAMBIAR////////////////
+        UI.label_PanelOutput_Output.setText("Output:   Código de Agenda = "+ag.getCodAgenda());
         //Stub para simular el modulo, en la version final comentar
         stubs.createAgenda(ag);
 
@@ -131,7 +133,7 @@ public class Controller {
         } else {
             newAgenda.setCodAgenda(Integer.parseInt((UI.textFieldAgenda.getText())));
             //Buscamos la agenda en la base de datos y obtenemos el objeto Agenda completo
-            bd.extractAgenda(newAgenda);
+            bd.extractAgenda(ag);
             //Asociamos la agenda a nuestro acta
             acta.setAgenda(newAgenda);
 
@@ -183,14 +185,14 @@ public class Controller {
     public static int modMiembrosCCC() {
 
         Persona prsn = new Persona();
-        prsn.setNick(UI.textFieldNick.getText());
+        prsn.setNick(UI.textField_PanelMiembro_Nick.getText());
 
         // Establecemos todos los campos que corresponden a las personas
         Ccc cccPrsn = new Ccc((String) UI.comboBoxCCC.getSelectedItem());
         prsn.setCcc(cccPrsn);
-        prsn.setEmail(UI.textFieldEmail.getText());//JTextField correspondiente al email
+        prsn.setEmail(UI.textField_PanelMiembro_Email.getText());//JTextField correspondiente al email
 
-        JTextField nombre = UI.textFieldNombreMiembro;//JTextField correspondiente al nombre
+        JTextField nombre = UI.textField_PanelMiembro_Nombre;//JTextField correspondiente al nombre
 
         if (nombre.getText() == null) {
             JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
@@ -198,12 +200,12 @@ public class Controller {
 
         prsn.setNombre(nombre.getText());
         // ComprobaciÃ³n numero de telefono valido
-        JTextField telefono = UI.textFieldTelefono;
+        JTextField telefono = UI.textField_PanelMiembro_Telefono;
         int telf = isTelefono(telefono.getText());
         prsn.setTelefono(telf);
 
         //permisos
-        prsn.setPermisos(UI.textFieldPermisos.getText());
+        prsn.setPermisos(UI.textField_PanelMiembro_Permisos.getText());
 
         // Modificamos la persona con los parÃ¡mtetros correspondientes, (enrique)        
         bd.editPerson(prsn);
@@ -217,7 +219,7 @@ public class Controller {
     public static int altaPersonaCCC() {
         Persona persona = new Persona();
 
-        JTextField nick = UI.textFieldNick;
+        JTextField nick = UI.textField_PanelMiembro_Nick;
         // compruebo que el campo no esta vacio
         if (nick.getText() == null) {
             JOptionPane.showMessageDialog(null, "Debe introducir un nick para la persona", "Error", JOptionPane.ERROR_MESSAGE);
@@ -227,7 +229,7 @@ public class Controller {
         }
 
         // JTextField con el nombre de la persona
-        JTextField nombre = UI.textFieldNombreMiembro;
+        JTextField nombre = UI.textField_PanelMiembro_Nombre;
         // compruebo que el campo no esta vacio
         if (nombre.getText() == null) {
             JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
@@ -237,11 +239,11 @@ public class Controller {
         }
 
         // compruebo el telefono
-        JTextField telefono = UI.textFieldTelefono;
+        JTextField telefono = UI.textField_PanelMiembro_Telefono;
         int telf = isTelefono(telefono.getText());
         persona.setTelefono(telf);
-        persona.setEmail(UI.textFieldEmail.getText());
-        persona.setPermisos(UI.textFieldPermisos.getText());
+        persona.setEmail(UI.textField_PanelMiembro_Email.getText());
+        persona.setPermisos(UI.textField_PanelMiembro_Permisos.getText());
 
         JComboBox<?> CCCs = UI.comboBoxCCC;
         // comprobamos que el usuario ha seleccionado un CCC para asignar la persona a dicho CCC
@@ -437,20 +439,20 @@ public class Controller {
         /* Prueba 9 */
         System.out.println("**** Prueba 9: ModificaciÃ³n de miembro de CCC ****");
         // Establecemos jTextFields
-        UI.textFieldCCCMiembro.setText("CCC_1");
-        UI.textFieldEmail.setText("email@ejemplo.es");
-        UI.textFieldNombreMiembro.setText("Ã“scar");
-        UI.textFieldTelefono.setText("666123456");
+        UI.textField_PanelMiembro_CCC.setText("CCC_1");
+        UI.textField_PanelMiembro_Email.setText("email@ejemplo.es");
+        UI.textField_PanelMiembro_Nombre.setText("Ã“scar");
+        UI.textField_PanelMiembro_Telefono.setText("666123456");
         // Llamamos a la funcion a testear
         modMiembrosCCC();
 
         /* Prueba 10 */
         System.out.println("**** Prueba 10: ModificaciÃ³n de miembro de CCC 2 ****");
         // Establecemos jTextFields
-        UI.textFieldCCCMiembro.setText("CCC_1");
-        UI.textFieldEmail.setText("email@ejemplo.es");
-        UI.textFieldNombreMiembro.setText("Ã“scar");
-        UI.textFieldTelefono.setText("666456");
+        UI.textField_PanelMiembro_CCC.setText("CCC_1");
+        UI.textField_PanelMiembro_Email.setText("email@ejemplo.es");
+        UI.textField_PanelMiembro_Nombre.setText("Ã“scar");
+        UI.textField_PanelMiembro_Telefono.setText("666456");
         // Llamamos a la funcion a testear
         modMiembrosCCC();
         // debe devolver error, porque el numero de telefono no es valido
@@ -458,11 +460,11 @@ public class Controller {
         /* Prueba 11 */
         System.out.println("**** Prueba 11: Alta miembro en un CCC ****");
         // Establecemos jTextFields
-        UI.textFieldNick.setText("k3xr");
-        UI.textFieldCCCMiembro.setText("CCC_1");
-        UI.textFieldEmail.setText("email@ejemplo.es");
-        UI.textFieldNombreMiembro.setText("Ã“scar");
-        UI.textFieldTelefono.setText("666456123");
+        UI.textField_PanelMiembro_Nick.setText("k3xr");
+        UI.textField_PanelMiembro_CCC.setText("CCC_1");
+        UI.textField_PanelMiembro_Email.setText("email@ejemplo.es");
+        UI.textField_PanelMiembro_Nombre.setText("Ã“scar");
+        UI.textField_PanelMiembro_Telefono.setText("666456123");
         //Llamamos a la funcion a testear
         altaPersonaCCC();
 
@@ -508,5 +510,17 @@ public class Controller {
         UI.textPane_PanelCCC_Miembros.setText(nombresPersonas);
         UI.textPane_PanelCCC_Agendas.setText(nombresAgendas);
         UI.textPane_PanelCCC_Peticiones.setText(nombresPcs);
+    }
+    
+    //Rellenar info Miembro
+    public static void memberSelected(){
+    	Persona selected = new Persona(UI.textField_PanelMiembro_Nick.getText());
+    	bd.extractPersona(selected);
+    	UI.textField_PanelMiembro_Nick.setText(selected.getNick());
+    	UI.textField_PanelMiembro_Nombre.setText(selected.getNombre());
+    	UI.textField_PanelMiembro_Email.setText(selected.getEmail());
+    	UI.textField_PanelMiembro_Telefono.setText(Integer.toString(selected.getTelefono()));
+    	UI.textField_PanelMiembro_Permisos.setText(selected.getPermisos());
+    	UI.textField_PanelMiembro_CCC.setText(selected.getCcc().getNombreCCC());
     }
 }

@@ -235,6 +235,26 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la Agenda con código: "+ agenda.getCodAgenda());
 		}
 	}
+	
+	//ESTA BUSCANDO POR FECHA PARA QUE FUNCIONE LA PRESENTACION
+	public void extractAgendaX(def.Agenda agenda){
+		try{
+			ResultSet resultado = statement.executeQuery("select * from Agenda where fecha='"+ agenda.getFecha() +"'");
+			if (resultado.next()){
+				def.Ccc ccc = new def.Ccc(resultado.getString("ccc"));
+				agenda.setCcc(ccc);
+				agenda.setParticipantes(resultado.getString("participantes"));
+				agenda.setCodAgenda(resultado.getInt("cod_agenda"));
+				agenda.setFecha(resultado.getString("fecha"));
+				agenda.setHoraFin(resultado.getString("hora_fin"));
+				agenda.setHoraInicio(resultado.getString("hora_inicio"));
+				agenda.setLugar(resultado.getString("lugar"));
+				agenda.setProposito(resultado.getString("proposito"));		
+			}
+		}catch (Exception e){
+			System.out.println("Error al intentar obtener la Agenda con código: "+ agenda.getCodAgenda());
+		}
+	}
 
 	public void deleteAgenda(int codAgenda){
 		try {
