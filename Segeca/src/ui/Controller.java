@@ -18,7 +18,7 @@ public class Controller {
         UI.comboBoxCCC = new JComboBox(bd.extraerListaCCC().toArray());
         UI.initialize();
         UI.getFrame().setVisible(true);
-        pruebas();
+        //pruebas();
         //bd.desconectar();
     }
 
@@ -56,7 +56,7 @@ public class Controller {
         return 0;
     }
 
-    /* Método auxiliar para comprobar todos los campos de la agenda */
+    /* MÃ©todo auxiliar para comprobar todos los campos de la agenda */
     // Devuelve falso si fallo
     private static boolean comprobarAgenda() {
 
@@ -91,7 +91,7 @@ public class Controller {
         Date parsedHoraIn = null;
         Date parsedHoraFin = null;
 
-        // Comprobamos que la hora de inicio es anterior a la hora de fin de la reunión
+        // Comprobamos que la hora de inicio es anterior a la hora de fin de la reuniÃ³n
         try {
             SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm", Locale.getDefault());
             formatoHora.setLenient(false);
@@ -138,7 +138,7 @@ public class Controller {
             //Metodo que crea el acta en la BD
             bd.createActa(acta);
 
-            JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
 
             return 0;
         }
@@ -157,10 +157,10 @@ public class Controller {
             ccc.setPresidente(UI.textFieldPresidente.getText());
             ccc.setSecretario(UI.textFieldSecretario.getText());
 
-            // lista de miembros esta vacío
+            // lista de miembros esta vacÃ­o
             bd.createCCC(ccc);
 
-            JOptionPane.showMessageDialog(null, "Se ha creado correctamente un nuevo CCC.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se ha creado correctamente un nuevo CCC.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -170,12 +170,12 @@ public class Controller {
         // comprobamos que el usuario ha seleccionado un CCC para borrar de la lista mostrada
         String nombreBorrarCCC = (String) listaBorrarCCC.getModel().getElementAt(listaBorrarCCC.getSelectedIndex());
         if (listaBorrarCCC.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningún CCC para dar de baja", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningÃºn CCC para dar de baja", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
         bd.deleteCCC(nombreBorrarCCC);
 
-        JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente el CCC seleccionado.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente el CCC seleccionado.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
         return 0;
     }
 
@@ -197,7 +197,7 @@ public class Controller {
         }
 
         prsn.setNombre(nombre.getText());
-        // Comprobación numero de telefono valido
+        // ComprobaciÃ³n numero de telefono valido
         JTextField telefono = UI.textFieldTelefono;
         int telf = isTelefono(telefono.getText());
         prsn.setTelefono(telf);
@@ -205,10 +205,10 @@ public class Controller {
         //permisos
         prsn.setPermisos(UI.textFieldPermisos.getText());
 
-        // Modificamos la persona con los parámtetros correspondientes, (enrique)        
+        // Modificamos la persona con los parÃ¡mtetros correspondientes, (enrique)        
         bd.editPerson(prsn);
 
-        JOptionPane.showMessageDialog(null, "Los datos del Miembro del CCC se han modificado correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Los datos del Miembro del CCC se han modificado correctamente.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
 
         return 0;
     }
@@ -257,7 +257,7 @@ public class Controller {
 
         bd.addPersonaCCC(persona);
 
-        JOptionPane.showMessageDialog(null, "Se ha dado de alta un nuevo miembro en el CCC seleccionado.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Se ha dado de alta un nuevo miembro en el CCC seleccionado.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
 
         return 0;
     }
@@ -266,7 +266,7 @@ public class Controller {
     public static int isTelefono(String telefono) {
         int telefonoInt = 0;
         if (telefono.length() != 9) {
-            JOptionPane.showMessageDialog(null, "Tamaño del numero de telefono invalido. Deben ser 9 digitos", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Numero de digitos del numero de telefono incorrecto. Deben ser 9 digitos", "Error", JOptionPane.ERROR_MESSAGE);
         }
         try {
             telefonoInt = Integer.parseInt(telefono); // este null es el JTextField del numero y lo convierto a int
@@ -278,17 +278,23 @@ public class Controller {
 
     /* Requisito 2.5 */
     public static int bajaPersonaCCC() {
-        JComboBox<?> listaPersonasCCC = UI.comboBoxMiembros;
-        // comprobamos que el usuario ha seleccionado una persona de un CCC para darla de baja
-        String bajaPrsnCCC = (String) listaPersonasCCC.getSelectedItem();
 
-        if (listaPersonasCCC.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningúna persona para dar de baja en el CCC", "Error", JOptionPane.ERROR_MESSAGE);
+        // comprobamos que el usuario ha seleccionado una persona de un CCC para darla de baja
+        String nick = UI.textField_PanelBajaMiembro_Nick.getText();
+        String ccc = UI.textField_PanelBajaMiembro_CCC.getText();
+
+        if (nick == null) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna persona para dar de baja en el CCC", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
-        bd.deletePersonaCCC(bajaPrsnCCC);
+        if (ccc == null) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+        
+        bd.deletePersonaCCC(nick);
 
-        JOptionPane.showMessageDialog(null, "Se ha eliminado del CCC seleccionado al correspondiente miembro.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Se ha eliminado del CCC seleccionado al correspondiente miembro.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
         return 0;
     }
@@ -311,7 +317,7 @@ public class Controller {
 
         // Comprobamos que la fecha es posterior a la fecha actual.
         if (!parsedDate.after(fechaActual.getTime())) {
-            JOptionPane.showMessageDialog(null, "La fecha de la reunión debe ser posterior a la fecha actual.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La fecha de la reuniÃ³n debe ser posterior a la fecha actual.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -404,10 +410,10 @@ public class Controller {
         /* Prueba 6 */
         System.out.println("**** Prueba 6: Preparacion de acta 1 ****");
         // Establecemos jTextFields
-        UI.textFieldAgenda.setText("20"); /* Extraer un código de agenda */
+        UI.textFieldAgenda.setText("20"); /* Extraer un cÃ³digo de agenda */
 
         UI.textFieldAusencias.setText("Javier, Nacho");
-        UI.textFieldResultados.setText("Asignación de tareas a los participantes.");
+        UI.textFieldResultados.setText("AsignaciÃ³n de tareas a los participantes.");
         // Llamamos a la funcion a testear
         prepararActa();
 
@@ -416,10 +422,10 @@ public class Controller {
         // Establecemos jTextFields
         UI.textFieldNombreCCC.setText("CCC_SEGECA");
         UI.textFieldAdministrador.setText("Pepe");
-        UI.textFieldPresidente.setText("Martín");
-        UI.textFieldSecretario.setText("Óscar");
+        UI.textFieldPresidente.setText("MartÃ­n");
+        UI.textFieldSecretario.setText("Ã“scar");
 
-        //TODO: Añadir personas al CCC		
+        //TODO: AÃ±adir personas al CCC		
         // Llamamos a la funcion a testear
         altaCCC();
 
@@ -429,21 +435,21 @@ public class Controller {
         bajaCCC();
 
         /* Prueba 9 */
-        System.out.println("**** Prueba 9: Modificación de miembro de CCC ****");
+        System.out.println("**** Prueba 9: ModificaciÃ³n de miembro de CCC ****");
         // Establecemos jTextFields
         UI.textFieldCCCMiembro.setText("CCC_1");
         UI.textFieldEmail.setText("email@ejemplo.es");
-        UI.textFieldNombreMiembro.setText("Óscar");
+        UI.textFieldNombreMiembro.setText("Ã“scar");
         UI.textFieldTelefono.setText("666123456");
         // Llamamos a la funcion a testear
         modMiembrosCCC();
 
         /* Prueba 10 */
-        System.out.println("**** Prueba 10: Modificación de miembro de CCC 2 ****");
+        System.out.println("**** Prueba 10: ModificaciÃ³n de miembro de CCC 2 ****");
         // Establecemos jTextFields
         UI.textFieldCCCMiembro.setText("CCC_1");
         UI.textFieldEmail.setText("email@ejemplo.es");
-        UI.textFieldNombreMiembro.setText("Óscar");
+        UI.textFieldNombreMiembro.setText("Ã“scar");
         UI.textFieldTelefono.setText("666456");
         // Llamamos a la funcion a testear
         modMiembrosCCC();
@@ -455,7 +461,7 @@ public class Controller {
         UI.textFieldNick.setText("k3xr");
         UI.textFieldCCCMiembro.setText("CCC_1");
         UI.textFieldEmail.setText("email@ejemplo.es");
-        UI.textFieldNombreMiembro.setText("Óscar");
+        UI.textFieldNombreMiembro.setText("Ã“scar");
         UI.textFieldTelefono.setText("666456123");
         //Llamamos a la funcion a testear
         altaPersonaCCC();
@@ -476,31 +482,31 @@ public class Controller {
         UI.textFieldSecretario.setText(selected.getSecretario());
         UI.textFieldAdministrador.setText(selected.getAdministrador());
         Collection<Persona> personas = selected.getPersonasCollection();
-        String[] nombresPersonas = new String[personas.size()];
+        String nombresPersonas = "";
         Iterator<Persona> itPersonas = personas.iterator();
         int c = 0;
         while (itPersonas.hasNext()) {
-            nombresPersonas[c] = itPersonas.next().getNombre();
+            nombresPersonas += "<"+itPersonas.next().getNombre()+"> ";
             c++;
         }
         Collection<Agenda> agendas = selected.getAgendaCollection();
-        String[] nombresAgendas = new String[agendas.size()];
+        String nombresAgendas = "";
         Iterator<Agenda> itAgendas = agendas.iterator();
         c = 0;
         while (itAgendas.hasNext()) {
-            nombresAgendas[c] = itAgendas.next().getFecha();
+            nombresAgendas += "<"+itAgendas.next().getFecha()+"> ";
             c++;
         }
         Collection<Pc> pcs = selected.getPcCollection();
-        String[] nombresPcs = new String[pcs.size()];
+        String nombresPcs = "";
         Iterator<Pc> itPcs = pcs.iterator();
         c = 0;
         while (itPcs.hasNext()) {
-            nombresPcs[c] = itPcs.next().getFecha();
+            nombresPcs += "<"+itPcs.next().getFecha()+"> ";
             c++;
         }
-        UI.comboBoxMiembros = new JComboBox<String>(nombresPersonas);
-        UI.comboBoxAgendas = new JComboBox<String>(nombresAgendas);
-        UI.comboBoxPeticiones = new JComboBox<String>(nombresPcs);
+        UI.textPane_PanelCCC_Miembros.setText(nombresPersonas);
+        UI.textPane_PanelCCC_Agendas.setText(nombresAgendas);
+        UI.textPane_PanelCCC_Peticiones.setText(nombresPcs);
     }
 }
