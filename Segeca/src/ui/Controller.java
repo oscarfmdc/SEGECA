@@ -17,7 +17,7 @@ public class Controller {
         bd = new Conector.ConectorBD("ortinson.no-ip.org:62000", "SEGECA", "admin", "Grupo10");
         UI.comboBoxCCC = new JComboBox(bd.extraerListaCCC().toArray());
         UI.initialize();
-        UI.getFrame().setVisible(true);
+        UI.frame.setVisible(true);
         pruebas.PU.PU_requisitos();
         //bd.desconectar();
     }
