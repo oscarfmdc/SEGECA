@@ -7,7 +7,7 @@ import java.util.*;
 
 import javax.swing.*;
 
-import pruebas.stubs;
+import pruebas.*;
 
 public class Controller {
 
@@ -17,8 +17,8 @@ public class Controller {
         bd = new Conector.ConectorBD("ortinson.no-ip.org:62000", "SEGECA", "admin", "Grupo10");
         UI.comboBoxCCC = new JComboBox(bd.extraerListaCCC().toArray());
         UI.initialize();
-        UI.frame.setVisible(true);
-        //pruebas();
+        UI.getFrame().setVisible(true);
+        pruebas.PU.PU_requisitos();
         //bd.desconectar();
     }
 
@@ -140,7 +140,7 @@ public class Controller {
             //Metodo que crea el acta en la BD
             bd.createActa(acta);
 
-            JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
             return 0;
         }
@@ -162,7 +162,7 @@ public class Controller {
             // lista de miembros esta vacÃ­o
             bd.createCCC(ccc);
 
-            JOptionPane.showMessageDialog(null, "Se ha creado correctamente un nuevo CCC.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Se ha creado correctamente un nuevo CCC.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -172,12 +172,12 @@ public class Controller {
         // comprobamos que el usuario ha seleccionado un CCC para borrar de la lista mostrada
         String nombreBorrarCCC = (String) listaBorrarCCC.getModel().getElementAt(listaBorrarCCC.getSelectedIndex());
         if (listaBorrarCCC.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningÃºn CCC para dar de baja", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC para dar de baja", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
         bd.deleteCCC(nombreBorrarCCC);
 
-        JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente el CCC seleccionado.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Se ha eliminado correctamente el CCC seleccionado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         return 0;
     }
 
@@ -210,7 +210,7 @@ public class Controller {
         // Modificamos la persona con los parÃ¡mtetros correspondientes, (enrique)        
         bd.editPerson(prsn);
 
-        JOptionPane.showMessageDialog(null, "Los datos del Miembro del CCC se han modificado correctamente.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Los datos del Miembro del CCC se han modificado correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
         return 0;
     }
@@ -259,7 +259,7 @@ public class Controller {
 
         bd.addPersonaCCC(persona);
 
-        JOptionPane.showMessageDialog(null, "Se ha dado de alta un nuevo miembro en el CCC seleccionado.", "InformaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Se ha dado de alta un nuevo miembro en el CCC seleccionado.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
         return 0;
     }
@@ -319,7 +319,7 @@ public class Controller {
 
         // Comprobamos que la fecha es posterior a la fecha actual.
         if (!parsedDate.after(fechaActual.getTime())) {
-            JOptionPane.showMessageDialog(null, "La fecha de la reuniÃ³n debe ser posterior a la fecha actual.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La fecha de la reunion debe ser posterior a la fecha actual.", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
@@ -338,144 +338,8 @@ public class Controller {
         }
         return true;
     }
-
-    private static void pruebas() {
-        /* Pruebas para la preparacion de Agendas y Actas */
-        System.out.println("**** Prueba 1: Preparacion de agenda 1 ****");
-        // Establecemos jTextFields
-        UI.textFieldLugarAgendas.setText("ETSIINF");
-        UI.textFieldCCCAgendas.setText("CCC1");
-        UI.textFieldFechaAgendas.setText("25/12/2014");
-        UI.textFieldHoraInicioAgendas.setText("19:00");
-        UI.textFieldHoraFinAgendas.setText("19:30");
-        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
-        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
-        // Llamamos a la funcion a testear
-        prepararAgenda();
-
-        /* Prueba 2, prueba con error */
-        System.out.println("**** Prueba 2: Preparacion de agenda 2 ****");
-        // Establecemos jTextFields
-        UI.textFieldLugarAgendas.setText("ETSIINF");
-        UI.textFieldCCCAgendas.setText("CCC1");
-        UI.textFieldFechaAgendas.setText("25/12/2012");
-        UI.textFieldHoraInicioAgendas.setText("19:00");
-        UI.textFieldHoraFinAgendas.setText("19:30");
-        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
-        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
-        // Llamamos a la funcion a testear
-        prepararAgenda();
-        // debe devolver error porque la fecha es posterior a la actual 2012<2014
-
-        /* Prueba 3, prueba con error */
-        System.out.println("**** Prueba 3: Preparacion de agenda 3 ****");
-        // Establecemos jTextFields
-        UI.textFieldLugarAgendas.setText("ETSIINF");
-        UI.textFieldCCCAgendas.setText("CCC1");
-        UI.textFieldFechaAgendas.setText("25/12/2014");
-        UI.textFieldHoraInicioAgendas.setText("19:00");
-        UI.textFieldHoraFinAgendas.setText("18:30");
-        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
-        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
-        // Llamamos a la funcion a testear
-        prepararAgenda();
-        // debe devolver error porque la hora de fin es anterior a la hora de inicio
-
-        /* Prueba 4, prueba con error */
-        System.out.println("**** Prueba 4: Preparacion de agenda 4 ****");
-        // Establecemos jTextFields
-        UI.textFieldLugarAgendas.setText("ETSIINF");
-        UI.textFieldCCCAgendas.setText("CCC1");
-        UI.textFieldFechaAgendas.setText("25 de diciembre");
-        UI.textFieldHoraInicioAgendas.setText("19:00");
-        UI.textFieldHoraFinAgendas.setText("19:30");
-        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
-        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
-        // Llamamos a la funcion a testear
-        prepararAgenda();
-        // debe devolver error porque la fecha no es valida
-
-        /* Prueba 5, prueba con error */
-        System.out.println("**** Prueba 5: Preparacion de agenda 5 ****");
-        // Establecemos jTextFields
-        UI.textFieldLugarAgendas.setText("ETSIINF");
-        UI.textFieldCCCAgendas.setText("CCC1");
-        UI.textFieldFechaAgendas.setText("25/12/2015");
-        UI.textFieldHoraInicioAgendas.setText("");
-        UI.textFieldHoraFinAgendas.setText("19:30");
-        UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
-        UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
-        // Llamamos a la funcion a testear
-        prepararAgenda();
-        // debe devolver error porque la hora de inicio no es valida
-
-        /* Prueba 6 */
-        System.out.println("**** Prueba 6: Preparacion de acta 1 ****");
-        // Establecemos jTextFields
-        UI.textFieldAgenda.setText("20"); /* Extraer un cÃ³digo de agenda */
-
-        UI.textFieldAusencias.setText("Javier, Nacho");
-        UI.textFieldResultados.setText("AsignaciÃ³n de tareas a los participantes.");
-        // Llamamos a la funcion a testear
-        prepararActa();
-
-        /* Prueba 7 */
-        System.out.println("**** Prueba 7: Alta de nuevo CCC ****");
-        // Establecemos jTextFields
-        UI.textFieldNombreCCC.setText("CCC_SEGECA");
-        UI.textFieldAdministrador.setText("Pepe");
-        UI.textFieldPresidente.setText("MartÃ­n");
-        UI.textFieldSecretario.setText("Ã“scar");
-
-        //TODO: AÃ±adir personas al CCC		
-        // Llamamos a la funcion a testear
-        altaCCC();
-
-        /* Prueba 8 */
-        System.out.println("**** Prueba 8: Baja de CCC existente ****");
-        //bd.deleteCCC("CCC_SEGECA");
-        bajaCCC();
-
-        /* Prueba 9 */
-        System.out.println("**** Prueba 9: ModificaciÃ³n de miembro de CCC ****");
-        // Establecemos jTextFields
-        UI.textField_PanelMiembro_CCC.setText("CCC_1");
-        UI.textField_PanelMiembro_Email.setText("email@ejemplo.es");
-        UI.textField_PanelMiembro_Nombre.setText("Ã“scar");
-        UI.textField_PanelMiembro_Telefono.setText("666123456");
-        // Llamamos a la funcion a testear
-        modMiembrosCCC();
-
-        /* Prueba 10 */
-        System.out.println("**** Prueba 10: ModificaciÃ³n de miembro de CCC 2 ****");
-        // Establecemos jTextFields
-        UI.textField_PanelMiembro_CCC.setText("CCC_1");
-        UI.textField_PanelMiembro_Email.setText("email@ejemplo.es");
-        UI.textField_PanelMiembro_Nombre.setText("Ã“scar");
-        UI.textField_PanelMiembro_Telefono.setText("666456");
-        // Llamamos a la funcion a testear
-        modMiembrosCCC();
-        // debe devolver error, porque el numero de telefono no es valido
-
-        /* Prueba 11 */
-        System.out.println("**** Prueba 11: Alta miembro en un CCC ****");
-        // Establecemos jTextFields
-        UI.textField_PanelMiembro_Nick.setText("k3xr");
-        UI.textField_PanelMiembro_CCC.setText("CCC_1");
-        UI.textField_PanelMiembro_Email.setText("email@ejemplo.es");
-        UI.textField_PanelMiembro_Nombre.setText("Ã“scar");
-        UI.textField_PanelMiembro_Telefono.setText("666456123");
-        //Llamamos a la funcion a testear
-        altaPersonaCCC();
-
-        /* Prueba 12 */
-        System.out.println("**** Prueba 12: Baja miembro en un CCC ****");
-        //bd.deletePersonaCCC("Marco");
-        bajaPersonaCCC();
-
-    }
-
-    //Rellenar info CCC
+    
+        //Rellenar info CCC
     public static void cccSelected() {
         Ccc selected = new Ccc((String) UI.comboBoxCCC.getSelectedItem());
         bd.extractCCC(selected);

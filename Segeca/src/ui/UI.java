@@ -34,28 +34,28 @@ public class UI {
 	static JPanel panelActas;
 	static JButton buttonOkActas;
 	static JButton buttonCancelarActas;
-	static JTextField textFieldAusencias;
-	static JTextField textFieldResultados;
+	public static JTextField textFieldAusencias;
+	public static JTextField textFieldResultados;
 
 	//Agendas
 	static JPanel panelAgendas;
 	static JButton buttonOkAgendas;
 	static JButton buttonCancelarAgendas;
-	static JTextField textFieldFechaAgendas;
-	static JTextField textFieldLugarAgendas;
-	static JTextField textFieldPropositoAgendas;
-	static JTextField textFieldParticipantesAgendas;
-	static JTextField textFieldHoraInicioAgendas;
-	static JTextField textFieldHoraFinAgendas;
-	static JTextField textFieldCCCAgendas;
+	public static JTextField textFieldFechaAgendas;
+	public static JTextField textFieldLugarAgendas;
+	public static JTextField textFieldPropositoAgendas;
+	public static JTextField textFieldParticipantesAgendas;
+	public static JTextField textFieldHoraInicioAgendas;
+	public static JTextField textFieldHoraFinAgendas;
+	public static JTextField textFieldCCCAgendas;
 
 	//CCC
 	static JPanel panelCCC;
 	static JComboBox<String> comboBoxCCC;
-	static JTextField textFieldNombreCCC;
-	static JTextField textFieldPresidente;
-	static JTextField textFieldSecretario;
-	static JTextField textFieldAdministrador;
+	public static JTextField textFieldNombreCCC;
+	public static JTextField textFieldPresidente;
+	public static JTextField textFieldSecretario;
+	public static JTextField textFieldAdministrador;
 	private static JLabel lblAdministrador;
 	private static JLabel lblMiembros;
 	private static JLabel lblPeticiones;
@@ -63,28 +63,28 @@ public class UI {
 	///CCC Datos
 	static JPanel panelDatos;
 	private static JLabel lblMiembro;
-	static JTextField textFieldAgenda;
-	static JTextPane textPane_PanelCCC_Miembros;
-	static JTextPane textPane_PanelCCC_Agendas;
-	static JTextPane textPane_PanelCCC_Peticiones;
+	public static JTextField textFieldAgenda;
+	public static JTextPane textPane_PanelCCC_Miembros;
+	public static JTextPane textPane_PanelCCC_Agendas;
+	public static JTextPane textPane_PanelCCC_Peticiones;
 
 	//Miembro
 	static JPanel panelNuevoMiembro;
 	private static JLabel lblNick;
-	static JTextField textField_PanelMiembro_Nick;
-	static JTextField textField_PanelMiembro_Nombre;
-	static JTextField textField_PanelMiembro_Email;
-	static JTextField textField_PanelMiembro_Telefono;
-	static JTextField textField_PanelMiembro_Permisos;
-	static JTextField textField_PanelMiembro_CCC;
+	public static JTextField textField_PanelMiembro_Nick;
+	public static JTextField textField_PanelMiembro_Nombre;
+	public static JTextField textField_PanelMiembro_Email;
+	public static JTextField textField_PanelMiembro_Telefono;
+	public static JTextField textField_PanelMiembro_Permisos;
+	public static JTextField textField_PanelMiembro_CCC;
 	private static JLabel lblEliminarMiembro;
 	private static JLabel label;
 
 
 	//BajaMiembro
 	static JPanel panelBajaMiembro;
-	static JTextField textField_PanelBajaMiembro_Nick;
-	static JTextField textField_PanelBajaMiembro_CCC;
+	public static JTextField textField_PanelBajaMiembro_Nick;
+	public static JTextField textField_PanelBajaMiembro_CCC;
 
 	public UI() {
 		initialize();
