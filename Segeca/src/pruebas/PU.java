@@ -149,14 +149,14 @@ public class PU {
     }
 
     	public static void PU_ConectorBD(){
-		System.out.println("Prueba 1. Introducción y extracción de CCC: " + prueba1());
-		System.out.println("Prueba 2. Modificación de CCC: " + prueba2());
-		System.out.println("Prueba 3. Introducción y extracción de persona: " + prueba3());
-		System.out.println("Prueba 4. Modificación de persona: " + prueba4());
-		System.out.println("Prueba 5. Introducción y extracción de agenda: " + prueba5());
-		System.out.println("Prueba 6. Modificación de agenda: " + prueba6());
-		System.out.println("Prueba 7. Introducción y extracción de Acta: " + prueba7());
-		System.out.println("Prueba 8. Modificación de Acta: " + prueba8());
+		System.out.println("Prueba 1. Introducción y extracción de CCC: " + pruebaBD1());
+		System.out.println("Prueba 2. Modificación de CCC: " + pruebaBD2());
+		System.out.println("Prueba 3. Introducción y extracción de persona: " + pruebaBD3());
+		System.out.println("Prueba 4. Modificación de persona: " + pruebaBD4());
+		System.out.println("Prueba 5. Introducción y extracción de agenda: " + pruebaBD5());
+		System.out.println("Prueba 6. Modificación de agenda: " + pruebaBD6());
+		System.out.println("Prueba 7. Introducción y extracción de Acta: " + pruebaBD7());
+		System.out.println("Prueba 8. Modificación de Acta: " + pruebaBD8());
 
 		//Devolvemos la base de Datos a su estado inicial
 		deleteActa(getCodLastActa());
@@ -168,7 +168,7 @@ public class PU {
 		deleteCCC("CCC2");		
 	}
 
-	private static boolean prueba1(){
+	private static boolean pruebaBD1(){
 		boolean resultado = true;
 		Ccc CCC1 = new Ccc();
 		Ccc CCC2 = new Ccc();
@@ -196,7 +196,7 @@ public class PU {
 		return resultado;
 	}
 
-	private static boolean prueba2(){
+	private static boolean pruebaBD2(){
 		boolean resultado = true;
 		Ccc CCC1 = new Ccc();
 		Ccc CCC2 = new Ccc();
@@ -224,7 +224,7 @@ public class PU {
 		return resultado;
 	}
 
-	private static boolean prueba3(){
+	private static boolean pruebaBD3(){
 		boolean resultado = true;
 		Ccc CCC1 = new Ccc();
 		CCC1.setNombreCCC("CCC1");
@@ -262,7 +262,7 @@ public class PU {
 		return resultado;
 	}
 
-	private static boolean prueba4(){
+	private static boolean pruebaBD4(){
 		boolean resultado = true;
 		Ccc CCC2 = new Ccc();
 		CCC2.setNombreCCC("CCC2");
@@ -301,7 +301,7 @@ public class PU {
 		return resultado;
 	}
 
-	private static boolean prueba5(){
+	private static boolean pruebaBD5(){
 		boolean resultado = true;
 		Ccc CCC1 = new Ccc();
 		CCC1.setNombreCCC("CCC1");
@@ -343,7 +343,7 @@ public class PU {
 		return resultado;
 	}
 
-	private static boolean prueba6(){
+	private static boolean pruebaBD6(){
 		boolean resultado = true;
 		Ccc CCC2 = new Ccc();
 		CCC2.setNombreCCC("CCC2");
@@ -387,7 +387,7 @@ public class PU {
 		return resultado;
 	}
 
-	private static boolean prueba7(){
+	private static boolean pruebaBD7(){
 		boolean resultado = true;
 		Agenda ag1 = new Agenda();
 		ag1.setCodAgenda(getCodLastAgenda());
@@ -414,7 +414,7 @@ public class PU {
 		return resultado;
 	}
 
-	private static boolean prueba8(){
+	private static boolean pruebaBD8(){
 		boolean resultado = true;
 		Ccc CCC2 = new Ccc("CCC2");
 		Agenda ag1 = new Agenda();
