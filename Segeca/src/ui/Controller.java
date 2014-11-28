@@ -19,6 +19,7 @@ public class Controller {
         UI.initialize();
         UI.frame.setVisible(true);
         //pruebas.PU.PU_requisitos();
+        //pruebas.PI.pruebaIntegración();
         //bd.desconectar();
     }
 
@@ -51,7 +52,7 @@ public class Controller {
         bd.extractAgendaX(ag);//ESTA BUSCANDO POR FECHA\\\\\\\\\\\\CAMBIAR////////////////
         UI.label_PanelOutput_Output.setText("Output:   Código de Agenda = "+ag.getCodAgenda());
         //Stub para simular el modulo, en la version final comentar
-        stubs.createAgenda(ag);
+        //stubs.createAgenda(ag);
 
         JOptionPane.showMessageDialog(null, "La agenda se ha preparado correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
