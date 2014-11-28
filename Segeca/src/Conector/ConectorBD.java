@@ -6,8 +6,8 @@ import def.*;
 
 public class ConectorBD {
 
-	private Connection conexion;
-	private Statement statement;
+	private static Connection conexion;
+	private static Statement statement;
 
 	public ConectorBD(String host,String nombreBD, String usuario, String password) {
 		//nombreBD = "SEGECA";
@@ -26,7 +26,7 @@ public class ConectorBD {
 			e.printStackTrace();
 		}
 		//Este método sólo se le llama cuando se desean hacer las pruebas unitarias
-		//pruebasUnitarias();
+		//pruebas.PU.PU_ConectorBD();
 	}
 
 	public void desconectar(){
@@ -41,7 +41,7 @@ public class ConectorBD {
 	/*
 	 * PERSONA
 	 */
-	public void createPersona(def.Persona persona){
+	public static void createPersona(def.Persona persona){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Personas where nick='"+ persona.getNick() +"'");
 			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
@@ -60,7 +60,7 @@ public class ConectorBD {
 		}
 	}
 
-	public void extractPersona(def.Persona persona){
+	public static void extractPersona(def.Persona persona){
 		try{
 			ResultSet resultadoPersona = statement.executeQuery("select * from Personas where nick='"+ persona.getNick() +"'");
 			if (resultadoPersona.next()){
@@ -77,7 +77,7 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la persona con nick "+ persona.getNick());
 		}
 	}
-	public void deletePersonaCCC(String persona){
+	public static void deletePersonaCCC(String persona){
 		try {
 			statement.executeUpdate("delete from `Personas` where `nick`='"+ persona +"' limit 1");
 		} catch (SQLException e) {
@@ -85,17 +85,17 @@ public class ConectorBD {
 		}
 	}
 
-	public void addPersonaCCC(Persona persona){
+	public static void addPersonaCCC(Persona persona){
 		createPersona(persona);
 	}
-	public void editPerson(Persona persona){
+	public static void editPerson(Persona persona){
 		createPersona(persona);
 	}
 
 	/*
 	 * CCC
 	 */
-	public void createCCC(Ccc ccc){
+	public static void createCCC(Ccc ccc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from CCC where nombre_CCC='"+ ccc.getNombreCCC() +"'");
 			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
@@ -114,7 +114,7 @@ public class ConectorBD {
 		}
 	}
 
-	public void extractCCC(def.Ccc ccc){
+	public static void extractCCC(def.Ccc ccc){
 		LinkedList<def.Persona> listaPersonas= new LinkedList<def.Persona>();
 		LinkedList<def.Agenda> listaAgendas= new LinkedList<def.Agenda>();
 		LinkedList<def.Pc> listaPc= new LinkedList<def.Pc>();
@@ -168,7 +168,7 @@ public class ConectorBD {
 		}
 	}
 
-	public void deleteCCC(String nombreCcc){
+	public static void deleteCCC(String nombreCcc){
 		try {
 			statement.executeUpdate("delete from `CCC` where `nombre_CCC`='"+ nombreCcc +"' limit 1");
 		} catch (SQLException e) {
@@ -177,7 +177,7 @@ public class ConectorBD {
 	}
 
 	//Obtener listado de CCC
-	public LinkedList<String> extraerListaCCC(){
+	public static LinkedList<String> extraerListaCCC(){
 		LinkedList<String> lista = new LinkedList<String>();
 		try{
 			ResultSet resultado = statement.executeQuery("select * from CCC");
@@ -193,7 +193,7 @@ public class ConectorBD {
 	/*
 	 * AGENDA
 	 */
-	public void createAgenda(Agenda agenda){
+	public static void createAgenda(Agenda agenda){
 		try{
 			if (agenda.getCodAgenda() == null){
 				statement.executeUpdate("insert into `Agenda` set lugar='"+agenda.getLugar()+"', proposito='"+agenda.getProposito()
@@ -217,7 +217,7 @@ public class ConectorBD {
 		}
 	}
 
-	public void extractAgenda(def.Agenda agenda){
+	public static void extractAgenda(def.Agenda agenda){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Agenda where cod_agenda='"+ agenda.getCodAgenda() +"'");
 			if (resultado.next()){
@@ -237,7 +237,7 @@ public class ConectorBD {
 	}
 	
 	//ESTA BUSCANDO POR FECHA PARA QUE FUNCIONE LA PRESENTACION
-	public void extractAgendaX(def.Agenda agenda){
+	public static void extractAgendaX(def.Agenda agenda){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Agenda where fecha='"+ agenda.getFecha() +"'");
 			if (resultado.next()){
@@ -256,7 +256,7 @@ public class ConectorBD {
 		}
 	}
 
-	public void deleteAgenda(int codAgenda){
+	public static void deleteAgenda(int codAgenda){
 		try {
 			statement.executeUpdate("delete from `Agenda` where `cod_agenda`='"+ codAgenda +"' limit 1");
 		} catch (SQLException e) {
@@ -268,10 +268,10 @@ public class ConectorBD {
 	 * PC
 	 */
 
-	public void createPc(Pc pc){
+	public static void createPc(Pc pc){
 		//TODO no prioritario
 	}
-	public void extractPc(Pc pc){
+	public static void extractPc(Pc pc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from PC where cod_PC='"+ pc.getCodPC() +"'");
 			if (resultado.next()){
@@ -298,7 +298,7 @@ public class ConectorBD {
 	/*
 	 * ACTA
 	 */
-	public void createActa(Acta acta){
+	public static void createActa(Acta acta){
 		try{
 			if(acta.getCodActa() == null){
 				statement.executeUpdate("insert into `Acta` set agenda='"+acta.getAgenda().getCodAgenda()+
@@ -320,7 +320,7 @@ public class ConectorBD {
 			System.out.println("El acta a introducir era: "+ acta.toString());
 		}
 	}
-	public void extractActa(Acta acta){
+	public static void extractActa(Acta acta){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Acta where cod_acta='"+ acta.getCodActa() +"'");
 			if (resultado.next()){
@@ -335,316 +335,15 @@ public class ConectorBD {
 		}
 	}
 
-	public void deleteActa(int codActa){
+	public static void deleteActa(int codActa){
 		try {
 			statement.executeUpdate("delete from `Acta` where `cod_acta`='"+ codActa +"' limit 1");
 		} catch (SQLException e) {
 			System.out.println("Error al intentar eliminar la Agenda: " + codActa);
 		}
 	}
-	/*
-	 * PRUEBAS
-	 */
 
-	//Si una prueba se pasa satisfactoriamente se devuelve true.
-	//De estar mal el código a comprobar, se devuelve false.
-	private void pruebasUnitarias(){
-		System.out.println("Prueba 1. Introducción y extracción de CCC: " + prueba1());
-		System.out.println("Prueba 2. Modificación de CCC: " + prueba2());
-		System.out.println("Prueba 3. Introducción y extracción de persona: " + prueba3());
-		System.out.println("Prueba 4. Modificación de persona: " + prueba4());
-		System.out.println("Prueba 5. Introducción y extracción de agenda: " + prueba5());
-		System.out.println("Prueba 6. Modificación de agenda: " + prueba6());
-		System.out.println("Prueba 7. Introducción y extracción de Acta: " + prueba7());
-		System.out.println("Prueba 8. Modificación de Acta: " + prueba8());
-
-		//Devolvemos la base de Datos a su estado inicial
-		deleteActa(getCodLastActa());
-		deleteActa(getCodLastActa());
-		deleteAgenda(getCodLastAgenda());
-		deleteAgenda(getCodLastAgenda());
-		deleteCCC("CCC1");
-		deletePersonaCCC("nom1");
-		deleteCCC("CCC2");		
-	}
-
-	private boolean prueba1(){
-		boolean resultado = true;
-		Ccc CCC1 = new Ccc();
-		Ccc CCC2 = new Ccc();
-		CCC1.setAdministrador("Administrador1");
-		CCC1.setNombreCCC("CCC1");
-		CCC1.setPresidente("Presidente1");
-		CCC1.setSecretario("Secretario1");
-		CCC2.setNombreCCC("CCC1");
-
-		createCCC(CCC1);
-		extractCCC(CCC2);
-
-		if (!CCC1.getAdministrador().equals(CCC2.getAdministrador())){
-			resultado = false;
-		}
-		if (!CCC1.getNombreCCC().equals(CCC2.getNombreCCC())){
-			resultado = false;
-		}
-		if (!CCC1.getPresidente().equals(CCC2.getPresidente())){
-			resultado = false;
-		}
-		if (!CCC1.getSecretario().equals(CCC2.getSecretario())){
-			resultado = false;
-		}
-		return resultado;
-	}
-
-	private boolean prueba2(){
-		boolean resultado = true;
-		Ccc CCC1 = new Ccc();
-		Ccc CCC2 = new Ccc();
-		CCC1.setAdministrador("Administrador2");
-		CCC1.setNombreCCC("CCC1");
-		CCC1.setPresidente("Presidente2");
-		CCC1.setSecretario("Secretario2");
-		CCC2.setNombreCCC("CCC1");
-
-		createCCC(CCC1);
-		extractCCC(CCC2);
-
-		if (!CCC1.getAdministrador().equals(CCC2.getAdministrador())){
-			resultado = false;
-		}
-		if (!CCC1.getNombreCCC().equals(CCC2.getNombreCCC())){
-			resultado = false;
-		}
-		if (!CCC1.getPresidente().equals(CCC2.getPresidente())){
-			resultado = false;
-		}
-		if (!CCC1.getSecretario().equals(CCC2.getSecretario())){
-			resultado = false;
-		}
-		return resultado;
-	}
-
-	private boolean prueba3(){
-		boolean resultado = true;
-		Ccc CCC1 = new Ccc();
-		CCC1.setNombreCCC("CCC1");
-		Persona p1 = new Persona();
-		Persona p2 = new Persona();
-		p1.setCcc(CCC1);
-		p1.setEmail("email1@ejemplo.es");
-		p1.setNick("nom1");
-		p1.setNombre("nombre1");
-		p1.setPermisos("admin");
-		p1.setTelefono(123456789);
-		p2.setNick("nom1");
-
-		createPersona(p1);
-		extractPersona(p2);
-
-		if (!p1.getCcc().getNombreCCC().equals(p2.getCcc().getNombreCCC())){
-			resultado = false;
-		}
-		if (!p1.getEmail().equals(p2.getEmail())){
-			resultado = false;
-		}
-		if (!p1.getNick().equals(p2.getNick())){
-			resultado = false;
-		}
-		if (!p1.getNombre().equals(p2.getNombre())){
-			resultado = false;
-		}
-		if (!p1.getPermisos().equals(p2.getPermisos())){
-			resultado = false;
-		}
-		if (p1.getTelefono()!=(p2.getTelefono())){
-			resultado = false;
-		}
-		return resultado;
-	}
-
-	private boolean prueba4(){
-		boolean resultado = true;
-		Ccc CCC2 = new Ccc();
-		CCC2.setNombreCCC("CCC2");
-		createCCC(CCC2);
-		Persona p1 = new Persona();
-		Persona p2 = new Persona();
-		p1.setCcc(CCC2);
-		p1.setEmail("email2@ejemplo.es");
-		p1.setNick("nom1");
-		p1.setNombre("nombre2");
-		p1.setPermisos("user");
-		p1.setTelefono(987654321);
-		p2.setNick("nom1");
-
-		createPersona(p1);
-		extractPersona(p2);
-
-		if (!p1.getCcc().getNombreCCC().equals(p2.getCcc().getNombreCCC())){
-			resultado = false;
-		}
-		if (!p1.getEmail().equals(p2.getEmail())){
-			resultado = false;
-		}
-		if (!p1.getNick().equals(p2.getNick())){
-			resultado = false;
-		}
-		if (!p1.getNombre().equals(p2.getNombre())){
-			resultado = false;
-		}
-		if (!p1.getPermisos().equals(p2.getPermisos())){
-			resultado = false;
-		}
-		if (p1.getTelefono()!=(p2.getTelefono())){
-			resultado = false;
-		}
-		return resultado;
-	}
-
-	private boolean prueba5(){
-		boolean resultado = true;
-		Ccc CCC1 = new Ccc();
-		CCC1.setNombreCCC("CCC1");
-		Agenda a1 = new Agenda();
-		Agenda a2 = new Agenda();
-		a1.setCcc(CCC1);
-		a1.setFecha("25/12/2014");
-		a1.setHoraFin("12:00");
-		a1.setHoraInicio("11:00");
-		a1.setLugar("Lugar1");
-		a1.setParticipantes("Participante1");
-		a1.setProposito("Proposito1");
-		createAgenda(a1);
-		a2.setCodAgenda(getCodLastAgenda());
-		extractAgenda(a2);
-
-		if (!a1.getCcc().getNombreCCC().equals(a2.getCcc().getNombreCCC())){
-			resultado = false;
-		}
-		if (!a1.getFecha().equals(a2.getFecha())){
-			resultado = false;
-		}
-		if (!a1.getHoraFin().equals(a2.getHoraFin())){
-			resultado = false;
-		}
-		if (!a1.getHoraInicio().equals(a2.getHoraInicio())){
-			resultado = false;
-		}
-		if (!a1.getLugar().equals(a2.getLugar())){
-			resultado = false;
-		}
-		if (!a1.getParticipantes().equals(a2.getParticipantes())){
-			resultado = false;
-		}
-		if (!a1.getProposito().equals(a2.getProposito())){
-			resultado = false;
-		}
-
-		return resultado;
-	}
-
-	private boolean prueba6(){
-		boolean resultado = true;
-		Ccc CCC2 = new Ccc();
-		CCC2.setNombreCCC("CCC2");
-		createCCC(CCC2);
-		Agenda a1 = new Agenda();
-		Agenda a2 = new Agenda();
-		a1.setCcc(CCC2);
-		a1.setFecha("26/12/2014");
-		a1.setHoraFin("13:00");
-		a1.setHoraInicio("12:00");
-		a1.setLugar("Lugar2");
-		a1.setParticipantes("Participante2");
-		a1.setProposito("Proposito2");
-		a1.setCodAgenda(getCodLastAgenda());
-		createAgenda(a1);
-		a2.setCodAgenda(getCodLastAgenda());
-		extractAgenda(a2);
-
-		if (!a1.getCcc().getNombreCCC().equals(a2.getCcc().getNombreCCC())){
-			resultado = false;
-		}
-		if (!a1.getFecha().equals(a2.getFecha())){
-			resultado = false;
-		}
-		if (!a1.getHoraFin().equals(a2.getHoraFin())){
-			resultado = false;
-		}
-		if (!a1.getHoraInicio().equals(a2.getHoraInicio())){
-			resultado = false;
-		}
-		if (!a1.getLugar().equals(a2.getLugar())){
-			resultado = false;
-		}
-		if (!a1.getParticipantes().equals(a2.getParticipantes())){
-			resultado = false;
-		}
-		if (!a1.getProposito().equals(a2.getProposito())){
-			resultado = false;
-		}
-
-		return resultado;
-	}
-
-	private boolean prueba7(){
-		boolean resultado = true;
-		Agenda ag1 = new Agenda();
-		ag1.setCodAgenda(getCodLastAgenda());
-		Acta acta1 = new Acta();
-		Acta acta2 = new Acta();
-		acta1.setAgenda(ag1);
-		acta1.setAusencias("Ausencia1");
-		acta1.setResultados("Resultados1");
-
-		createActa(acta1);
-		acta2.setCodActa(getCodLastActa());
-		extractActa(acta2);
-
-		if(!acta1.getAgenda().getCodAgenda().equals(acta2.getAgenda().getCodAgenda())){
-			resultado = false;
-		}
-		if(!acta1.getAusencias().equals(acta2.getAusencias())){
-			resultado = false;
-		}
-		if(!acta1.getResultados().equals(acta2.getResultados())){
-			resultado = false;
-		}
-
-		return resultado;
-	}
-
-	private boolean prueba8(){
-		boolean resultado = true;
-		Ccc CCC2 = new Ccc("CCC2");
-		Agenda ag1 = new Agenda();
-		ag1.setCcc(CCC2);
-		createAgenda(ag1);
-		ag1.setCodAgenda(getCodLastAgenda());
-		Acta acta1 = new Acta();
-		Acta acta2 = new Acta();
-		acta1.setAgenda(ag1);
-		acta1.setAusencias("Ausencia2");
-		acta1.setResultados("Resultados2");
-
-		createActa(acta1);
-		acta2.setCodActa(getCodLastActa());
-		extractActa(acta2);
-
-		if(!acta1.getAgenda().getCodAgenda().equals(acta2.getAgenda().getCodAgenda())){
-			resultado = false;
-		}
-		if(!acta1.getAusencias().equals(acta2.getAusencias())){
-			resultado = false;
-		}
-		if(!acta1.getResultados().equals(acta2.getResultados())){
-			resultado = false;
-		}
-
-		return resultado;
-	}
-
-	private int getCodLastAgenda(){
+	public static int getCodLastAgenda(){
 		ResultSet resultado;
 		try {
 			resultado = statement.executeQuery("select * from Agenda order by cod_agenda desc limit 1");
@@ -658,7 +357,7 @@ public class ConectorBD {
 		return 0;
 	}
 
-	private int getCodLastActa(){
+	public static int getCodLastActa(){
 		ResultSet resultado;
 		try {
 			resultado = statement.executeQuery("select * from Acta order by cod_acta desc limit 1");
@@ -674,8 +373,7 @@ public class ConectorBD {
 }
 /*
  * Prioritario:
- * Pruebas unitarias.
  * No Prioritario(Siguiente iteración):
- * Introducir PC no quiero hacerla porque esta todavia mal en la BD (con date e vez de String)
+ * Introducir PC 
  * resto de deletes
  */
