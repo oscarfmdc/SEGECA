@@ -621,8 +621,4 @@ public class UI {
 		});
 
 	}
-
-	public static JFrame getFrame() {
-		return frame;
-	}
 }
