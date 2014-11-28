@@ -14,11 +14,11 @@ public class Controller {
     private static Conector.ConectorBD bd;
 
     public Controller() {
-        bd = new Conector.ConectorBD("ortinson.no-ip.org:62000", "SEGECA", "admin", "Grupo10");
+        bd = new Conector.ConectorBD("ortinson.no-ip.org:80", "SEGECA", "admin", "Grupo10");
         UI.comboBoxCCC = new JComboBox(bd.extraerListaCCC().toArray());
         UI.initialize();
         UI.frame.setVisible(true);
-        pruebas.PU.PU_requisitos();
+        //pruebas.PU.PU_requisitos();
         //bd.desconectar();
     }
 
