@@ -14,7 +14,11 @@ import java.awt.Font;
 import java.awt.SystemColor;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
+import javax.swing.JPasswordField;
+import javax.swing.UIManager;
 
 public class UI {
 
@@ -85,6 +89,26 @@ public class UI {
 	static JPanel panelBajaMiembro;
 	public static JTextField textField_PanelBajaMiembro_Nick;
 	public static JTextField textField_PanelBajaMiembro_CCC;
+	
+	
+	//Login
+	static JPanel panelLogin;
+	public static JTextField textField_PanelLogin_User;
+	public static JPasswordField passwordField_PanelLogin_Password;
+	
+	
+	//Registro
+	static JPanel panelRegistro;
+	public static JPanel panel_PanelRegistro_Datos;
+	public static JTextField textField_PanelRegistro_Usuario;
+	public static JPasswordField passwordField_PanelRegistro_Password;
+	public static JPasswordField passwordField_PanelRegistro_ConfPassword;
+	public static JButton btnCancelar;
+	public static JLabel lblNombreDeUsuario;
+	public static JLabel lblPassword;
+	public static JLabel lblConfirmarPassword;
+	
+	
 
 	public UI() {
 		initialize();
@@ -93,6 +117,7 @@ public class UI {
 	static void initialize() {
 
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.setBounds(100, 100, 1000, 751);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -116,6 +141,127 @@ public class UI {
 		panelAgendas = new JPanel();
 		panelAgendas.setBounds(0, 44, 994, 620);
 		panelAgendas.setVisible(false);
+		
+		panelLogin = new JPanel();
+		panelLogin.setBackground(SystemColor.textHighlight);
+		panelLogin.setBounds(0, 0, 994, 720);
+		frame.getContentPane().add(panelLogin);
+		panelLogin.setLayout(null);
+		
+		passwordField_PanelLogin_Password = new JPasswordField();
+		passwordField_PanelLogin_Password.setBounds(429, 542, 175, 20);
+		panelLogin.add(passwordField_PanelLogin_Password);
+		
+		JLabel label_panelLogin_Segeca = new JLabel("");
+		label_panelLogin_Segeca.setIcon(new ImageIcon(UI.class.getResource("/resources/Segeca.PNG")));
+		label_panelLogin_Segeca.setBounds(261, 90, 488, 367);
+		panelLogin.add(label_panelLogin_Segeca);
+		
+		textField_PanelLogin_User = new JTextField();
+		textField_PanelLogin_User.setBounds(429, 501, 175, 20);
+		panelLogin.add(textField_PanelLogin_User);
+		textField_PanelLogin_User.setColumns(10);
+		
+		JLabel lblNick_1 = new JLabel("Usuario");
+		lblNick_1.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNick_1.setBounds(300, 501, 106, 14);
+		panelLogin.add(lblNick_1);
+		
+		JLabel lblNewLabel = new JLabel("Password");
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNewLabel.setBounds(298, 542, 109, 14);
+		panelLogin.add(lblNewLabel);
+		
+		JButton button_PanelLogin_Login = new JButton("Login");
+		button_PanelLogin_Login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(Controller.login()){//Login correcto
+					panelLogin.setVisible(false);
+					panelPrincipal.setVisible(true);
+					panelOutput.setVisible(true);
+				}
+			}
+		});
+		button_PanelLogin_Login.setBounds(635, 500, 89, 23);
+		panelLogin.add(button_PanelLogin_Login);
+		
+		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelLogin.setVisible(false);
+				panelRegistro.setVisible(true);
+			}
+		});
+		btnRegistrar.setBounds(635, 541, 89, 23);
+		panelLogin.add(btnRegistrar);
+		
+		panelRegistro = new JPanel();
+		panelRegistro.setBackground(SystemColor.textHighlight);
+		panelRegistro.setBounds(0, 0, 994, 720);
+		panelRegistro.setVisible(false);
+		frame.getContentPane().add(panelRegistro);
+		panelRegistro.setLayout(null);
+		
+		JLabel lblAltaDeUsuario = new JLabel("Registro de usuario");
+		lblAltaDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		lblAltaDeUsuario.setBounds(332, 44, 336, 61);
+		panelRegistro.add(lblAltaDeUsuario);
+		
+		panel_PanelRegistro_Datos = new JPanel();
+		panel_PanelRegistro_Datos.setBackground(UIManager.getColor("info"));
+		panel_PanelRegistro_Datos.setBounds(247, 178, 470, 244);
+		panelRegistro.add(panel_PanelRegistro_Datos);
+		panel_PanelRegistro_Datos.setLayout(null);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelRegistro.setVisible(false);
+				panelLogin.setVisible(true);
+			}
+		});
+		btnCancelar.setBounds(207, 195, 89, 23);
+		panel_PanelRegistro_Datos.add(btnCancelar);
+		
+		JButton btnNewButton = new JButton("Registrar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Controller.registro()){
+					panelRegistro.setVisible(false);
+					panelLogin.setVisible(true);
+				}
+			}
+		});
+		btnNewButton.setBounds(339, 195, 89, 23);
+		panel_PanelRegistro_Datos.add(btnNewButton);
+		
+		passwordField_PanelRegistro_ConfPassword = new JPasswordField();
+		passwordField_PanelRegistro_ConfPassword.setBounds(246, 126, 182, 20);
+		panel_PanelRegistro_Datos.add(passwordField_PanelRegistro_ConfPassword);
+		
+		lblConfirmarPassword = new JLabel("Confirmar password");
+		lblConfirmarPassword.setBounds(45, 129, 159, 14);
+		panel_PanelRegistro_Datos.add(lblConfirmarPassword);
+		lblConfirmarPassword.setFont(new Font("Arial", Font.BOLD, 15));
+		
+		lblPassword = new JLabel("Password");
+		lblPassword.setBounds(45, 89, 159, 14);
+		panel_PanelRegistro_Datos.add(lblPassword);
+		lblPassword.setFont(new Font("Arial", Font.BOLD, 15));
+		
+		passwordField_PanelRegistro_Password = new JPasswordField();
+		passwordField_PanelRegistro_Password.setBounds(246, 86, 182, 20);
+		panel_PanelRegistro_Datos.add(passwordField_PanelRegistro_Password);
+		
+		textField_PanelRegistro_Usuario = new JTextField();
+		textField_PanelRegistro_Usuario.setBounds(246, 44, 182, 20);
+		panel_PanelRegistro_Datos.add(textField_PanelRegistro_Usuario);
+		textField_PanelRegistro_Usuario.setColumns(10);
+		
+		lblNombreDeUsuario = new JLabel("Nombre de usuario");
+		lblNombreDeUsuario.setBounds(45, 47, 159, 14);
+		panel_PanelRegistro_Datos.add(lblNombreDeUsuario);
+		lblNombreDeUsuario.setFont(new Font("Arial", Font.BOLD, 15));
 		panelAgendas.setLayout(null);
 		frame.getContentPane().add(panelAgendas);
 
@@ -568,6 +714,7 @@ public class UI {
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBounds(0, 0, 994, 44);
 		panelPrincipal.setBackground(SystemColor.activeCaption);
+		panelPrincipal.setVisible(false);
 		frame.getContentPane().add(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		botonAgendas = new JButton("Agendas");
@@ -593,6 +740,7 @@ public class UI {
 
 		panelOutput = new JPanel();
 		panelOutput.setBounds(0, 666, 994, 54);
+		panelOutput.setVisible(false);
 		frame.getContentPane().add(panelOutput);
 		panelOutput.setBackground(SystemColor.activeCaptionBorder);
 		panelOutput.setLayout(null);
