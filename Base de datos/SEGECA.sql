@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `SEGECA`.`Personas` (
 `CCC` varchar(100) not null,
 `telefono` int not null,
 `permisos` varchar(100),
+`contraseña` varchar(100),
 
 primary key (`nick`),
 foreign key(`CCC`) references `SEGECA`.`CCC`(`nombre_CCC`))
