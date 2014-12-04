@@ -5,6 +5,7 @@ import java.text.*;
 import java.util.*;
 import javax.swing.*;
 
+
 public class Controller {
 
     private static Conector.ConectorBD bd;
@@ -562,5 +563,34 @@ public class Controller {
 
         return 0;
     }
-
+    
+    
+    //Metodo que realiza comprueba el login de un usuario devuelve true si todo es correcto, false en otro caso.
+    public static boolean login(){
+    	String usuario = UI.textField_PanelLogin_User.getText(); //Nombre/Nick de usuario
+    	String password = UI.passwordField_PanelLogin_Password.getText();//Password de usuario
+    	if(false){//Si los datos no son correctos se muestra un mensaje de error
+    		JOptionPane.showMessageDialog(null, "Usuario y/o password incorrectos", "Error", JOptionPane.INFORMATION_MESSAGE);
+    	}
+    	return false;
+    }
+    //Metodo que registra un usuario en la base de datos, devuelve true si todo es correcto, false en otro caso.
+    public static boolean registro(){
+    	boolean resultado = false;
+    	String usuario = UI.textField_PanelRegistro_Usuario.getText();
+    	String password = UI.passwordField_PanelRegistro_Password.getText();
+    	if(!password.equals(UI.passwordField_PanelRegistro_ConfPassword.getText())){
+    		JOptionPane.showMessageDialog(null, "La password no coincide", "Error", JOptionPane.INFORMATION_MESSAGE);
+    	}
+    	else{//Registrar usuario    	
+	    	if(false){//Usuario existente en base de datos
+	    		JOptionPane.showMessageDialog(null, "Usuario existente, introduzca otro nombre", "Error", JOptionPane.INFORMATION_MESSAGE);
+	    	}
+	    	else{
+	    		resultado = true;
+	    	}
+    	}
+    	return resultado;
+    }
 }
+
