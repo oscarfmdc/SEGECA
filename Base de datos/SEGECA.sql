@@ -46,14 +46,13 @@ CREATE TABLE IF NOT EXISTS `SEGECA`.`PC` (
 `descripcion` varchar(500),
 `prioridad` varchar(100),
 `fecha` varchar(10),
-`agenda` int not null,
+`agenda` int,
 `estado` enum ('aceptada','rechazada','aplazada','pendiente','implantada','retirada'),
-`CCC` varchar(100) not null,
+`CCC` varchar(100),
 `valoracion` varchar(100),
 `documentos` varchar(100),
 
-primary key (`cod_PC`),foreign key(`agenda`) references `SEGECA`.`Agenda`(`cod_agenda`),
-foreign key(`CCC`) references `SEGECA`.`CCC`(`nombre_CCC`))
+primary key (`cod_PC`))
 
 ENGINE = InnoDB;
 
