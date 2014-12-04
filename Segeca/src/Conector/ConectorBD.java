@@ -23,7 +23,7 @@ public class ConectorBD {
 			statement = conexion.createStatement();
 		} 
 		catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("No se ha podido conectar a la base de datos.");
 		}
 		//Este método sólo se le llama cuando se desean hacer las pruebas unitarias
 		//pruebas.PU.PU_ConectorBD();
@@ -34,7 +34,7 @@ public class ConectorBD {
 			conexion.close();
 			System.out.println("Ya no estoy conectado!!");
 		}catch (Exception e){
-			e.printStackTrace();
+			System.out.println("Excepción no controlada al desconectarse de la base de datos.");
 		}
 	}
 
@@ -54,7 +54,6 @@ public class ConectorBD {
 						persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"';");
 			}
 		}catch (Exception e){
-			e.printStackTrace();
 			System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
 			System.out.println("La persona a introducir era:\n"+ persona.toString());
 		}
@@ -73,7 +72,6 @@ public class ConectorBD {
 				persona.setTelefono(resultadoPersona.getInt("telefono"));
 			}
 		}catch (Exception e){
-			e.printStackTrace();
 			System.out.println("Error al intentar obtener la persona con nick "+ persona.getNick());
 		}
 	}
@@ -108,7 +106,6 @@ public class ConectorBD {
 						"', `nombre_CCC`='"+ccc.getNombreCCC()+"';");
 			}
 		}catch (Exception e){
-			e.printStackTrace();
 			System.out.println("No se han podido introducir los datos de 'CCC' con éxito");
 			System.out.println("El CCC a introducir era:\n"+ ccc.getNombreCCC());
 		}
@@ -163,7 +160,6 @@ public class ConectorBD {
 			ccc.setAgendaCollection(listaAgendas);
 			ccc.setPcCollection(listaPc);
 		}catch (Exception e){
-			e.printStackTrace();
 			System.out.println("Error al intentar obtener el CCC de nombre: "+ ccc.getNombreCCC());
 		}
 	}
@@ -268,19 +264,52 @@ public class ConectorBD {
 	 * PC
 	 */
 
-        public static void createPC(Pc pc){
+        public static void addPC(Pc pc){
 		try{
-			if (pc.getCodPC() == null){
-                            //descripcion fecha motivo estado prioridad
 				statement.executeUpdate("insert into `PC` set descripcion='"+pc.getDescripcion()+"', fecha='"+pc.getFecha()
 						+"', motivo='"+pc.getMotivo()+"', estado='"+pc.getEstado()+"', prioridad='"+pc.getPrioridad()+"'");
-			}
                 }catch (Exception e){
                     System.out.println("Error al intentar insertar la PC con motivo: '"+ pc.getMotivo()+"'");
                 }
         }
-
-	public static void extractPc(Pc pc){
+        
+        public static void addPCagendaCCC(Pc pc){
+            try{
+				statement.executeUpdate("update `PC` set descripcion='"+pc.getDescripcion()+"', fecha='"+pc.getFecha()
+						+"', motivo='"+pc.getMotivo()+"', estado='"+pc.getEstado()+"', prioridad='"+pc.getPrioridad()+
+                                        "', CCC='"+pc.getCcc().getNombreCCC()+"', agenda='"+pc.getAgenda().getCodAgenda()+
+                                        "' where `cod_PC`='"+pc.getCodPC()+"' limit 1;");
+                }catch (Exception e){
+                    System.out.println("Error al intentar insertar la PC con motivo: '"+ pc.getMotivo()+"'");
+                }
+        }
+        
+        public static void addPCaCCC(Pc pc){
+            try{
+		statement.executeUpdate("update `PC` set CCC='" +pc.getCcc().getNombreCCC() + "' where `cod_PC`='"+pc.getCodPC()+"' limit 1;");
+            }catch (Exception e){
+                System.out.println("Error al intentar actualizar el ccc de la PC con motivo: '"+ pc.getMotivo()+"'");
+            }
+        }
+        
+        public static void valorarPC(int codPC, String valoracion){
+            try{
+		statement.executeUpdate("update `PC` set valoracion='" +valoracion + "' where `cod_PC`='"+ codPC +"' limit 1;");
+            }catch (Exception e){
+                System.out.println("Error al intentar actualizar la valoración de la PC con id: '"+ codPC+"'");
+            }
+        }
+        
+        
+        public static void modEstadoPC(Pc pc){
+            try{
+		statement.executeUpdate("update `PC` set estado='" +pc.getEstado() + "' where `cod_PC`='"+ pc.getCodPC() +"' limit 1;");
+            }catch (Exception e){
+                System.out.println("Error al intentar actualizar la valoración de la PC con id: '"+ pc.getCodPC()+"'");
+            }
+        }
+	
+        public static void extractPc(Pc pc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from PC where cod_PC='"+ pc.getCodPC() +"'");
 			if (resultado.next()){
