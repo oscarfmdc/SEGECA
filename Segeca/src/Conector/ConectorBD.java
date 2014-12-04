@@ -47,13 +47,14 @@ public class ConectorBD {
 			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
 				statement.executeUpdate("update `Personas` set telefono="+persona.getTelefono()+
 						", email='"+persona.getEmail()+"', CCC='"+persona.getCcc().getNombreCCC()+"', nombre='"+
-						persona.getNombre()+"', permisos='"+ persona.getPermisos() +"' where `nick`='"+persona.getNick()+"' limit 1;");
+						persona.getNombre()+"', permisos='"+ persona.getPermisos()+"', password='"+ persona.getPassword() +"' where `nick`='"+persona.getNick()+"' limit 1;");
 			}else{//Si no, lo introuducimos por primera vez
 				statement.executeUpdate("insert into `Personas` set telefono='"+persona.getTelefono()+
 						"', email='"+persona.getEmail()+"', CCC='"+persona.getCcc().getNombreCCC()+"', nombre='"+
-						persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"';");
+						persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"', password='"+ persona.getPassword()+"';");
 			}
 		}catch (Exception e){
+			e.printStackTrace();
 			System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
 			System.out.println("La persona a introducir era:\n"+ persona.toString());
 		}
@@ -67,6 +68,7 @@ public class ConectorBD {
 				persona.setCcc(ccc);
 				persona.setEmail(resultadoPersona.getString("email"));
 				persona.setNick(resultadoPersona.getString("nick"));
+				persona.setPassword(resultadoPersona.getString("password"));
 				persona.setNombre(resultadoPersona.getString("nombre"));
 				persona.setPermisos(resultadoPersona.getString("permisos"));
 				persona.setTelefono(resultadoPersona.getInt("telefono"));
@@ -292,11 +294,11 @@ public class ConectorBD {
             }
         }
         
-        public static void valorarPC(int codPC, String valoracion){
+        public static void valorarPC(Pc pc){
             try{
-		statement.executeUpdate("update `PC` set valoracion='" +valoracion + "' where `cod_PC`='"+ codPC +"' limit 1;");
+		statement.executeUpdate("update `PC` set valoracion='" +pc.getValoracion()+ "' where `cod_PC`='"+ pc.getCodPC()+"' limit 1;");
             }catch (Exception e){
-                System.out.println("Error al intentar actualizar la valoración de la PC con id: '"+ codPC+"'");
+                System.out.println("Error al intentar actualizar la valoración de la PC con id: '"+ pc.getCodPC()+"'");
             }
         }
         

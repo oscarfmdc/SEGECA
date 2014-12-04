@@ -9,6 +9,7 @@ import javax.swing.*;
 public class Controller {
 
     private static Conector.ConectorBD bd;
+    private static String sesion;
 
     public Controller() {
         bd = new Conector.ConectorBD("ortinson.no-ip.org:80", "SEGECA", "admin", "Grupo10");
@@ -421,7 +422,7 @@ public class Controller {
         pc.setCodPC(0);
         
         // JTextfield cn la descripción de la PC
-        JTextField descripcionPc;
+        JTextField descripcionPc=null;
         pc.setDescripcion(descripcionPc.getText());
         
         //Debés mostrar los estados posibles de las PCS en este combobox
@@ -521,10 +522,10 @@ public class Controller {
     // Método que introduce una valoración en una PC
     // Interfaz: ES NECESARIO QUE NOS PASÉIS EL CÓDIGO DE LA PC QUE QUERÍA MODIFICAR EL USUARIO
     public static int valorarPC(int codPC) {
-        Pc pc = new Pc();
+        Pc pc = new Pc(codPC);
 
         //JTextField correspondiente a valoracion
-        JTextField valoracionPC = null;
+        JTextField valoracionPC ;
         
         String valoracion = valoracionPC.getText(); //JTextField correspondiente
         
@@ -536,7 +537,7 @@ public class Controller {
         }
 
         // Método que añade valoracion a una PC
-        bd.valorarPC(codPC,codPC);
+        bd.valorarPC(pc);
         JOptionPane.showMessageDialog(null, "Se ha introducido la valoracion de dicha PC correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
         return 0;
@@ -567,26 +568,37 @@ public class Controller {
     
     //Metodo que realiza comprueba el login de un usuario devuelve true si todo es correcto, false en otro caso.
     public static boolean login(){
-    	String usuario = UI.textField_PanelLogin_User.getText(); //Nombre/Nick de usuario
+    	boolean resultado = true;
+    	String nick = UI.textField_PanelLogin_User.getText(); //Nombre/Nick de usuario
     	String password = UI.passwordField_PanelLogin_Password.getText();//Password de usuario
-    	if(false){//Si los datos no son correctos se muestra un mensaje de error
-    		JOptionPane.showMessageDialog(null, "Usuario y/o password incorrectos", "Error", JOptionPane.INFORMATION_MESSAGE);
+    	Persona persona = new Persona(nick);
+    	bd.extractPersona(persona);
+    	if(password.equals(persona.getPassword())){//Se inicia sesión con el usuario correspondiente
+    		sesion = nick;
     	}
-    	return false;
+    	else{//Si los datos no son correctos se muestra un mensaje de error
+    		JOptionPane.showMessageDialog(null, "Usuario y/o password incorrectos", "Error", JOptionPane.INFORMATION_MESSAGE);
+    		resultado = false;
+    	}
+    	return resultado;
     }
     //Metodo que registra un usuario en la base de datos, devuelve true si todo es correcto, false en otro caso.
     public static boolean registro(){
     	boolean resultado = false;
-    	String usuario = UI.textField_PanelRegistro_Usuario.getText();
+    	String nick = UI.textField_PanelRegistro_Usuario.getText();
     	String password = UI.passwordField_PanelRegistro_Password.getText();
     	if(!password.equals(UI.passwordField_PanelRegistro_ConfPassword.getText())){
     		JOptionPane.showMessageDialog(null, "La password no coincide", "Error", JOptionPane.INFORMATION_MESSAGE);
     	}
     	else{//Registrar usuario    	
-	    	if(false){//Usuario existente en base de datos
+    		Persona persona = new Persona(nick);
+    		bd.extractPersona(persona);
+    		if(persona.getPassword()!=null){//Usuario existente en base de datos
 	    		JOptionPane.showMessageDialog(null, "Usuario existente, introduzca otro nombre", "Error", JOptionPane.INFORMATION_MESSAGE);
 	    	}
 	    	else{
+	    		persona.setPassword(password);
+	    		bd.createPersona(persona);
 	    		resultado = true;
 	    	}
     	}
