@@ -19,6 +19,8 @@ import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class UI {
 
@@ -149,6 +151,18 @@ public class UI {
 		panelLogin.setLayout(null);
 		
 		passwordField_PanelLogin_Password = new JPasswordField();
+		passwordField_PanelLogin_Password.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if(arg0.getKeyCode()==KeyEvent.VK_ENTER){
+					if(Controller.login()){//Login correcto
+						panelLogin.setVisible(false);
+						panelPrincipal.setVisible(true);
+						panelOutput.setVisible(true);
+					}
+				}
+			}
+		});
 		passwordField_PanelLogin_Password.setBounds(429, 542, 175, 20);
 		panelLogin.add(passwordField_PanelLogin_Password);
 		
