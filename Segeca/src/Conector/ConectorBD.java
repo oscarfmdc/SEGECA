@@ -268,9 +268,18 @@ public class ConectorBD {
 	 * PC
 	 */
 
-	public static void createPc(Pc pc){
-		//TODO no prioritario
-	}
+        public static void createPC(Pc pc){
+		try{
+			if (pc.getCodPC() == null){
+                            //descripcion fecha motivo estado prioridad
+				statement.executeUpdate("insert into `PC` set descripcion='"+pc.getDescripcion()+"', fecha='"+pc.getFecha()
+						+"', motivo='"+pc.getMotivo()+"', estado='"+pc.getEstado()+"', prioridad='"+pc.getPrioridad()+"'");
+			}
+                }catch (Exception e){
+                    System.out.println("Error al intentar insertar la PC con motivo: '"+ pc.getMotivo()+"'");
+                }
+        }
+
 	public static void extractPc(Pc pc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from PC where cod_PC='"+ pc.getCodPC() +"'");
@@ -290,11 +299,10 @@ public class ConectorBD {
 				pc.setAgenda(agenda);
 			}
 		}catch (Exception e){
-			e.printStackTrace();
 			System.out.println("Error al intentar obtener la PC con código: "+ pc.getCodPC());
 		}
 	}
-
+        
 	/*
 	 * ACTA
 	 */
