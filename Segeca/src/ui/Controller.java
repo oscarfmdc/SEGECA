@@ -598,7 +598,7 @@ public class Controller {
 	    	}
 	    	else{
 	    		persona.setPassword(password);
-	    		bd.createPersona(persona);
+	    		bd.registroPersona(persona);
 	    		resultado = true;
 	    	}
     	}

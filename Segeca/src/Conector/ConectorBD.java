@@ -54,12 +54,20 @@ public class ConectorBD {
 						persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"', password='"+ persona.getPassword()+"';");
 			}
 		}catch (Exception e){
-			e.printStackTrace();
 			System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
-			System.out.println("La persona a introducir era:\n"+ persona.toString());
+			System.out.println("La persona a introducir era: "+ persona.getNick() + ";"+ persona.getCcc().getNombreCCC());
 		}
 	}
 
+        public static void registroPersona(def.Persona persona){
+		try{
+                    statement.executeUpdate("insert into `Personas` set `nick`='"+persona.getNick()+"', password='"+ persona.getPassword()+"';");
+                
+                }catch (Exception e){
+			System.out.println("No se han podido registrar a"+ persona.getNick()+" con éxito");
+		}
+        }
+        
 	public static void extractPersona(def.Persona persona){
 		try{
 			ResultSet resultadoPersona = statement.executeQuery("select * from Personas where nick='"+ persona.getNick() +"'");

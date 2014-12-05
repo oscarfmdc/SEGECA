@@ -60,8 +60,8 @@ CREATE TABLE IF NOT EXISTS `SEGECA`.`Personas` (
 `nick`varchar(30) not null,
 `nombre` varchar(100),
 `email` varchar(100),
-`CCC` varchar(100) not null,
-`telefono` int not null,
+`CCC` varchar(100),
+`telefono` int,
 `permisos` varchar(100),
 `password` varchar(100),
 
