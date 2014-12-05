@@ -183,33 +183,21 @@ public class Controller {
     /* Requisito 2.3 */
     public static int modMiembrosCCC() {
 
-        Persona prsn = new Persona();
-        prsn.setNick(UI.textField_PanelMiembro_Nick.getText());
+        Persona persona = new Persona();
+        persona.setNick(UI.textField_PanelMiembro_Nick.getText());
+        bd.extractPersona(persona);
 
         // Establecemos todos los campos que corresponden a las personas
         Ccc cccPrsn = new Ccc((String) UI.comboBoxCCC.getSelectedItem());
-        prsn.setCcc(cccPrsn);
-        prsn.setEmail(UI.textField_PanelMiembro_Email.getText());//JTextField correspondiente al email
-
-        JTextField nombre = UI.textField_PanelMiembro_Nombre;//JTextField correspondiente al nombre
-
-        if (nombre.getText() == null) {
-            JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-        prsn.setNombre(nombre.getText());
-        // ComprobaciÃ³n numero de telefono valido
-        JTextField telefono = UI.textField_PanelMiembro_Telefono;
-        int telf = isTelefono(telefono.getText());
-        prsn.setTelefono(telf);
+        persona.setCcc(cccPrsn);
 
         //permisos
-        prsn.setPermisos(UI.textField_PanelMiembro_Permisos.getText());
+        persona.setPermisos(UI.textField_PanelMiembro_Permisos.getText());
 
         // Modificamos la persona con los parÃ¡mtetros correspondientes, (enrique)        
-        bd.editPerson(prsn);
+        bd.editPerson(persona);
 
-        JOptionPane.showMessageDialog(null, "Los datos del Miembro del CCC se han modificado correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Se ha añadido el miembro al CCC correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
         return 0;
     }
@@ -228,7 +216,7 @@ public class Controller {
         }
 
         // JTextField con el nombre de la persona
-        JTextField nombre = UI.textField_PanelMiembro_Nombre;
+        JTextField nombre = UI.textField_PanelPerfil_Nombre;
         // compruebo que el campo no esta vacio
         if (nombre.getText() == null) {
             JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
@@ -238,10 +226,10 @@ public class Controller {
         }
 
         // compruebo el telefono
-        JTextField telefono = UI.textField_PanelMiembro_Telefono;
+        JTextField telefono = UI.textField_PanelPerfil_Telefono;
         int telf = isTelefono(telefono.getText());
         persona.setTelefono(telf);
-        persona.setEmail(UI.textField_PanelMiembro_Email.getText());
+        persona.setEmail(UI.textField_PanelPerfil_Email.getText());
         persona.setPermisos(UI.textField_PanelMiembro_Permisos.getText());
 
         JComboBox<?> CCCs = UI.comboBoxCCC;
@@ -336,55 +324,6 @@ public class Controller {
             return false;
         }
         return true;
-    }
-
-    //Rellenar info CCC
-    public static void cccSelected() {
-        Ccc selected = new Ccc((String) UI.comboBoxCCC.getSelectedItem());
-        bd.extractCCC(selected);
-        UI.textFieldNombreCCC.setText(selected.getNombreCCC());
-        UI.textFieldPresidente.setText(selected.getPresidente());
-        UI.textFieldSecretario.setText(selected.getSecretario());
-        UI.textFieldAdministrador.setText(selected.getAdministrador());
-        Collection<Persona> personas = selected.getPersonasCollection();
-        String nombresPersonas = "";
-        Iterator<Persona> itPersonas = personas.iterator();
-        int c = 0;
-        while (itPersonas.hasNext()) {
-            nombresPersonas += "<" + itPersonas.next().getNombre() + "> ";
-            c++;
-        }
-        Collection<Agenda> agendas = selected.getAgendaCollection();
-        String nombresAgendas = "";
-        Iterator<Agenda> itAgendas = agendas.iterator();
-        c = 0;
-        while (itAgendas.hasNext()) {
-            nombresAgendas += "<" + itAgendas.next().getFecha() + "> ";
-            c++;
-        }
-        Collection<Pc> pcs = selected.getPcCollection();
-        String nombresPcs = "";
-        Iterator<Pc> itPcs = pcs.iterator();
-        c = 0;
-        while (itPcs.hasNext()) {
-            nombresPcs += "<" + itPcs.next().getFecha() + "> ";
-            c++;
-        }
-        UI.textPane_PanelCCC_Miembros.setText(nombresPersonas);
-        UI.textPane_PanelCCC_Agendas.setText(nombresAgendas);
-        UI.textPane_PanelCCC_Peticiones.setText(nombresPcs);
-    }
-
-    //Rellenar info Miembro
-    public static void memberSelected() {
-        Persona selected = new Persona(UI.textField_PanelMiembro_Nick.getText());
-        bd.extractPersona(selected);
-        UI.textField_PanelMiembro_Nick.setText(selected.getNick());
-        UI.textField_PanelMiembro_Nombre.setText(selected.getNombre());
-        UI.textField_PanelMiembro_Email.setText(selected.getEmail());
-        UI.textField_PanelMiembro_Telefono.setText(Integer.toString(selected.getTelefono()));
-        UI.textField_PanelMiembro_Permisos.setText(selected.getPermisos());
-        UI.textField_PanelMiembro_CCC.setText(selected.getCcc().getNombreCCC());
     }
 
     /* Requisito 3.1 */
@@ -582,6 +521,8 @@ public class Controller {
     	}
     	return resultado;
     }
+    
+    
     //Metodo que registra un usuario en la base de datos, devuelve true si todo es correcto, false en otro caso.
     public static boolean registro(){
     	boolean resultado = false;
@@ -603,6 +544,102 @@ public class Controller {
 	    	}
     	}
     	return resultado;
+    }
+    
+    
+    //Metodo que cierra la sesion del usuario en el cliente
+    public static void logout(){
+    	sesion = null;
+    }
+    
+    
+    //Metodo que modifica el perfil de un usuario
+    public static int modPerfil(){
+    	Persona persona = new Persona();
+    	persona.setNick(sesion);
+    	bd.extractPersona(persona);
+    	
+    	String nombre = UI.textField_PanelPerfil_Nombre.getText();
+    	if (nombre == null) {
+            JOptionPane.showMessageDialog(null, "Debe introducir un nombre para la persona", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+    	persona.setNombre(nombre);
+    	
+    	persona.setEmail(UI.textField_PanelPerfil_Email.getText());
+        
+    	// Comprobación numero de telefono valido
+        int telf = isTelefono(UI.textField_PanelPerfil_Telefono.getText());
+        persona.setTelefono(telf);
+        
+        bd.editPerson(persona);
+    	
+    	return 0;
+    }
+    
+    
+    //Rellenar info CCC
+    public static void cccSelected() {
+        Ccc selected = new Ccc((String) UI.comboBoxCCC.getSelectedItem());
+        bd.extractCCC(selected);
+        UI.textFieldNombreCCC.setText(selected.getNombreCCC());
+        UI.textFieldPresidente.setText(selected.getPresidente());
+        UI.textFieldSecretario.setText(selected.getSecretario());
+        UI.textFieldAdministrador.setText(selected.getAdministrador());
+        Collection<Persona> personas = selected.getPersonasCollection();
+        String nombresPersonas = "";
+        Iterator<Persona> itPersonas = personas.iterator();
+        int c = 0;
+        while (itPersonas.hasNext()) {
+            nombresPersonas += "<" + itPersonas.next().getNombre() + "> ";
+            c++;
+        }
+        Collection<Agenda> agendas = selected.getAgendaCollection();
+        String nombresAgendas = "";
+        Iterator<Agenda> itAgendas = agendas.iterator();
+        c = 0;
+        while (itAgendas.hasNext()) {
+            nombresAgendas += "<" + itAgendas.next().getFecha() + "> ";
+            c++;
+        }
+        Collection<Pc> pcs = selected.getPcCollection();
+        String nombresPcs = "";
+        Iterator<Pc> itPcs = pcs.iterator();
+        c = 0;
+        while (itPcs.hasNext()) {
+            nombresPcs += "<" + itPcs.next().getFecha() + "> ";
+            c++;
+        }
+        UI.textPane_PanelCCC_Miembros.setText(nombresPersonas);
+        UI.textPane_PanelCCC_Agendas.setText(nombresAgendas);
+        UI.textPane_PanelCCC_Peticiones.setText(nombresPcs);
+    }
+
+    
+    //Rellenar info Miembro
+    public static void memberSelected() {
+    	Persona persona = new Persona(UI.textField_PanelMiembro_Nick.getText());
+        bd.extractPersona(persona);
+        if(persona.getPassword()==null){
+        	JOptionPane.showMessageDialog(null, "El nick introducido no esta registrado en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+        UI.textField_PanelMiembro_Permisos.setText(persona.getPermisos());
+        UI.textField_PanelMiembro_CCC.setText(persona.getCcc().getNombreCCC());
+        }
+    }
+    
+    
+    //Rellenar info perfil
+    public static void mostrarPerfil(){
+    	 Persona persona = new Persona(sesion);
+         bd.extractPersona(persona);
+         UI.textArea_PanelPerfil_Nick.setText(persona.getNick());
+         UI.textField_PanelPerfil_Nombre.setText(persona.getNombre());
+         UI.textField_PanelPerfil_Email.setText(persona.getEmail());
+         UI.textField_PanelPerfil_Telefono.setText(Integer.toString(persona.getTelefono()));
+         UI.textArea_PanelPerfil_CCC.setText(persona.getCcc().getNombreCCC());
+         UI.textArea_PanelPerfil_Permisos.setText(persona.getPermisos());
     }
 }
 
