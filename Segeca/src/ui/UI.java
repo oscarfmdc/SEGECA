@@ -21,6 +21,7 @@ import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JTextArea;
 
 public class UI {
 
@@ -31,7 +32,7 @@ public class UI {
 	static JButton botonActas;
 	static JButton botonAgendas;
 	static JButton botonCCC;
-	
+
 	//Panel output
 	static JPanel panelOutput;
 	static JLabel label_PanelOutput_Output;
@@ -78,9 +79,6 @@ public class UI {
 	static JPanel panelNuevoMiembro;
 	private static JLabel lblNick;
 	public static JTextField textField_PanelMiembro_Nick;
-	public static JTextField textField_PanelMiembro_Nombre;
-	public static JTextField textField_PanelMiembro_Email;
-	public static JTextField textField_PanelMiembro_Telefono;
 	public static JTextField textField_PanelMiembro_Permisos;
 	public static JTextField textField_PanelMiembro_CCC;
 	private static JLabel lblEliminarMiembro;
@@ -91,14 +89,14 @@ public class UI {
 	static JPanel panelBajaMiembro;
 	public static JTextField textField_PanelBajaMiembro_Nick;
 	public static JTextField textField_PanelBajaMiembro_CCC;
-	
-	
+
+
 	//Login
 	static JPanel panelLogin;
 	public static JTextField textField_PanelLogin_User;
 	public static JPasswordField passwordField_PanelLogin_Password;
-	
-	
+
+
 	//Registro
 	static JPanel panelRegistro;
 	public static JPanel panel_PanelRegistro_Datos;
@@ -109,8 +107,17 @@ public class UI {
 	public static JLabel lblNombreDeUsuario;
 	public static JLabel lblPassword;
 	public static JLabel lblConfirmarPassword;
-	
-	
+
+
+	//Perfil
+	static JPanel panelPerfil;
+	public static JTextField textField_PanelPerfil_Nombre;
+	public static JTextField textField_PanelPerfil_Telefono;
+	public static JTextField textField_PanelPerfil_Email;
+	public static JTextArea textArea_PanelPerfil_Nick;
+	public static JTextArea textArea_PanelPerfil_CCC;
+	public static JTextArea textArea_PanelPerfil_Permisos;
+
 
 	public UI() {
 		initialize();
@@ -129,9 +136,16 @@ public class UI {
 		panelActas.setBounds(0, 44, 994, 620);
 		panelActas.setVisible(false);
 
-		panelNuevoMiembro = new JPanel();
-		panelNuevoMiembro.setBounds(0, 44, 994, 620);
-		panelNuevoMiembro.setVisible(false);
+		//Panel Agendas
+		panelAgendas = new JPanel();
+		panelAgendas.setBounds(0, 44, 994, 620);
+		panelAgendas.setVisible(false);
+
+		//Panel Principal
+		panelPrincipal = new JPanel();
+		panelPrincipal.setBounds(0, 0, 994, 44);
+		panelPrincipal.setBackground(SystemColor.activeCaption);
+		panelPrincipal.setVisible(false);
 
 		//Panel CCC
 		panelCCC = new JPanel();
@@ -139,234 +153,214 @@ public class UI {
 		panelCCC.setLayout(null);
 		panelCCC.setVisible(false);
 
-		//Panel Agendas
-		panelAgendas = new JPanel();
-		panelAgendas.setBounds(0, 44, 994, 620);
-		panelAgendas.setVisible(false);
+		panelNuevoMiembro = new JPanel();
+		panelNuevoMiembro.setBounds(0, 44, 994, 620);
+		panelNuevoMiembro.setVisible(false);
+
+		panelPerfil = new JPanel();
+		panelPerfil.setBounds(0, 44, 994, 620);
+		panelPerfil.setVisible(false);
 		
-		panelLogin = new JPanel();
-		panelLogin.setBackground(SystemColor.textHighlight);
-		panelLogin.setBounds(0, 0, 994, 720);
-		frame.getContentPane().add(panelLogin);
-		panelLogin.setLayout(null);
-		
-		passwordField_PanelLogin_Password = new JPasswordField();
-		passwordField_PanelLogin_Password.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if(arg0.getKeyCode()==KeyEvent.VK_ENTER){
-					if(Controller.login()){//Login correcto
-						panelLogin.setVisible(false);
-						panelPrincipal.setVisible(true);
-						panelOutput.setVisible(true);
-					}
-				}
-			}
-		});
-		passwordField_PanelLogin_Password.setBounds(429, 542, 175, 20);
-		panelLogin.add(passwordField_PanelLogin_Password);
-		
-		JLabel label_panelLogin_Segeca = new JLabel("");
-		label_panelLogin_Segeca.setIcon(new ImageIcon(UI.class.getResource("/resources/Segeca.PNG")));
-		label_panelLogin_Segeca.setBounds(261, 90, 488, 367);
-		panelLogin.add(label_panelLogin_Segeca);
-		
-		textField_PanelLogin_User = new JTextField();
-		textField_PanelLogin_User.setBounds(429, 501, 175, 20);
-		panelLogin.add(textField_PanelLogin_User);
-		textField_PanelLogin_User.setColumns(10);
-		
-		JLabel lblNick_1 = new JLabel("Usuario");
-		lblNick_1.setFont(new Font("Arial", Font.BOLD, 15));
-		lblNick_1.setBounds(300, 501, 106, 14);
-		panelLogin.add(lblNick_1);
-		
-		JLabel lblNewLabel = new JLabel("Password");
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 15));
-		lblNewLabel.setBounds(298, 542, 109, 14);
-		panelLogin.add(lblNewLabel);
-		
-		JButton button_PanelLogin_Login = new JButton("Login");
-		button_PanelLogin_Login.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(Controller.login()){//Login correcto
-					panelLogin.setVisible(false);
-					panelPrincipal.setVisible(true);
-					panelOutput.setVisible(true);
-				}
-			}
-		});
-		button_PanelLogin_Login.setBounds(635, 500, 89, 23);
-		panelLogin.add(button_PanelLogin_Login);
-		
-		JButton btnRegistrar = new JButton("Registrar");
-		btnRegistrar.addActionListener(new ActionListener() {
+				panelBajaMiembro = new JPanel();
+				panelBajaMiembro.setBounds(0, 44, 994, 620);
+				panelBajaMiembro.setVisible(false);
+				frame.getContentPane().add(panelBajaMiembro);
+				panelBajaMiembro.setLayout(null);
+				
+						lblEliminarMiembro = new JLabel("Eliminar Miembro");
+						lblEliminarMiembro.setBounds(113, 32, 352, 39);
+						lblEliminarMiembro.setFont(new Font("Tahoma", Font.PLAIN, 32));
+						panelBajaMiembro.add(lblEliminarMiembro);
+						
+								label = new JLabel("Nick");
+								label.setBounds(140, 140, 128, 14);
+								panelBajaMiembro.add(label);
+								
+										textField_PanelBajaMiembro_Nick = new JTextField();
+										textField_PanelBajaMiembro_Nick.setColumns(10);
+										textField_PanelBajaMiembro_Nick.setBounds(320, 137, 319, 20);
+										panelBajaMiembro.add(textField_PanelBajaMiembro_Nick);
+										
+												textField_PanelBajaMiembro_CCC = new JTextField();
+												textField_PanelBajaMiembro_CCC.setColumns(10);
+												textField_PanelBajaMiembro_CCC.setBounds(321, 177, 319, 20);
+												panelBajaMiembro.add(textField_PanelBajaMiembro_CCC);
+												
+														JLabel lblCcc_2 = new JLabel("CCC");
+														lblCcc_2.setBounds(141, 180, 128, 14);
+														panelBajaMiembro.add(lblCcc_2);
+														
+																JButton button_PanelBajaMiembro_EliminarMiembro = new JButton("Eliminar");
+																button_PanelBajaMiembro_EliminarMiembro.addActionListener(new ActionListener() {
+																	public void actionPerformed(ActionEvent arg0) {
+																		Controller.bajaPersonaCCC();
+																		panelBajaMiembro.setVisible(false);
+																		panelCCC.setVisible(true);
+																		Controller.cccSelected();
+																		panelDatos.setVisible(true);
+
+																	}
+																});
+																button_PanelBajaMiembro_EliminarMiembro.setBounds(552, 219, 89, 23);
+																panelBajaMiembro.add(button_PanelBajaMiembro_EliminarMiembro);
+																
+																		JButton button_PanelBajaMiembro_Cancelar = new JButton("Cancelar");
+																		button_PanelBajaMiembro_Cancelar.addActionListener(new ActionListener() {
+																			public void actionPerformed(ActionEvent arg0) {
+																				panelBajaMiembro.setVisible(false);
+																				panelCCC.setVisible(true);
+																				panelDatos.setVisible(true);
+																			}
+																		});
+																		button_PanelBajaMiembro_Cancelar.setBounds(433, 219, 89, 23);
+																		panelBajaMiembro.add(button_PanelBajaMiembro_Cancelar);
+		frame.getContentPane().add(panelPerfil);
+		panelPerfil.setLayout(null);
+
+		JLabel lblPerfil = new JLabel("Perfil");
+		lblPerfil.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		lblPerfil.setBounds(158, 43, 439, 60);
+		panelPerfil.add(lblPerfil);
+
+		JLabel lblNewLabel_1 = new JLabel("Nick");
+		lblNewLabel_1.setBounds(260, 146, 46, 14);
+		panelPerfil.add(lblNewLabel_1);
+
+		JLabel lblNombre_1 = new JLabel("Nombre");
+		lblNombre_1.setBounds(260, 188, 46, 14);
+		panelPerfil.add(lblNombre_1);
+
+		textField_PanelPerfil_Nombre = new JTextField();
+		textField_PanelPerfil_Nombre.setColumns(10);
+		textField_PanelPerfil_Nombre.setBounds(386, 185, 199, 20);
+		panelPerfil.add(textField_PanelPerfil_Nombre);
+
+		textField_PanelPerfil_Telefono = new JTextField();
+		textField_PanelPerfil_Telefono.setColumns(10);
+		textField_PanelPerfil_Telefono.setBounds(386, 271, 199, 20);
+		panelPerfil.add(textField_PanelPerfil_Telefono);
+
+		textField_PanelPerfil_Email = new JTextField();
+		textField_PanelPerfil_Email.setColumns(10);
+		textField_PanelPerfil_Email.setBounds(386, 229, 199, 20);
+		panelPerfil.add(textField_PanelPerfil_Email);
+
+		JLabel lblEmail = new JLabel("E-mail");
+		lblEmail.setBounds(260, 232, 46, 14);
+		panelPerfil.add(lblEmail);
+
+		JLabel lblTelefono = new JLabel("Telefono");
+		lblTelefono.setBounds(260, 274, 101, 14);
+		panelPerfil.add(lblTelefono);
+
+		textArea_PanelPerfil_CCC = new JTextArea();
+		textArea_PanelPerfil_CCC.setEditable(false);
+		textArea_PanelPerfil_CCC.setBounds(386, 312, 199, 20);
+		panelPerfil.add(textArea_PanelPerfil_CCC);
+
+		JLabel lblCcc_3 = new JLabel("CCC");
+		lblCcc_3.setBounds(260, 317, 46, 14);
+		panelPerfil.add(lblCcc_3);
+
+		textArea_PanelPerfil_Permisos = new JTextArea();
+		textArea_PanelPerfil_Permisos.setEditable(false);
+		textArea_PanelPerfil_Permisos.setBounds(386, 358, 199, 20);
+		panelPerfil.add(textArea_PanelPerfil_Permisos);
+
+		JLabel lblPermisos_1 = new JLabel("Permisos");
+		lblPermisos_1.setBounds(260, 363, 75, 14);
+		panelPerfil.add(lblPermisos_1);
+
+		textArea_PanelPerfil_Nick = new JTextArea();
+		textArea_PanelPerfil_Nick.setEditable(false);
+		textArea_PanelPerfil_Nick.setBounds(386, 141, 199, 20);
+		panelPerfil.add(textArea_PanelPerfil_Nick);
+
+		JButton button_PanelPerfil_Editar = new JButton("Editar");
+		button_PanelPerfil_Editar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelLogin.setVisible(false);
-				panelRegistro.setVisible(true);
+				Controller.modPerfil();
 			}
 		});
-		btnRegistrar.setBounds(635, 541, 89, 23);
-		panelLogin.add(btnRegistrar);
-		
-		panelRegistro = new JPanel();
-		panelRegistro.setBackground(SystemColor.textHighlight);
-		panelRegistro.setBounds(0, 0, 994, 720);
-		panelRegistro.setVisible(false);
-		frame.getContentPane().add(panelRegistro);
-		panelRegistro.setLayout(null);
-		
-		JLabel lblAltaDeUsuario = new JLabel("Registro de usuario");
-		lblAltaDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 33));
-		lblAltaDeUsuario.setBounds(332, 44, 336, 61);
-		panelRegistro.add(lblAltaDeUsuario);
-		
-		panel_PanelRegistro_Datos = new JPanel();
-		panel_PanelRegistro_Datos.setBackground(UIManager.getColor("info"));
-		panel_PanelRegistro_Datos.setBounds(247, 178, 470, 244);
-		panelRegistro.add(panel_PanelRegistro_Datos);
-		panel_PanelRegistro_Datos.setLayout(null);
-		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
+		button_PanelPerfil_Editar.setBounds(523, 426, 89, 23);
+		panelPerfil.add(button_PanelPerfil_Editar);
+
+		JButton button_PanelPerfil_Cancelar = new JButton("Cancelar");
+		button_PanelPerfil_Cancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panelRegistro.setVisible(false);
-				panelLogin.setVisible(true);
+				panelPerfil.setVisible(false);
 			}
 		});
-		btnCancelar.setBounds(207, 195, 89, 23);
-		panel_PanelRegistro_Datos.add(btnCancelar);
-		
-		JButton btnNewButton = new JButton("Registrar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(Controller.registro()){
-					panelRegistro.setVisible(false);
-					panelLogin.setVisible(true);
-				}
-			}
-		});
-		btnNewButton.setBounds(339, 195, 89, 23);
-		panel_PanelRegistro_Datos.add(btnNewButton);
-		
-		passwordField_PanelRegistro_ConfPassword = new JPasswordField();
-		passwordField_PanelRegistro_ConfPassword.setBounds(246, 126, 182, 20);
-		panel_PanelRegistro_Datos.add(passwordField_PanelRegistro_ConfPassword);
-		
-		lblConfirmarPassword = new JLabel("Confirmar password");
-		lblConfirmarPassword.setBounds(45, 129, 159, 14);
-		panel_PanelRegistro_Datos.add(lblConfirmarPassword);
-		lblConfirmarPassword.setFont(new Font("Arial", Font.BOLD, 15));
-		
-		lblPassword = new JLabel("Password");
-		lblPassword.setBounds(45, 89, 159, 14);
-		panel_PanelRegistro_Datos.add(lblPassword);
-		lblPassword.setFont(new Font("Arial", Font.BOLD, 15));
-		
-		passwordField_PanelRegistro_Password = new JPasswordField();
-		passwordField_PanelRegistro_Password.setBounds(246, 86, 182, 20);
-		panel_PanelRegistro_Datos.add(passwordField_PanelRegistro_Password);
-		
-		textField_PanelRegistro_Usuario = new JTextField();
-		textField_PanelRegistro_Usuario.setBounds(246, 44, 182, 20);
-		panel_PanelRegistro_Datos.add(textField_PanelRegistro_Usuario);
-		textField_PanelRegistro_Usuario.setColumns(10);
-		
-		lblNombreDeUsuario = new JLabel("Nombre de usuario");
-		lblNombreDeUsuario.setBounds(45, 47, 159, 14);
-		panel_PanelRegistro_Datos.add(lblNombreDeUsuario);
-		lblNombreDeUsuario.setFont(new Font("Arial", Font.BOLD, 15));
-		panelAgendas.setLayout(null);
-		frame.getContentPane().add(panelAgendas);
+		button_PanelPerfil_Cancelar.setBounds(398, 426, 89, 23);
+		panelPerfil.add(button_PanelPerfil_Cancelar);
+		frame.getContentPane().add(panelNuevoMiembro);
+		panelNuevoMiembro.setLayout(null);
 
-		JLabel labelAgendas = new JLabel("AGENDAS");
-		labelAgendas.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		labelAgendas.setBounds(118, 27, 257, 37);
-		panelAgendas.add(labelAgendas);
+		lblMiembro = new JLabel("Agregar Miembro");
+		lblMiembro.setBounds(113, 32, 403, 39);
+		lblMiembro.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		panelNuevoMiembro.add(lblMiembro);
 
-		JLabel labelFechaAgendas = new JLabel("Fecha");
-		labelFechaAgendas.setBounds(118, 119, 97, 14);
-		panelAgendas.add(labelFechaAgendas);
+		lblNick = new JLabel("Nick");
+		lblNick.setBounds(134, 138, 128, 14);
+		panelNuevoMiembro.add(lblNick);
 
-		JLabel lblLugarAgendas = new JLabel("Lugar");
-		lblLugarAgendas.setBounds(118, 166, 97, 14);
-		panelAgendas.add(lblLugarAgendas);
+		textField_PanelMiembro_Nick = new JTextField();
+		textField_PanelMiembro_Nick.setBounds(363, 135, 319, 20);
+		textField_PanelMiembro_Nick.setColumns(10);
+		panelNuevoMiembro.add(textField_PanelMiembro_Nick);
 
-		JLabel lblPropositoAgendas = new JLabel("Proposito");
-		lblPropositoAgendas.setBounds(118, 213, 97, 14);
-		panelAgendas.add(lblPropositoAgendas);
+		JLabel lblPermisos = new JLabel("Permisos");
+		lblPermisos.setBounds(134, 185, 128, 14);
+		panelNuevoMiembro.add(lblPermisos);
 
-		JLabel lblParticipantesAgendas = new JLabel("Participantes");
-		lblParticipantesAgendas.setBounds(118, 260, 97, 14);
-		panelAgendas.add(lblParticipantesAgendas);
+		textField_PanelMiembro_Permisos = new JTextField();
+		textField_PanelMiembro_Permisos.setColumns(10);
+		textField_PanelMiembro_Permisos.setBounds(363, 182, 319, 20);
+		panelNuevoMiembro.add(textField_PanelMiembro_Permisos);
 
-		JLabel lblHoraInicioAgendas = new JLabel("Hora Inicio");
-		lblHoraInicioAgendas.setBounds(118, 307, 97, 14);
-		panelAgendas.add(lblHoraInicioAgendas);
+		JLabel lblCcc_1 = new JLabel("CCC");
+		lblCcc_1.setBounds(134, 232, 128, 14);
+		panelNuevoMiembro.add(lblCcc_1);
 
-		JLabel lblHoraFinAgendas = new JLabel("Hora Fin");
-		lblHoraFinAgendas.setBounds(118, 354, 97, 14);
-		panelAgendas.add(lblHoraFinAgendas);
+		textField_PanelMiembro_CCC = new JTextField();
+		textField_PanelMiembro_CCC.setColumns(10);
+		textField_PanelMiembro_CCC.setBounds(363, 229, 319, 20);
+		panelNuevoMiembro.add(textField_PanelMiembro_CCC);
 
-		JLabel lblCCCAgendas = new JLabel("CCC");
-		lblCCCAgendas.setBounds(118, 401, 97, 14);
-		panelAgendas.add(lblCCCAgendas);
-
-		textFieldFechaAgendas = new JTextField();
-		textFieldFechaAgendas.setColumns(10);
-		textFieldFechaAgendas.setBounds(340, 113, 393, 20);
-		panelAgendas.add(textFieldFechaAgendas);
-
-		textFieldLugarAgendas = new JTextField();
-		textFieldLugarAgendas.setColumns(10);
-		textFieldLugarAgendas.setBounds(340, 160, 393, 20);
-		panelAgendas.add(textFieldLugarAgendas);
-
-		textFieldPropositoAgendas = new JTextField();
-		textFieldPropositoAgendas.setColumns(10);
-		textFieldPropositoAgendas.setBounds(340, 207, 393, 20);
-		panelAgendas.add(textFieldPropositoAgendas);
-
-		textFieldParticipantesAgendas = new JTextField();
-		textFieldParticipantesAgendas.setColumns(10);
-		textFieldParticipantesAgendas.setBounds(340, 254, 393, 20);
-		panelAgendas.add(textFieldParticipantesAgendas);
-
-		textFieldHoraInicioAgendas = new JTextField();
-		textFieldHoraInicioAgendas.setColumns(10);
-		textFieldHoraInicioAgendas.setBounds(340, 301, 393, 20);
-		panelAgendas.add(textFieldHoraInicioAgendas);
-
-		textFieldHoraFinAgendas = new JTextField();
-		textFieldHoraFinAgendas.setColumns(10);
-		textFieldHoraFinAgendas.setBounds(340, 348, 393, 20);
-		panelAgendas.add(textFieldHoraFinAgendas);
-
-		textFieldCCCAgendas = new JTextField();
-		textFieldCCCAgendas.setColumns(10);
-		textFieldCCCAgendas.setBounds(340, 395, 393, 20);
-		panelAgendas.add(textFieldCCCAgendas);
-
-		buttonOkAgendas = new JButton("OK");
-		buttonOkAgendas.setBounds(636, 465, 97, 37);
-		panelAgendas.add(buttonOkAgendas);
-		buttonOkAgendas.addActionListener(new ActionListener() {
+		JButton buttonCancelarMiembro = new JButton("Cancelar");
+		buttonCancelarMiembro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Controller.prepararAgenda();
-				panelAgendas.setVisible(false);
-				panelPrincipal.setVisible(true);
+				panelNuevoMiembro.setVisible(false);
+				panelDatos.setVisible(true);
+				panelCCC.setVisible(true);
 			}
 		});
+		buttonCancelarMiembro.setBounds(382, 286, 103, 20);
+		panelNuevoMiembro.add(buttonCancelarMiembro);
 
-		buttonCancelarAgendas = new JButton("Cancelar");
-		buttonCancelarAgendas.setBounds(340, 465, 103, 37);
-		panelAgendas.add(buttonCancelarAgendas);
-		buttonCancelarAgendas.addActionListener(new ActionListener() {
+		JButton btnAgregar = new JButton("Agregar / Editar");
+		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panelAgendas.setVisible(false);
-				panelPrincipal.setVisible(true);
+				Controller.modMiembrosCCC();
+				panelNuevoMiembro.setVisible(false);
+				panelCCC.setVisible(true);
+				Controller.cccSelected();
+				panelDatos.setVisible(true);
+
 			}
 		});
+		btnAgregar.setBounds(529, 285, 153, 23);
+		panelNuevoMiembro.add(btnAgregar);
+
+		JButton button_PanelNuevoMiembro_Mostrar = new JButton("Mostrar");
+		button_PanelNuevoMiembro_Mostrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Controller.memberSelected();
+			}
+		});
+		button_PanelNuevoMiembro_Mostrar.setBounds(739, 134, 89, 23);
+		panelNuevoMiembro.add(button_PanelNuevoMiembro_Mostrar);
 		frame.getContentPane().add(panelCCC);
 
 		JLabel lblCcc = new JLabel("CCC");
@@ -467,7 +461,7 @@ public class UI {
 		button_PanelCCC_BajaMiembro.setBounds(515, 160, 117, 23);
 		panelDatos.add(button_PanelCCC_BajaMiembro);
 
-		JButton buttoNuevoMiembro = new JButton("Editar/Crear");
+		JButton buttoNuevoMiembro = new JButton("Agregar");
 		buttoNuevoMiembro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelNuevoMiembro.setVisible(true);
@@ -487,14 +481,17 @@ public class UI {
 		panelDatos.add(buttonMostrarPeticiones);
 
 		textPane_PanelCCC_Miembros = new JTextPane();
+		textPane_PanelCCC_Miembros.setEditable(false);
 		textPane_PanelCCC_Miembros.setBounds(201, 160, 252, 20);
 		panelDatos.add(textPane_PanelCCC_Miembros);
 
 		textPane_PanelCCC_Agendas = new JTextPane();
+		textPane_PanelCCC_Agendas.setEditable(false);
 		textPane_PanelCCC_Agendas.setBounds(201, 198, 252, 20);
 		panelDatos.add(textPane_PanelCCC_Agendas);
 
 		textPane_PanelCCC_Peticiones = new JTextPane();
+		textPane_PanelCCC_Peticiones.setEditable(false);
 		textPane_PanelCCC_Peticiones.setBounds(201, 236, 252, 20);
 		panelDatos.add(textPane_PanelCCC_Peticiones);
 
@@ -506,168 +503,173 @@ public class UI {
 		});
 		buttonMostrarCCC.setBounds(318, 88, 89, 23);
 		panelCCC.add(buttonMostrarCCC);
-		frame.getContentPane().add(panelNuevoMiembro);
-		panelNuevoMiembro.setLayout(null);
-
-		lblMiembro = new JLabel("Miembro");
-		lblMiembro.setBounds(113, 32, 403, 39);
-		lblMiembro.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		panelNuevoMiembro.add(lblMiembro);
-
-		lblNick = new JLabel("Nick");
-		lblNick.setBounds(134, 138, 128, 14);
-		panelNuevoMiembro.add(lblNick);
-
-		textField_PanelMiembro_Nick = new JTextField();
-		textField_PanelMiembro_Nick.setBounds(363, 135, 319, 20);
-		textField_PanelMiembro_Nick.setColumns(10);
-		panelNuevoMiembro.add(textField_PanelMiembro_Nick);
-
-		JLabel lblNombre_1 = new JLabel("Nombre");
-		lblNombre_1.setBounds(134, 190, 128, 14);
-		panelNuevoMiembro.add(lblNombre_1);
-
-		textField_PanelMiembro_Nombre = new JTextField();
-		textField_PanelMiembro_Nombre.setColumns(10);
-		textField_PanelMiembro_Nombre.setBounds(363, 187, 319, 20);
-		panelNuevoMiembro.add(textField_PanelMiembro_Nombre);
-
-		JLabel lblEmail = new JLabel("E-Mail");
-		lblEmail.setBounds(134, 240, 128, 14);
-		panelNuevoMiembro.add(lblEmail);
-
-		textField_PanelMiembro_Email = new JTextField();
-		textField_PanelMiembro_Email.setColumns(10);
-		textField_PanelMiembro_Email.setBounds(363, 237, 319, 20);
-		panelNuevoMiembro.add(textField_PanelMiembro_Email);
-
-		JLabel lblTelefono = new JLabel("Telefono");
-		lblTelefono.setBounds(134, 291, 128, 14);
-		panelNuevoMiembro.add(lblTelefono);
-
-		textField_PanelMiembro_Telefono = new JTextField();
-		textField_PanelMiembro_Telefono.setColumns(10);
-		textField_PanelMiembro_Telefono.setBounds(363, 288, 319, 20);
-		panelNuevoMiembro.add(textField_PanelMiembro_Telefono);
-
-		JLabel lblPermisos = new JLabel("Permisos");
-		lblPermisos.setBounds(134, 341, 128, 14);
-		panelNuevoMiembro.add(lblPermisos);
-
-		textField_PanelMiembro_Permisos = new JTextField();
-		textField_PanelMiembro_Permisos.setColumns(10);
-		textField_PanelMiembro_Permisos.setBounds(363, 338, 319, 20);
-		panelNuevoMiembro.add(textField_PanelMiembro_Permisos);
-
-		JLabel lblCcc_1 = new JLabel("CCC");
-		lblCcc_1.setBounds(134, 388, 128, 14);
-		panelNuevoMiembro.add(lblCcc_1);
-
-		textField_PanelMiembro_CCC = new JTextField();
-		textField_PanelMiembro_CCC.setColumns(10);
-		textField_PanelMiembro_CCC.setBounds(363, 385, 319, 20);
-		panelNuevoMiembro.add(textField_PanelMiembro_CCC);
-
-		JButton button_PanelMiembro_Crear = new JButton("Crear");
-		button_PanelMiembro_Crear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Controller.altaPersonaCCC();
+		frame.getContentPane().add(panelPrincipal);
+		panelPrincipal.setLayout(null);
+		botonAgendas = new JButton("Agendas");
+		botonAgendas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelAgendas.setVisible(true);
+				panelActas.setVisible(false);
+				panelCCC.setVisible(false);
+				panelDatos.setVisible(false);
 				panelNuevoMiembro.setVisible(false);
-				panelCCC.setVisible(true);
-				Controller.cccSelected();
-				panelDatos.setVisible(true);
+				panelPerfil.setVisible(false);
 			}
 		});
-		button_PanelMiembro_Crear.setBounds(684, 494, 95, 20);
-		panelNuevoMiembro.add(button_PanelMiembro_Crear);
+		botonAgendas.setBounds(25, 11, 87, 23);
+		panelPrincipal.add(botonAgendas);
 
-		JButton buttonCancelarMiembro = new JButton("Cancelar");
-		buttonCancelarMiembro.addActionListener(new ActionListener() {
+		botonCCC = new JButton("CCC");
+		botonCCC.setBounds(272, 11, 80, 23);
+		panelPrincipal.add(botonCCC);
+
+		botonActas = new JButton("Actas");
+		botonActas.setBounds(154, 11, 79, 23);
+		panelPrincipal.add(botonActas);
+
+		JButton buttonLogout = new JButton("Logout");
+		buttonLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Controller.logout();
+				panelPrincipal.setVisible(false);
+				panelOutput.setVisible(false);
+				panelActas.setVisible(false);
+				panelAgendas.setVisible(false);
+				panelCCC.setVisible(false);
+				panelDatos.setVisible(false);
 				panelNuevoMiembro.setVisible(false);
-				panelDatos.setVisible(true);
-				panelCCC.setVisible(true);
-			}
-		});
-		buttonCancelarMiembro.setBounds(441, 494, 103, 20);
-		panelNuevoMiembro.add(buttonCancelarMiembro);
-
-		JButton button_PanelMiembro_Mostrar = new JButton("Mostrar");
-		button_PanelMiembro_Mostrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Controller.memberSelected();
-			}
-		});
-		button_PanelMiembro_Mostrar.setBounds(718, 134, 89, 23);
-		panelNuevoMiembro.add(button_PanelMiembro_Mostrar);
-
-		JButton button_PanelMiembro_Editar = new JButton("Editar");
-		button_PanelMiembro_Editar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Controller.modMiembrosCCC();
-				panelNuevoMiembro.setVisible(false);
-				panelCCC.setVisible(true);
-				Controller.cccSelected();
-				panelDatos.setVisible(true);
-
-			}
-		});
-		button_PanelMiembro_Editar.setBounds(570, 493, 89, 23);
-		panelNuevoMiembro.add(button_PanelMiembro_Editar);
-
-		panelBajaMiembro = new JPanel();
-		panelBajaMiembro.setBounds(0, 44, 994, 620);
-		panelBajaMiembro.setVisible(false);
-		frame.getContentPane().add(panelBajaMiembro);
-		panelBajaMiembro.setLayout(null);
-
-		lblEliminarMiembro = new JLabel("Eliminar Miembro");
-		lblEliminarMiembro.setBounds(113, 32, 352, 39);
-		lblEliminarMiembro.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		panelBajaMiembro.add(lblEliminarMiembro);
-
-		label = new JLabel("Nick");
-		label.setBounds(140, 140, 128, 14);
-		panelBajaMiembro.add(label);
-
-		textField_PanelBajaMiembro_Nick = new JTextField();
-		textField_PanelBajaMiembro_Nick.setColumns(10);
-		textField_PanelBajaMiembro_Nick.setBounds(320, 137, 319, 20);
-		panelBajaMiembro.add(textField_PanelBajaMiembro_Nick);
-
-		textField_PanelBajaMiembro_CCC = new JTextField();
-		textField_PanelBajaMiembro_CCC.setColumns(10);
-		textField_PanelBajaMiembro_CCC.setBounds(321, 177, 319, 20);
-		panelBajaMiembro.add(textField_PanelBajaMiembro_CCC);
-
-		JLabel lblCcc_2 = new JLabel("CCC");
-		lblCcc_2.setBounds(141, 180, 128, 14);
-		panelBajaMiembro.add(lblCcc_2);
-
-		JButton button_PanelBajaMiembro_EliminarMiembro = new JButton("Eliminar");
-		button_PanelBajaMiembro_EliminarMiembro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Controller.bajaPersonaCCC();
 				panelBajaMiembro.setVisible(false);
-				panelCCC.setVisible(true);
-				Controller.cccSelected();
-				panelDatos.setVisible(true);
-
+				panelPerfil.setVisible(false);
+				panelLogin.setVisible(true);
 			}
 		});
-		button_PanelBajaMiembro_EliminarMiembro.setBounds(552, 219, 89, 23);
-		panelBajaMiembro.add(button_PanelBajaMiembro_EliminarMiembro);
+		buttonLogout.setBounds(895, 11, 89, 23);
+		panelPrincipal.add(buttonLogout);
 
-		JButton button_PanelBajaMiembro_Cancelar = new JButton("Cancelar");
-		button_PanelBajaMiembro_Cancelar.addActionListener(new ActionListener() {
+		JButton buttonMiPerfil = new JButton("Mi Perfil");
+		buttonMiPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panelBajaMiembro.setVisible(false);
-				panelCCC.setVisible(true);
-				panelDatos.setVisible(true);
+				Controller.mostrarPerfil();
+				panelPerfil.setVisible(true);
+				panelActas.setVisible(false);
+				panelAgendas.setVisible(false);
+				panelCCC.setVisible(false);
+				panelDatos.setVisible(false);
+				panelNuevoMiembro.setVisible(false);
 			}
 		});
-		button_PanelBajaMiembro_Cancelar.setBounds(433, 219, 89, 23);
-		panelBajaMiembro.add(button_PanelBajaMiembro_Cancelar);
+		buttonMiPerfil.setBounds(783, 11, 89, 23);
+		panelPrincipal.add(buttonMiPerfil);
+		botonActas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelActas.setVisible(true);
+				panelAgendas.setVisible(false);
+				panelCCC.setVisible(false);
+				panelDatos.setVisible(false);
+				panelNuevoMiembro.setVisible(false);
+				panelPerfil.setVisible(false);
+			}
+		});
+		botonCCC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelActas.setVisible(false);
+				panelAgendas.setVisible(false);
+				panelCCC.setVisible(true);
+				panelDatos.setVisible(true);
+				panelNuevoMiembro.setVisible(false);
+				panelPerfil.setVisible(false);
+			}
+		});
+		panelAgendas.setLayout(null);
+		frame.getContentPane().add(panelAgendas);
+
+		JLabel labelAgendas = new JLabel("AGENDAS");
+		labelAgendas.setFont(new Font("Tahoma", Font.PLAIN, 32));
+		labelAgendas.setBounds(118, 27, 257, 37);
+		panelAgendas.add(labelAgendas);
+
+		JLabel labelFechaAgendas = new JLabel("Fecha");
+		labelFechaAgendas.setBounds(118, 119, 97, 14);
+		panelAgendas.add(labelFechaAgendas);
+
+		JLabel lblLugarAgendas = new JLabel("Lugar");
+		lblLugarAgendas.setBounds(118, 166, 97, 14);
+		panelAgendas.add(lblLugarAgendas);
+
+		JLabel lblPropositoAgendas = new JLabel("Proposito");
+		lblPropositoAgendas.setBounds(118, 213, 97, 14);
+		panelAgendas.add(lblPropositoAgendas);
+
+		JLabel lblParticipantesAgendas = new JLabel("Participantes");
+		lblParticipantesAgendas.setBounds(118, 260, 97, 14);
+		panelAgendas.add(lblParticipantesAgendas);
+
+		JLabel lblHoraInicioAgendas = new JLabel("Hora Inicio");
+		lblHoraInicioAgendas.setBounds(118, 307, 97, 14);
+		panelAgendas.add(lblHoraInicioAgendas);
+
+		JLabel lblHoraFinAgendas = new JLabel("Hora Fin");
+		lblHoraFinAgendas.setBounds(118, 354, 97, 14);
+		panelAgendas.add(lblHoraFinAgendas);
+
+		JLabel lblCCCAgendas = new JLabel("CCC");
+		lblCCCAgendas.setBounds(118, 401, 97, 14);
+		panelAgendas.add(lblCCCAgendas);
+
+		textFieldFechaAgendas = new JTextField();
+		textFieldFechaAgendas.setColumns(10);
+		textFieldFechaAgendas.setBounds(340, 113, 393, 20);
+		panelAgendas.add(textFieldFechaAgendas);
+
+		textFieldLugarAgendas = new JTextField();
+		textFieldLugarAgendas.setColumns(10);
+		textFieldLugarAgendas.setBounds(340, 160, 393, 20);
+		panelAgendas.add(textFieldLugarAgendas);
+
+		textFieldPropositoAgendas = new JTextField();
+		textFieldPropositoAgendas.setColumns(10);
+		textFieldPropositoAgendas.setBounds(340, 207, 393, 20);
+		panelAgendas.add(textFieldPropositoAgendas);
+
+		textFieldParticipantesAgendas = new JTextField();
+		textFieldParticipantesAgendas.setColumns(10);
+		textFieldParticipantesAgendas.setBounds(340, 254, 393, 20);
+		panelAgendas.add(textFieldParticipantesAgendas);
+
+		textFieldHoraInicioAgendas = new JTextField();
+		textFieldHoraInicioAgendas.setColumns(10);
+		textFieldHoraInicioAgendas.setBounds(340, 301, 393, 20);
+		panelAgendas.add(textFieldHoraInicioAgendas);
+
+		textFieldHoraFinAgendas = new JTextField();
+		textFieldHoraFinAgendas.setColumns(10);
+		textFieldHoraFinAgendas.setBounds(340, 348, 393, 20);
+		panelAgendas.add(textFieldHoraFinAgendas);
+
+		textFieldCCCAgendas = new JTextField();
+		textFieldCCCAgendas.setColumns(10);
+		textFieldCCCAgendas.setBounds(340, 395, 393, 20);
+		panelAgendas.add(textFieldCCCAgendas);
+
+		buttonOkAgendas = new JButton("OK");
+		buttonOkAgendas.setBounds(636, 465, 97, 37);
+		panelAgendas.add(buttonOkAgendas);
+		buttonOkAgendas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Controller.prepararAgenda();
+				panelAgendas.setVisible(false);
+				panelPrincipal.setVisible(true);
+			}
+		});
+
+		buttonCancelarAgendas = new JButton("Cancelar");
+		buttonCancelarAgendas.setBounds(340, 465, 103, 37);
+		panelAgendas.add(buttonCancelarAgendas);
+		buttonCancelarAgendas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelAgendas.setVisible(false);
+			}
+		});
 		comboBoxCCC.setBounds(118, 91, 142, 20);
 		frame.getContentPane().add(panelActas);
 		panelActas.setLayout(null);
@@ -724,34 +726,6 @@ public class UI {
 			}
 		});
 
-		//Panel Principal
-		panelPrincipal = new JPanel();
-		panelPrincipal.setBounds(0, 0, 994, 44);
-		panelPrincipal.setBackground(SystemColor.activeCaption);
-		panelPrincipal.setVisible(false);
-		frame.getContentPane().add(panelPrincipal);
-		panelPrincipal.setLayout(null);
-		botonAgendas = new JButton("Agendas");
-		botonAgendas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelAgendas.setVisible(true);
-				panelActas.setVisible(false);
-				panelCCC.setVisible(false);
-				panelDatos.setVisible(false);
-				panelNuevoMiembro.setVisible(false);
-			}
-		});
-		botonAgendas.setBounds(25, 11, 87, 23);
-		panelPrincipal.add(botonAgendas);
-
-		botonCCC = new JButton("CCC");
-		botonCCC.setBounds(272, 11, 80, 23);
-		panelPrincipal.add(botonCCC);
-
-		botonActas = new JButton("Actas");
-		botonActas.setBounds(154, 11, 79, 23);
-		panelPrincipal.add(botonActas);
-
 		panelOutput = new JPanel();
 		panelOutput.setBounds(0, 666, 994, 54);
 		panelOutput.setVisible(false);
@@ -763,24 +737,139 @@ public class UI {
 		label_PanelOutput_Output.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		label_PanelOutput_Output.setBounds(27, 11, 935, 26);
 		panelOutput.add(label_PanelOutput_Output);
-		botonActas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelActas.setVisible(true);
-				panelAgendas.setVisible(false);
-				panelCCC.setVisible(false);
-				panelDatos.setVisible(false);
-				panelNuevoMiembro.setVisible(false);
+
+		panelLogin = new JPanel();
+		panelLogin.setBackground(SystemColor.textHighlight);
+		panelLogin.setBounds(0, 0, 994, 720);
+		frame.getContentPane().add(panelLogin);
+		panelLogin.setLayout(null);
+
+		passwordField_PanelLogin_Password = new JPasswordField();
+		passwordField_PanelLogin_Password.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if(arg0.getKeyCode()==KeyEvent.VK_ENTER){
+					if(Controller.login()){//Login correcto
+						panelLogin.setVisible(false);
+						panelPrincipal.setVisible(true);
+						panelOutput.setVisible(true);
+					}
+				}
 			}
 		});
-		botonCCC.addActionListener(new ActionListener() {
+		passwordField_PanelLogin_Password.setBounds(429, 542, 175, 20);
+		panelLogin.add(passwordField_PanelLogin_Password);
+
+		JLabel label_panelLogin_Segeca = new JLabel("");
+		label_panelLogin_Segeca.setIcon(new ImageIcon(UI.class.getResource("/resources/Segeca.PNG")));
+		label_panelLogin_Segeca.setBounds(261, 90, 488, 367);
+		panelLogin.add(label_panelLogin_Segeca);
+
+		textField_PanelLogin_User = new JTextField();
+		textField_PanelLogin_User.setBounds(429, 501, 175, 20);
+		panelLogin.add(textField_PanelLogin_User);
+		textField_PanelLogin_User.setColumns(10);
+
+		JLabel lblNick_1 = new JLabel("Usuario");
+		lblNick_1.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNick_1.setBounds(300, 501, 106, 14);
+		panelLogin.add(lblNick_1);
+
+		JLabel lblNewLabel = new JLabel("Password");
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNewLabel.setBounds(298, 542, 109, 14);
+		panelLogin.add(lblNewLabel);
+
+		JButton button_PanelLogin_Login = new JButton("Login");
+		button_PanelLogin_Login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panelActas.setVisible(false);
-				panelAgendas.setVisible(false);
-				panelCCC.setVisible(true);
-				panelDatos.setVisible(true);
-				panelNuevoMiembro.setVisible(false);
+				if(Controller.login()){//Login correcto
+					panelLogin.setVisible(false);
+					panelPrincipal.setVisible(true);
+					panelOutput.setVisible(true);
+				}
 			}
 		});
+		button_PanelLogin_Login.setBounds(635, 500, 89, 23);
+		panelLogin.add(button_PanelLogin_Login);
+
+		JButton btnRegistrar = new JButton("Registrar");
+		btnRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelLogin.setVisible(false);
+				panelRegistro.setVisible(true);
+			}
+		});
+		btnRegistrar.setBounds(635, 541, 89, 23);
+		panelLogin.add(btnRegistrar);
+
+		panelRegistro = new JPanel();
+		panelRegistro.setBackground(SystemColor.textHighlight);
+		panelRegistro.setBounds(0, 0, 994, 720);
+		panelRegistro.setVisible(false);
+		frame.getContentPane().add(panelRegistro);
+		panelRegistro.setLayout(null);
+
+		JLabel lblAltaDeUsuario = new JLabel("Registro de usuario");
+		lblAltaDeUsuario.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		lblAltaDeUsuario.setBounds(332, 44, 336, 61);
+		panelRegistro.add(lblAltaDeUsuario);
+
+		panel_PanelRegistro_Datos = new JPanel();
+		panel_PanelRegistro_Datos.setBackground(UIManager.getColor("info"));
+		panel_PanelRegistro_Datos.setBounds(247, 178, 470, 244);
+		panelRegistro.add(panel_PanelRegistro_Datos);
+		panel_PanelRegistro_Datos.setLayout(null);
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelRegistro.setVisible(false);
+				panelLogin.setVisible(true);
+			}
+		});
+		btnCancelar.setBounds(207, 195, 89, 23);
+		panel_PanelRegistro_Datos.add(btnCancelar);
+
+		JButton btnNewButton = new JButton("Registrar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(Controller.registro()){
+					panelRegistro.setVisible(false);
+					panelLogin.setVisible(true);
+				}
+			}
+		});
+		btnNewButton.setBounds(339, 195, 89, 23);
+		panel_PanelRegistro_Datos.add(btnNewButton);
+
+		passwordField_PanelRegistro_ConfPassword = new JPasswordField();
+		passwordField_PanelRegistro_ConfPassword.setBounds(246, 126, 182, 20);
+		panel_PanelRegistro_Datos.add(passwordField_PanelRegistro_ConfPassword);
+
+		lblConfirmarPassword = new JLabel("Confirmar password");
+		lblConfirmarPassword.setBounds(45, 129, 159, 14);
+		panel_PanelRegistro_Datos.add(lblConfirmarPassword);
+		lblConfirmarPassword.setFont(new Font("Arial", Font.BOLD, 15));
+
+		lblPassword = new JLabel("Password");
+		lblPassword.setBounds(45, 89, 159, 14);
+		panel_PanelRegistro_Datos.add(lblPassword);
+		lblPassword.setFont(new Font("Arial", Font.BOLD, 15));
+
+		passwordField_PanelRegistro_Password = new JPasswordField();
+		passwordField_PanelRegistro_Password.setBounds(246, 86, 182, 20);
+		panel_PanelRegistro_Datos.add(passwordField_PanelRegistro_Password);
+
+		textField_PanelRegistro_Usuario = new JTextField();
+		textField_PanelRegistro_Usuario.setBounds(246, 44, 182, 20);
+		panel_PanelRegistro_Datos.add(textField_PanelRegistro_Usuario);
+		textField_PanelRegistro_Usuario.setColumns(10);
+
+		lblNombreDeUsuario = new JLabel("Nombre de usuario");
+		lblNombreDeUsuario.setBounds(45, 47, 159, 14);
+		panel_PanelRegistro_Datos.add(lblNombreDeUsuario);
+		lblNombreDeUsuario.setFont(new Font("Arial", Font.BOLD, 15));
 
 	}
 }

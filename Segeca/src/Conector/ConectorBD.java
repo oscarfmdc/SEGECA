@@ -47,11 +47,11 @@ public class ConectorBD {
 			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
 				statement.executeUpdate("update `Personas` set telefono="+persona.getTelefono()+
 						", email='"+persona.getEmail()+"', CCC='"+persona.getCcc().getNombreCCC()+"', nombre='"+
-						persona.getNombre()+"', permisos='"+ persona.getPermisos()+"', password='"+ persona.getPassword() +"' where `nick`='"+persona.getNick()+"' limit 1;");
+						persona.getNombre()+"', permisos='"+ persona.getPermisos()+"' where `nick`='"+persona.getNick()+"' limit 1;");
 			}else{//Si no, lo introuducimos por primera vez
 				statement.executeUpdate("insert into `Personas` set telefono='"+persona.getTelefono()+
 						"', email='"+persona.getEmail()+"', CCC='"+persona.getCcc().getNombreCCC()+"', nombre='"+
-						persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"', password='"+ persona.getPassword()+"';");
+						persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"';");
 			}
 		}catch (Exception e){
 			System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
