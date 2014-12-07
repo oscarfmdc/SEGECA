@@ -22,7 +22,7 @@ public class Controller {
         UI.initialize();
         UI.frame.setVisible(true);
         //pruebas.PU.PU_requisitos();
-        //pruebas.PI.pruebaIntegraciÃ³n();
+        //pruebas.PI.pruebaIntegracion();
         //bd.desconectar();
     }
        
@@ -67,7 +67,7 @@ public class Controller {
         return 0;
     }
 
-    /* MÃƒÂ©todo auxiliar para comprobar todos los campos de la agenda */
+    /* Metodo auxiliar para comprobar todos los campos de la agenda */
     // Devuelve falso si fallo
     private static boolean comprobarAgenda() {
 
@@ -367,14 +367,14 @@ public class Controller {
     }
 
     /* Requisito 3.2 */
-    // MÃ©todo que asignarÃ¡ una peticiÃ³n de cambio a una reuniÃ³n de un CCC que se celebre con posterioridad
+    // Metodo que asignarÃ¡ una peticiÃ³n de cambio a una reuniÃ³n de un CCC que se celebre con posterioridad
     // IINTERFAZ: TENÃ‰IS QUE MOSTRAR TODAS LAS REUNIONES DEL CCC QUE NO SE HAYAN CELEBRADO Y PASARNOS EL CODIGO DE LA AGENDA
     public static int PcAgendaCCC(int codAgenda) {
         
         Pc pc = new Pc();
         pc.setCodPC(0);
         
-        // JTextfield cn la descripciÃ³n de la PC
+        // JTextfield cn la descripción de la PC
         JTextField descripcionPc=null;
         pc.setDescripcion(descripcionPc.getText());
         
@@ -416,7 +416,7 @@ public class Controller {
         
         // Stub de la bbdd.C Comentar en la versiÃ³n final
         //stubs.PcAgendaCCC(pc);
-        // MÃ©todo que aÃ±adirÃ¡ una PC con los parÃ¡metros que hemos establecido
+        // Metodo que aÃ±adirÃ¡ una PC con los parÃ¡metros que hemos establecido
         bd.addPCagendaCCC(pc);
         
         JOptionPane.showMessageDialog(null, "Se ha asignado correctamente una peticiÃ³n de cambio a la reuniÃ³n correspondiente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -424,13 +424,13 @@ public class Controller {
     }
 
     /* Requisito 3.3 */
-    //MÃ©todo que registra PC inicial
+    //Metodo que registra PC inicial
     public static int altaPC() {
         Pc pc = new Pc();
 
         pc.setCodPC(0);
         
-        // Jtextfield con la descripciÃ³n de la PC
+        // Jtextfield con la descripción de la PC
         JTextPane descripcionPC = UI.textPane_PanelPCnueva_Descripcion;
         String descripcion = descripcionPC.getText();
         
@@ -460,8 +460,8 @@ public class Controller {
             pc.setMotivo(motivo);
         }
 
-        // Si es inicial, la establecemos como pendiente
-        pc.setEstado("pendiente");
+        // Si es inicial, la establecemos como abierta
+        pc.setEstado(Pc.Estado.ABIERTA);
         
         //Prioridad PC
         JTextField priorPC = UI.textArea_PanelPCnueva_Prioridad;
@@ -474,7 +474,7 @@ public class Controller {
     }
 
     /* Requisito 3.4 */
-    // MÃ©todo que introduce una valoraciÃ³n en una PC
+    // Metodo que introduce una valoraciÃ³n en una PC
     // Interfaz: ES NECESARIO QUE NOS PASÃ‰IS EL CÃ“DIGO DE LA PC QUE QUERÃ�A MODIFICAR EL USUARIO
     public static int valorarPC(int codPC) {
         Pc pc = new Pc(codPC);
@@ -490,7 +490,7 @@ public class Controller {
             pc.setValoracion(valoracion);
         }
 
-        // MÃ©todo que aÃ±ade valoracion a una PC
+        // Metodo que aÃ±ade valoracion a una PC
         bd.valorarPC(pc);
         JOptionPane.showMessageDialog(null, "Se ha introducido la valoracion de dicha PC correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
@@ -498,7 +498,7 @@ public class Controller {
     }
 
     /* Requisito 3.5 */
-    // MÃ©todo que modifica el estado de una PC
+    // Metodo que modifica el estado de una PC
     public static int modEstadoPC() {
         //ComboBox que debe mostrar todos los estados posibles de la PC
         JComboBox EstadosPC = null;
@@ -512,7 +512,7 @@ public class Controller {
         Pc pc = new Pc();
         pc.setEstado(estado);
 
-        // MÃ©todo que SOLO modifica el estado de una PC
+        // Metodo que SOLO modifica el estado de una PC
         bd.modEstadoPC(pc);
         JOptionPane.showMessageDialog(null, "Se ha modificado el estado de dicha PC correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 

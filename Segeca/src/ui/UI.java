@@ -152,7 +152,6 @@ public class UI {
 	public static JTextPane textPane_PanelPCnueva_Valoracion;
 	public static JTextField textArea_PanelPCnueva_Email;
 	public static JTextField textArea_PanelPCnueva_Motivo;
-	public static JComboBox<Estado> comboBox_PanelPCnueva_Estado;
 	
 
 
@@ -236,20 +235,16 @@ public class UI {
 																						lblCodAgenda.setBounds(160, 273, 72, 14);
 																						panelPCnueva.add(lblCodAgenda);
 																						
-																						JLabel lblEstado_1 = new JLabel("Estado");
-																						lblEstado_1.setBounds(160, 298, 72, 14);
-																						panelPCnueva.add(lblEstado_1);
-																						
 																						JLabel lblCcc_4 = new JLabel("CCC");
-																						lblCcc_4.setBounds(160, 335, 72, 14);
+																						lblCcc_4.setBounds(160, 303, 72, 14);
 																						panelPCnueva.add(lblCcc_4);
 																						
 																						JLabel lblValoracion_1 = new JLabel("Valoracion");
-																						lblValoracion_1.setBounds(160, 360, 72, 14);
+																						lblValoracion_1.setBounds(160, 328, 72, 14);
 																						panelPCnueva.add(lblValoracion_1);
 																						
 																						JLabel lblDocumentos_1 = new JLabel("Documentos");
-																						lblDocumentos_1.setBounds(151, 446, 72, 14);
+																						lblDocumentos_1.setBounds(151, 414, 72, 14);
 																						panelPCnueva.add(lblDocumentos_1);
 																						
 																						textArea_PanelPCnueva_Prioridad = new JTextField();
@@ -269,12 +264,12 @@ public class UI {
 																						
 																						textField_PanelPCnueva_CCC = new JTextField();
 																						textField_PanelPCnueva_CCC.setEditable(false);
-																						textField_PanelPCnueva_CCC.setBounds(233, 330, 153, 20);
+																						textField_PanelPCnueva_CCC.setBounds(233, 298, 153, 20);
 																						panelPCnueva.add(textField_PanelPCnueva_CCC);
 																						
 																						textArea_PanelPCnueva_Documentos = new JTextField();
 																						textArea_PanelPCnueva_Documentos.setEditable(false);
-																						textArea_PanelPCnueva_Documentos.setBounds(233, 441, 153, 20);
+																						textArea_PanelPCnueva_Documentos.setBounds(233, 409, 153, 20);
 																						panelPCnueva.add(textArea_PanelPCnueva_Documentos);
 																						
 																						textPane_PanelPCnueva_Descripcion = new JTextPane();
@@ -293,12 +288,8 @@ public class UI {
 																								Controller.altaPC();
 																							}
 																						});
-																						btnNewButton_1.setBounds(151, 496, 131, 32);
+																						btnNewButton_1.setBounds(151, 450, 131, 32);
 																						panelPCnueva.add(btnNewButton_1);
-																						
-																						comboBox_PanelPCnueva_Estado = new JComboBox<Estado>();
-																						comboBox_PanelPCnueva_Estado.setBounds(233, 301, 144, 20);
-																						panelPCnueva.add(comboBox_PanelPCnueva_Estado);
 																						
 																						JLabel lblEmail_2 = new JLabel("Email");
 																						lblEmail_2.setBounds(160, 248, 72, 14);
@@ -311,7 +302,7 @@ public class UI {
 																						
 																						textPane_PanelPCnueva_Valoracion = new JTextPane();
 																						textPane_PanelPCnueva_Valoracion.setEditable(false);
-																						textPane_PanelPCnueva_Valoracion.setBounds(233, 360, 303, 50);
+																						textPane_PanelPCnueva_Valoracion.setBounds(233, 328, 303, 50);
 																						panelPCnueva.add(textPane_PanelPCnueva_Valoracion);
 																						frame.getContentPane().add(panelBajaMiembro);
 																						panelBajaMiembro.setLayout(null);
