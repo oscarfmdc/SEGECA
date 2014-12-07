@@ -139,6 +139,20 @@ public class UI {
 	public static JTextArea textArea_PanelPC_Documentos;
 	public static JTextPane textPane_PanelPC_Descripcion;
 	public static JTextPane textPane_PanelPC_Valoracion;
+	private static JButton btnNewButton_1;
+	
+	//PanelPCnueva
+	static JPanel panelPCnueva;
+	public static JTextField textArea_PanelPCnueva_Prioridad;
+	public static JTextField textArea_PanelPCnueva_Fecha;
+	public static JTextField textArea_PanelPCnueva_CDAgenda;
+	public static JTextField textField_PanelPCnueva_CCC;
+	public static JTextField textArea_PanelPCnueva_Documentos;
+	public static JTextPane textPane_PanelPCnueva_Descripcion;
+	public static JTextPane textPane_PanelPCnueva_Valoracion;
+	public static JTextField textArea_PanelPCnueva_Email;
+	public static JTextField textArea_PanelPCnueva_Motivo;
+	public static JComboBox<Estado> comboBox_PanelPCnueva_Estado;
 	
 
 
@@ -183,197 +197,309 @@ public class UI {
 		panelPerfil = new JPanel();
 		panelPerfil.setBounds(0, 44, 994, 620);
 		panelPerfil.setVisible(false);
+																		
+																				panelPC = new JPanel();
+																				panelPC.setBounds(0, 44, 994, 620);
+																				panelPC.setVisible(false);
+																				
+																						panelBajaMiembro = new JPanel();
+																						panelBajaMiembro.setBounds(0, 44, 994, 620);
+																						panelBajaMiembro.setVisible(false);
+																						
+																						panelPCnueva = new JPanel();
+																						panelPCnueva.setBounds(0, 44, 994, 620);
+																						frame.getContentPane().add(panelPCnueva);
+																						panelPCnueva.setLayout(null);
+																						
+																						JLabel label_1 = new JLabel("PC");
+																						label_1.setFont(new Font("Tahoma", Font.PLAIN, 34));
+																						label_1.setBounds(160, 42, 122, 41);
+																						panelPCnueva.add(label_1);
+																						
+																						JLabel PCMotivo_Label = new JLabel("Motivo");
+																						PCMotivo_Label.setBounds(160, 192, 72, 14);
+																						panelPCnueva.add(PCMotivo_Label);
+																						
+																						JLabel lblDescripcion_1 = new JLabel("Descripcion");
+																						lblDescripcion_1.setBounds(160, 131, 72, 14);
+																						panelPCnueva.add(lblDescripcion_1);
+																						
+																						JLabel lblPrioridad_1 = new JLabel("Prioridad");
+																						lblPrioridad_1.setBounds(160, 222, 72, 14);
+																						panelPCnueva.add(lblPrioridad_1);
+																						
+																						JLabel lblFecha = new JLabel("Fecha");
+																						lblFecha.setBounds(160, 106, 72, 14);
+																						panelPCnueva.add(lblFecha);
+																						
+																						JLabel lblCodAgenda = new JLabel("Cod. Agenda");
+																						lblCodAgenda.setBounds(160, 273, 72, 14);
+																						panelPCnueva.add(lblCodAgenda);
+																						
+																						JLabel lblEstado_1 = new JLabel("Estado");
+																						lblEstado_1.setBounds(160, 298, 72, 14);
+																						panelPCnueva.add(lblEstado_1);
+																						
+																						JLabel lblCcc_4 = new JLabel("CCC");
+																						lblCcc_4.setBounds(160, 335, 72, 14);
+																						panelPCnueva.add(lblCcc_4);
+																						
+																						JLabel lblValoracion_1 = new JLabel("Valoracion");
+																						lblValoracion_1.setBounds(160, 360, 72, 14);
+																						panelPCnueva.add(lblValoracion_1);
+																						
+																						JLabel lblDocumentos_1 = new JLabel("Documentos");
+																						lblDocumentos_1.setBounds(151, 446, 72, 14);
+																						panelPCnueva.add(lblDocumentos_1);
+																						
+																						textArea_PanelPCnueva_Prioridad = new JTextField();
+																						textArea_PanelPCnueva_Prioridad.setEditable(false);
+																						textArea_PanelPCnueva_Prioridad.setBounds(233, 217, 105, 20);
+																						panelPCnueva.add(textArea_PanelPCnueva_Prioridad);
+																						
+																						textArea_PanelPCnueva_Fecha = new JTextField();
+																						textArea_PanelPCnueva_Fecha.setEditable(false);
+																						textArea_PanelPCnueva_Fecha.setBounds(233, 100, 105, 20);
+																						panelPCnueva.add(textArea_PanelPCnueva_Fecha);
+																						
+																						textArea_PanelPCnueva_CDAgenda = new JTextField();
+																						textArea_PanelPCnueva_CDAgenda.setEditable(false);
+																						textArea_PanelPCnueva_CDAgenda.setBounds(233, 268, 105, 20);
+																						panelPCnueva.add(textArea_PanelPCnueva_CDAgenda);
+																						
+																						textField_PanelPCnueva_CCC = new JTextField();
+																						textField_PanelPCnueva_CCC.setEditable(false);
+																						textField_PanelPCnueva_CCC.setBounds(233, 330, 153, 20);
+																						panelPCnueva.add(textField_PanelPCnueva_CCC);
+																						
+																						textArea_PanelPCnueva_Documentos = new JTextField();
+																						textArea_PanelPCnueva_Documentos.setEditable(false);
+																						textArea_PanelPCnueva_Documentos.setBounds(233, 441, 153, 20);
+																						panelPCnueva.add(textArea_PanelPCnueva_Documentos);
+																						
+																						textPane_PanelPCnueva_Descripcion = new JTextPane();
+																						textPane_PanelPCnueva_Descripcion.setEditable(false);
+																						textPane_PanelPCnueva_Descripcion.setBounds(233, 131, 303, 50);
+																						panelPCnueva.add(textPane_PanelPCnueva_Descripcion);
+																						
+																						textArea_PanelPCnueva_Motivo = new JTextField();
+																						textArea_PanelPCnueva_Motivo.setEditable(false);
+																						textArea_PanelPCnueva_Motivo.setBounds(233, 187, 303, 20);
+																						panelPCnueva.add(textArea_PanelPCnueva_Motivo);
+																						
+																						btnNewButton_1 = new JButton("Crear PC");
+																						btnNewButton_1.addActionListener(new ActionListener() {
+																							public void actionPerformed(ActionEvent e) {
+																								Controller.altaPC();
+																							}
+																						});
+																						btnNewButton_1.setBounds(151, 496, 131, 32);
+																						panelPCnueva.add(btnNewButton_1);
+																						
+																						comboBox_PanelPCnueva_Estado = new JComboBox<Estado>();
+																						comboBox_PanelPCnueva_Estado.setBounds(233, 301, 144, 20);
+																						panelPCnueva.add(comboBox_PanelPCnueva_Estado);
+																						
+																						JLabel lblEmail_2 = new JLabel("Email");
+																						lblEmail_2.setBounds(160, 248, 72, 14);
+																						panelPCnueva.add(lblEmail_2);
+																						
+																						textArea_PanelPCnueva_Email = new JTextField();
+																						textArea_PanelPCnueva_Email.setEditable(false);
+																						textArea_PanelPCnueva_Email.setBounds(233, 242, 105, 20);
+																						panelPCnueva.add(textArea_PanelPCnueva_Email);
+																						
+																						textPane_PanelPCnueva_Valoracion = new JTextPane();
+																						textPane_PanelPCnueva_Valoracion.setEditable(false);
+																						textPane_PanelPCnueva_Valoracion.setBounds(233, 360, 303, 50);
+																						panelPCnueva.add(textPane_PanelPCnueva_Valoracion);
+																						frame.getContentPane().add(panelBajaMiembro);
+																						panelBajaMiembro.setLayout(null);
+																						
+																								lblEliminarMiembro = new JLabel("Eliminar Miembro");
+																								lblEliminarMiembro.setBounds(113, 32, 352, 39);
+																								lblEliminarMiembro.setFont(new Font("Tahoma", Font.PLAIN, 32));
+																								panelBajaMiembro.add(lblEliminarMiembro);
+																								
+																										label = new JLabel("Nick");
+																										label.setBounds(140, 140, 128, 14);
+																										panelBajaMiembro.add(label);
+																										
+																												textField_PanelBajaMiembro_Nick = new JTextField();
+																												textField_PanelBajaMiembro_Nick.setColumns(10);
+																												textField_PanelBajaMiembro_Nick.setBounds(320, 137, 319, 20);
+																												panelBajaMiembro.add(textField_PanelBajaMiembro_Nick);
+																												
+																														textField_PanelBajaMiembro_CCC = new JTextField();
+																														textField_PanelBajaMiembro_CCC.setColumns(10);
+																														textField_PanelBajaMiembro_CCC.setBounds(321, 177, 319, 20);
+																														panelBajaMiembro.add(textField_PanelBajaMiembro_CCC);
+																														
+																																JLabel lblCcc_2 = new JLabel("CCC");
+																																lblCcc_2.setBounds(141, 180, 128, 14);
+																																panelBajaMiembro.add(lblCcc_2);
+																																
+																																		JButton button_PanelBajaMiembro_EliminarMiembro = new JButton("Eliminar");
+																																		button_PanelBajaMiembro_EliminarMiembro.addActionListener(new ActionListener() {
+																																			public void actionPerformed(ActionEvent arg0) {
+																																				Controller.bajaPersonaCCC();
+																																				panelBajaMiembro.setVisible(false);
+																																				panelCCC.setVisible(true);
+																																				Controller.cccSelected();
+																																				panelDatos.setVisible(true);
 
-		panelBajaMiembro = new JPanel();
-		panelBajaMiembro.setBounds(0, 44, 994, 620);
-		panelBajaMiembro.setVisible(false);
-
-		panelPC = new JPanel();
-		panelPC.setBounds(0, 44, 994, 620);
-		panelPC.setVisible(false);
-		frame.getContentPane().add(panelPC);
-		panelPC.setLayout(null);
-
-		JLabel lblPc = new JLabel("PC");
-		lblPc.setBounds(158, 43, 122, 41);
-		lblPc.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		panelPC.add(lblPc);
-
-		JLabel lblNewLabel_2 = new JLabel("PC Code");
-		lblNewLabel_2.setBounds(158, 99, 72, 14);
-		panelPC.add(lblNewLabel_2);
-
-		textField_PanelPC_CodPC = new JTextField();
-		textField_PanelPC_CodPC.setBounds(240, 97, 72, 20);
-		panelPC.add(textField_PanelPC_CodPC);
-		textField_PanelPC_CodPC.setColumns(10);
-
-		JButton button_PanelPC_Mostrar = new JButton("Mostrar");
-		button_PanelPC_Mostrar.setBounds(342, 96, 89, 23);
-		panelPC.add(button_PanelPC_Mostrar);
-
-		JButton button_PanelPC_Nueva = new JButton("Nueva");
-		button_PanelPC_Nueva.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		button_PanelPC_Nueva.setBounds(454, 95, 89, 23);
-		panelPC.add(button_PanelPC_Nueva);
-
-		lblNewLabel_3 = new JLabel("CCC");
-		lblNewLabel_3.setBounds(158, 356, 46, 14);
-		panelPC.add(lblNewLabel_3);
-
-		textField_PanelPC_CCC = new JTextField();
-		textField_PanelPC_CCC.setBounds(240, 353, 144, 20);
-		panelPC.add(textField_PanelPC_CCC);
-		textField_PanelPC_CCC.setColumns(10);
-
-		button_PanelPC_AsignarCCC = new JButton("Asignar");
-		button_PanelPC_AsignarCCC.setBounds(408, 352, 89, 23);
-		panelPC.add(button_PanelPC_AsignarCCC);
-
-		textField_PanelPC_Reunion = new JTextField();
-		textField_PanelPC_Reunion.setColumns(10);
-		textField_PanelPC_Reunion.setBounds(240, 384, 144, 20);
-		panelPC.add(textField_PanelPC_Reunion);
-
-		lblReunion = new JLabel("Reunion");
-		lblReunion.setBounds(158, 387, 46, 14);
-		panelPC.add(lblReunion);
-
-		button_PanelPC_AsignarReunion = new JButton("Asignar");
-		button_PanelPC_AsignarReunion.setBounds(410, 383, 89, 23);
-		panelPC.add(button_PanelPC_AsignarReunion);
-
-		lblEstado = new JLabel("Estado");
-		lblEstado.setBounds(158, 419, 46, 14);
-		panelPC.add(lblEstado);
-
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(410, 415, 89, 23);
-		panelPC.add(btnModificar);
-
-		comboBox_PanelPC_Estado = new JComboBox();
-		comboBox_PanelPC_Estado.setModel(new DefaultComboBoxModel(Estado.values()));
-		comboBox_PanelPC_Estado.setBounds(240, 418, 144, 20);
-		panelPC.add(comboBox_PanelPC_Estado);
-
-		JLabel lblValoracion = new JLabel("Valoracion");
-		lblValoracion.setBounds(158, 453, 72, 14);
-		panelPC.add(lblValoracion);
-
-		JButton button_PanelPC_Valorar = new JButton("Valorar");
-		button_PanelPC_Valorar.setBounds(553, 501, 89, 23);
-		panelPC.add(button_PanelPC_Valorar);
-
-		textPane_PanelPC_Valoracion = new JTextPane();
-		textPane_PanelPC_Valoracion.setBounds(240, 452, 303, 72);
-		panelPC.add(textPane_PanelPC_Valoracion);
-
-		JLabel lblNewLabel_4 = new JLabel("Fecha");
-		lblNewLabel_4.setBounds(158, 137, 72, 14);
-		panelPC.add(lblNewLabel_4);
-
-		textArea_PanelPC_Fecha = new JTextArea();
-		textArea_PanelPC_Fecha.setEditable(false);
-		textArea_PanelPC_Fecha.setBounds(240, 132, 105, 20);
-		panelPC.add(textArea_PanelPC_Fecha);
-
-		JLabel lblDescripcion = new JLabel("Descripcion");
-		lblDescripcion.setBounds(158, 167, 79, 14);
-		panelPC.add(lblDescripcion);
-
-		textArea_PanelPC_Prioridad = new JTextArea();
-		textArea_PanelPC_Prioridad.setEditable(false);
-		textArea_PanelPC_Prioridad.setBounds(240, 254, 105, 20);
-		panelPC.add(textArea_PanelPC_Prioridad);
-
-		JLabel lblPrioridad = new JLabel("Prioridad");
-		lblPrioridad.setBounds(158, 259, 72, 14);
-		panelPC.add(lblPrioridad);
-
-		JLabel lblMotivo = new JLabel("Motivo");
-		lblMotivo.setBounds(158, 229, 72, 14);
-		panelPC.add(lblMotivo);
-
-		textArea_PanelPC_Motivo = new JTextArea();
-		textArea_PanelPC_Motivo.setEditable(false);
-		textArea_PanelPC_Motivo.setBounds(240, 224, 303, 20);
-		panelPC.add(textArea_PanelPC_Motivo);
-
-		JLabel lblDocumentos = new JLabel("Documentos");
-		lblDocumentos.setBounds(158, 320, 72, 14);
-		panelPC.add(lblDocumentos);
-
-		JLabel lblEmail_1 = new JLabel("Email");
-		lblEmail_1.setBounds(158, 290, 72, 14);
-		panelPC.add(lblEmail_1);
-
-		textArea_PanelPC_Email = new JTextArea();
-		textArea_PanelPC_Email.setEditable(false);
-		textArea_PanelPC_Email.setBounds(240, 285, 303, 20);
-		panelPC.add(textArea_PanelPC_Email);
-
-		textArea_PanelPC_Documentos = new JTextArea();
-		textArea_PanelPC_Documentos.setEditable(false);
-		textArea_PanelPC_Documentos.setBounds(240, 315, 303, 20);
-		panelPC.add(textArea_PanelPC_Documentos);
-
-		textPane_PanelPC_Descripcion = new JTextPane();
-		textPane_PanelPC_Descripcion.setEditable(false);
-		textPane_PanelPC_Descripcion.setBounds(240, 163, 303, 50);
-		panelPC.add(textPane_PanelPC_Descripcion);
-		frame.getContentPane().add(panelBajaMiembro);
-		panelBajaMiembro.setLayout(null);
-
-		lblEliminarMiembro = new JLabel("Eliminar Miembro");
-		lblEliminarMiembro.setBounds(113, 32, 352, 39);
-		lblEliminarMiembro.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		panelBajaMiembro.add(lblEliminarMiembro);
-
-		label = new JLabel("Nick");
-		label.setBounds(140, 140, 128, 14);
-		panelBajaMiembro.add(label);
-
-		textField_PanelBajaMiembro_Nick = new JTextField();
-		textField_PanelBajaMiembro_Nick.setColumns(10);
-		textField_PanelBajaMiembro_Nick.setBounds(320, 137, 319, 20);
-		panelBajaMiembro.add(textField_PanelBajaMiembro_Nick);
-
-		textField_PanelBajaMiembro_CCC = new JTextField();
-		textField_PanelBajaMiembro_CCC.setColumns(10);
-		textField_PanelBajaMiembro_CCC.setBounds(321, 177, 319, 20);
-		panelBajaMiembro.add(textField_PanelBajaMiembro_CCC);
-
-		JLabel lblCcc_2 = new JLabel("CCC");
-		lblCcc_2.setBounds(141, 180, 128, 14);
-		panelBajaMiembro.add(lblCcc_2);
-
-		JButton button_PanelBajaMiembro_EliminarMiembro = new JButton("Eliminar");
-		button_PanelBajaMiembro_EliminarMiembro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Controller.bajaPersonaCCC();
-				panelBajaMiembro.setVisible(false);
-				panelCCC.setVisible(true);
-				Controller.cccSelected();
-				panelDatos.setVisible(true);
-
-			}
-		});
-		button_PanelBajaMiembro_EliminarMiembro.setBounds(552, 219, 89, 23);
-		panelBajaMiembro.add(button_PanelBajaMiembro_EliminarMiembro);
-
-		JButton button_PanelBajaMiembro_Cancelar = new JButton("Cancelar");
-		button_PanelBajaMiembro_Cancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				panelBajaMiembro.setVisible(false);
-				panelCCC.setVisible(true);
-				panelDatos.setVisible(true);
-			}
-		});
-		button_PanelBajaMiembro_Cancelar.setBounds(433, 219, 89, 23);
-		panelBajaMiembro.add(button_PanelBajaMiembro_Cancelar);
+																																			}
+																																		});
+																																		button_PanelBajaMiembro_EliminarMiembro.setBounds(552, 219, 89, 23);
+																																		panelBajaMiembro.add(button_PanelBajaMiembro_EliminarMiembro);
+																																		
+																																				JButton button_PanelBajaMiembro_Cancelar = new JButton("Cancelar");
+																																				button_PanelBajaMiembro_Cancelar.addActionListener(new ActionListener() {
+																																					public void actionPerformed(ActionEvent arg0) {
+																																						panelBajaMiembro.setVisible(false);
+																																						panelCCC.setVisible(true);
+																																						panelDatos.setVisible(true);
+																																					}
+																																				});
+																																				button_PanelBajaMiembro_Cancelar.setBounds(433, 219, 89, 23);
+																																				panelBajaMiembro.add(button_PanelBajaMiembro_Cancelar);
+																				frame.getContentPane().add(panelPC);
+																				panelPC.setLayout(null);
+																				
+																						JLabel lblPc = new JLabel("PC");
+																						lblPc.setBounds(158, 43, 122, 41);
+																						lblPc.setFont(new Font("Tahoma", Font.PLAIN, 34));
+																						panelPC.add(lblPc);
+																						
+																								JLabel lblNewLabel_2 = new JLabel("PC Code");
+																								lblNewLabel_2.setBounds(158, 99, 72, 14);
+																								panelPC.add(lblNewLabel_2);
+																								
+																										textField_PanelPC_CodPC = new JTextField();
+																										textField_PanelPC_CodPC.setBounds(240, 97, 72, 20);
+																										panelPC.add(textField_PanelPC_CodPC);
+																										textField_PanelPC_CodPC.setColumns(10);
+																										
+																												JButton button_PanelPC_Mostrar = new JButton("Mostrar");
+																												button_PanelPC_Mostrar.setBounds(342, 96, 89, 23);
+																												panelPC.add(button_PanelPC_Mostrar);
+																												
+																														JButton button_PanelPC_Nueva = new JButton("Nueva");
+																														button_PanelPC_Nueva.addActionListener(new ActionListener() {
+																															public void actionPerformed(ActionEvent arg0) {
+																															}
+																														});
+																														button_PanelPC_Nueva.setBounds(454, 95, 89, 23);
+																														panelPC.add(button_PanelPC_Nueva);
+																														
+																																lblNewLabel_3 = new JLabel("CCC");
+																																lblNewLabel_3.setBounds(158, 356, 46, 14);
+																																panelPC.add(lblNewLabel_3);
+																																
+																																		textField_PanelPC_CCC = new JTextField();
+																																		textField_PanelPC_CCC.setBounds(240, 353, 144, 20);
+																																		panelPC.add(textField_PanelPC_CCC);
+																																		textField_PanelPC_CCC.setColumns(10);
+																																		
+																																				button_PanelPC_AsignarCCC = new JButton("Asignar");
+																																				button_PanelPC_AsignarCCC.setBounds(408, 352, 89, 23);
+																																				panelPC.add(button_PanelPC_AsignarCCC);
+																																				
+																																						textField_PanelPC_Reunion = new JTextField();
+																																						textField_PanelPC_Reunion.setColumns(10);
+																																						textField_PanelPC_Reunion.setBounds(240, 384, 144, 20);
+																																						panelPC.add(textField_PanelPC_Reunion);
+																																						
+																																								lblReunion = new JLabel("Reunion");
+																																								lblReunion.setBounds(158, 387, 46, 14);
+																																								panelPC.add(lblReunion);
+																																								
+																																										button_PanelPC_AsignarReunion = new JButton("Asignar");
+																																										button_PanelPC_AsignarReunion.setBounds(410, 383, 89, 23);
+																																										panelPC.add(button_PanelPC_AsignarReunion);
+																																										
+																																												lblEstado = new JLabel("Estado");
+																																												lblEstado.setBounds(158, 419, 46, 14);
+																																												panelPC.add(lblEstado);
+																																												
+																																														btnModificar = new JButton("Modificar");
+																																														btnModificar.setBounds(410, 415, 89, 23);
+																																														panelPC.add(btnModificar);
+																																														
+																																																comboBox_PanelPC_Estado = new JComboBox();
+																																																comboBox_PanelPC_Estado.setModel(new DefaultComboBoxModel(Estado.values()));
+																																																comboBox_PanelPC_Estado.setBounds(240, 418, 144, 20);
+																																																panelPC.add(comboBox_PanelPC_Estado);
+																																																
+																																																		JLabel lblValoracion = new JLabel("Valoracion");
+																																																		lblValoracion.setBounds(158, 453, 72, 14);
+																																																		panelPC.add(lblValoracion);
+																																																		
+																																																				JButton button_PanelPC_Valorar = new JButton("Valorar");
+																																																				button_PanelPC_Valorar.setBounds(553, 501, 89, 23);
+																																																				panelPC.add(button_PanelPC_Valorar);
+																																																				
+																																																						textPane_PanelPC_Valoracion = new JTextPane();
+																																																						textPane_PanelPC_Valoracion.setBounds(240, 452, 303, 72);
+																																																						panelPC.add(textPane_PanelPC_Valoracion);
+																																																						
+																																																								JLabel lblNewLabel_4 = new JLabel("Fecha");
+																																																								lblNewLabel_4.setBounds(158, 137, 72, 14);
+																																																								panelPC.add(lblNewLabel_4);
+																																																								
+																																																										textArea_PanelPC_Fecha = new JTextArea();
+																																																										textArea_PanelPC_Fecha.setEditable(false);
+																																																										textArea_PanelPC_Fecha.setBounds(240, 132, 105, 20);
+																																																										panelPC.add(textArea_PanelPC_Fecha);
+																																																										
+																																																												JLabel lblDescripcion = new JLabel("Descripcion");
+																																																												lblDescripcion.setBounds(158, 167, 79, 14);
+																																																												panelPC.add(lblDescripcion);
+																																																												
+																																																														textArea_PanelPC_Prioridad = new JTextArea();
+																																																														textArea_PanelPC_Prioridad.setEditable(false);
+																																																														textArea_PanelPC_Prioridad.setBounds(240, 254, 105, 20);
+																																																														panelPC.add(textArea_PanelPC_Prioridad);
+																																																														
+																																																																JLabel lblPrioridad = new JLabel("Prioridad");
+																																																																lblPrioridad.setBounds(158, 259, 72, 14);
+																																																																panelPC.add(lblPrioridad);
+																																																																
+																																																																		JLabel lblMotivo = new JLabel("Motivo");
+																																																																		lblMotivo.setBounds(158, 229, 72, 14);
+																																																																		panelPC.add(lblMotivo);
+																																																																		
+																																																																				textArea_PanelPC_Motivo = new JTextArea();
+																																																																				textArea_PanelPC_Motivo.setEditable(false);
+																																																																				textArea_PanelPC_Motivo.setBounds(240, 224, 303, 20);
+																																																																				panelPC.add(textArea_PanelPC_Motivo);
+																																																																				
+																																																																						JLabel lblDocumentos = new JLabel("Documentos");
+																																																																						lblDocumentos.setBounds(158, 320, 72, 14);
+																																																																						panelPC.add(lblDocumentos);
+																																																																						
+																																																																								JLabel lblEmail_1 = new JLabel("Email");
+																																																																								lblEmail_1.setBounds(158, 290, 72, 14);
+																																																																								panelPC.add(lblEmail_1);
+																																																																								
+																																																																										textArea_PanelPC_Email = new JTextArea();
+																																																																										textArea_PanelPC_Email.setEditable(false);
+																																																																										textArea_PanelPC_Email.setBounds(240, 285, 303, 20);
+																																																																										panelPC.add(textArea_PanelPC_Email);
+																																																																										
+																																																																												textArea_PanelPC_Documentos = new JTextArea();
+																																																																												textArea_PanelPC_Documentos.setEditable(false);
+																																																																												textArea_PanelPC_Documentos.setBounds(240, 315, 303, 20);
+																																																																												panelPC.add(textArea_PanelPC_Documentos);
+																																																																												
+																																																																														textPane_PanelPC_Descripcion = new JTextPane();
+																																																																														textPane_PanelPC_Descripcion.setEditable(false);
+																																																																														textPane_PanelPC_Descripcion.setBounds(240, 163, 303, 50);
+																																																																														panelPC.add(textPane_PanelPC_Descripcion);
+																																																																														
+																																																																														JPanel panelPCinicio = new JPanel();
+																																																																														panelPCinicio.setBounds(0, 0, 597, 296);
+																																																																														panelPC.add(panelPCinicio);
 		frame.getContentPane().add(panelPerfil);
 		panelPerfil.setLayout(null);
 
@@ -720,6 +846,21 @@ public class UI {
 		});
 		buttonMiPerfil.setBounds(783, 11, 89, 23);
 		panelPrincipal.add(buttonMiPerfil);
+		
+		JButton button = new JButton("PC");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelPC.setVisible(true);
+				panelActas.setVisible(false);
+				panelAgendas.setVisible(false);
+				panelCCC.setVisible(false);
+				panelDatos.setVisible(false);
+				panelNuevoMiembro.setVisible(false);
+				panelPerfil.setVisible(false);
+			}
+		});
+		button.setBounds(382, 11, 80, 23);
+		panelPrincipal.add(button);
 		botonActas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelActas.setVisible(true);
