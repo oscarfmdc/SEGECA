@@ -41,8 +41,8 @@ public class ConectorBD {
 	/*
 	 * PERSONA
 	 */
-	public static void createPersona(def.Persona persona){
-		try{
+        public static void addPersonaCCC(Persona persona){
+            try{
 			ResultSet resultado = statement.executeQuery("select * from Personas where nick='"+ persona.getNick() +"'");
 			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
 				statement.executeUpdate("update `Personas` set telefono="+persona.getTelefono()+
@@ -58,7 +58,22 @@ public class ConectorBD {
 			System.out.println("La persona a introducir era: "+ persona.getNick() + ";"+ persona.getCcc().getNombreCCC());
 		}
 	}
-
+        
+	public static void editPerson(Persona persona){
+            try{
+            //ResultSet resultado = statement.executeQuery("select * from Personas where nick='"+ persona.getNick() +"'");
+                statement.executeUpdate("update `Personas` set telefono="+persona.getTelefono()+
+		", email='"+persona.getEmail()+"', nombre='"+ persona.getNombre()+
+                "', permisos='"+ persona.getPermisos()+"' where `nick`='"+persona.getNick()+"' limit 1;");
+                if (persona.getCcc()!=null){
+                    statement.executeUpdate("update `Personas` set CCC='"+persona.getCcc().getNombreCCC()+"' where `nick`='"+persona.getNick()+"' limit 1;");                    
+                }
+            }catch (Exception e){
+                System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
+                System.out.println("La persona a introducir era: "+ persona.getNick() + ";"+ persona.getCcc().getNombreCCC());
+            }
+	}
+        
         public static void registroPersona(def.Persona persona){
 		try{
                     statement.executeUpdate("insert into `Personas` set `nick`='"+persona.getNick()+"', password='"+ persona.getPassword()+"';");
@@ -93,12 +108,7 @@ public class ConectorBD {
 		}
 	}
 
-	public static void addPersonaCCC(Persona persona){
-		createPersona(persona);
-	}
-	public static void editPerson(Persona persona){
-		createPersona(persona);
-	}
+
 
 	/*
 	 * CCC
@@ -420,7 +430,5 @@ public class ConectorBD {
 }
 /*
  * Prioritario:
- * No Prioritario(Siguiente iteración):
- * Introducir PC 
  * resto de deletes
  */
