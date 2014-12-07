@@ -1,6 +1,7 @@
 package ui;
 
 import def.*;
+import def.Pc.Estado;
 
 import java.text.*;
 import java.util.*;
@@ -8,7 +9,7 @@ import java.util.*;
 import javax.swing.*;
 
 import Conector.ConectorBD;
-import pruebas.stubs;
+//import pruebas.stubs;
 
 
 public class Controller {
@@ -338,24 +339,24 @@ public class Controller {
 
     /* Requisito 3.1 */
     // Asignación de PC registrada a un CCC
-    public static int PCaCCC(int codPC) {
+    public static int PCaCCC() {
 
-        Pc pc = new Pc();
+        Pc pc = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
         // nos deben pasar el codPC para asignarle el CCC que eliga el usuario
-        JComboBox CCCs = null;//lista o combo box con los nombres de CCC
         
+        bd.extractPc(pc);
+        
+        String cccPC = UI.textField_PanelPC_CCC.getText();
         // comprobamos que el usuario ha seleccionado un CCC para asignar la PC        
-        if (CCCs.getSelectedIndex() == -1) {
+        if ( cccPC == null) {
             JOptionPane.showMessageDialog(null, "No ha seleccionado ningun CCC para asignar dicha PC.", "Error", JOptionPane.ERROR_MESSAGE);
             return -1;
         }
-        String cccPC = (String) CCCs.getSelectedItem();
         
         // creamos un objeto Ccc con el nombre del CCC que ha seleccionado el usuario
         Ccc newCCC = new Ccc();
         newCCC.setNombreCCC(cccPC);
         pc.setCcc(newCCC);
-        pc.setCodPC(codPC);
         
         // Stub de la BBDD: comentar en la version final
         //stubs.PCaCCC(pc);
@@ -369,47 +370,17 @@ public class Controller {
     /* Requisito 3.2 */
     // Método que asignará una petición de cambio a una reunión de un CCC que se celebre con posterioridad
     // IINTERFAZ: TENÉIS QUE MOSTRAR TODAS LAS REUNIONES DEL CCC QUE NO SE HAYAN CELEBRADO Y PASARNOS EL CODIGO DE LA AGENDA
-    public static int PcAgendaCCC(int codAgenda) {
+    public static int PcAgendaCCC() {
         
-        Pc pc = new Pc();
-        pc.setCodPC(0);
-        
-        // JTextfield cn la descripción de la PC
-        JTextField descripcionPc=null;
-        pc.setDescripcion(descripcionPc.getText());
-        
-        //Debés mostrar los estados posibles de las PCS en este combobox
-        JComboBox listaEstados = null;
-        pc.setEstado((String) listaEstados.getSelectedItem());        
-        
-        //JTextfield con la fecha de la PC
-        JTextField fechaPc = null;
-        
-        //Comprobamos la fecha de la pc
-        if(!isFechaValida(fechaPc.getText()))
-            return -1;            
-        pc.setFecha(fechaPc.getText());
-        
-        //JTextfield con el motivo de la PC
-        JTextField motivoPc = null;
-        
-        pc.setMotivo(motivoPc.getText());
-        
-        //JTextfield con la prioridad del PC
-        JTextField priorPC = null;
-        pc.setPrioridad(priorPC.getText());
-        
-        // Combobox con todos los ccs
-        JComboBox cccPC = null; // Debéis mostrar en la interfaz la lista con todos los cccs
-        String nombreCcc = (String) cccPC.getSelectedItem();
-        
-        Ccc ccc = new Ccc();
-        ccc.setNombreCCC(nombreCcc);
-        
-        pc.setCcc(ccc);
-        
+        Pc pc = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
+        bd.extractPc(pc);
+                
         //Establecemos el código de la agenda
         Agenda ag = new Agenda();
+        int codAgenda = Integer.valueOf(UI.textField_PanelPC_Reunion.getText());
+        if(!(codAgenda > 0)){
+        	JOptionPane.showMessageDialog(null, "El código de agenda introducido es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
         ag.setCodAgenda(codAgenda);
         
         pc.setAgenda(ag);
@@ -476,11 +447,11 @@ public class Controller {
     /* Requisito 3.4 */
     // Método que introduce una valoración en una PC
     // Interfaz: ES NECESARIO QUE NOS PASÉIS EL CÓDIGO DE LA PC QUE QUERÍA MODIFICAR EL USUARIO
-    public static int valorarPC(int codPC) {
-        Pc pc = new Pc(codPC);
-
+    public static int valorarPC() {
+        Pc pc = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
+        bd.extractPc(pc);
         //JTextField correspondiente a valoracion
-        JTextField valoracionPC = null ;        
+        JTextPane valoracionPC = UI.textPane_PanelPC_Valoracion;        
         String valoracion = valoracionPC.getText(); //JTextField correspondiente
         
         if (valoracion == null) {
@@ -501,15 +472,13 @@ public class Controller {
     // Método que modifica el estado de una PC
     public static int modEstadoPC() {
         //ComboBox que debe mostrar todos los estados posibles de la PC
-        JComboBox EstadosPC = null;
+        JComboBox EstadosPC = UI.comboBox_PanelPC_Estado;
         
         // comprobamos que el usuario ha seleccionado un estado para la PC
-        String estado = (String) EstadosPC.getSelectedItem();
-        if (EstadosPC.getSelectedIndex() == -1) {
-            JOptionPane.showMessageDialog(null, "No ha seleccionado ningun estado para asignar a dicha PC.", "Error", JOptionPane.ERROR_MESSAGE);
-            return -1;
-        }
-        Pc pc = new Pc();
+        Estado estado = (Estado) EstadosPC.getSelectedItem();
+        
+        Pc pc = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
+        bd.extractPc(pc);
         pc.setEstado(estado);
 
         // Método que SOLO modifica el estado de una PC
@@ -651,5 +620,30 @@ public class Controller {
          UI.textArea_PanelPerfil_CCC.setText(persona.getCcc().getNombreCCC());
          UI.textArea_PanelPerfil_Permisos.setText(persona.getPermisos());
     }
+    
+    
+    //Rellenar info PC
+    public static void pcSelected(){
+    	Pc peticion = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
+    	bd.extractPc(peticion);
+    	if(peticion.getDescripcion()==null){
+    		JOptionPane.showMessageDialog(null, "No existe ninguna petición asociada a ese código", "Error", JOptionPane.ERROR_MESSAGE);
+    	}
+    	else{//La peticion existe
+    		UI.textArea_PanelPC_Fecha.setText(peticion.getFecha());//Fecha
+    		UI.textPane_PanelPC_Descripcion.setText(peticion.getDescripcion());//Descripcion
+    		UI.textArea_PanelPC_Motivo.setText(peticion.getMotivo());//Motivo
+    		UI.textArea_PanelPC_Email.setText(peticion.getEmail());//Email
+    		UI.textArea_PanelPC_Prioridad.setText(peticion.getPrioridad());//Prioridad
+    		UI.textArea_PanelPC_Documentos.setText(peticion.getDocumentos());//Documentos
+    		UI.textPane_PanelPC_Valoracion.setText(peticion.getValoracion());//Valoracion
+    		UI.textField_PanelPC_CCC.setText(peticion.getCcc().getNombreCCC());//CCC
+    		UI.textField_PanelPC_Reunion.setText(peticion.getAgenda().getFecha());//Reunion
+    		UI.comboBox_PanelPC_Estado.setSelectedItem(peticion.getEstado());//Estado
+    	}
+    }
+    
+    
+    
 }
 

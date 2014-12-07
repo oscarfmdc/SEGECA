@@ -209,12 +209,26 @@ public class UI {
 		textField_PanelPC_CodPC.setColumns(10);
 
 		JButton button_PanelPC_Mostrar = new JButton("Mostrar");
+		button_PanelPC_Mostrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Controller.pcSelected();
+			}
+		});
 		button_PanelPC_Mostrar.setBounds(342, 96, 89, 23);
 		panelPC.add(button_PanelPC_Mostrar);
 
 		JButton button_PanelPC_Nueva = new JButton("Nueva");
 		button_PanelPC_Nueva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				panelPCnueva.setVisible(true);
+				
+				panelPC.setVisible(false);
+                panelActas.setVisible(false);
+                panelAgendas.setVisible(false);
+                panelCCC.setVisible(false);
+                panelDatos.setVisible(false);
+                panelNuevoMiembro.setVisible(false);
+                panelPerfil.setVisible(false);
 			}
 		});
 		button_PanelPC_Nueva.setBounds(454, 95, 89, 23);
@@ -230,6 +244,11 @@ public class UI {
 		textField_PanelPC_CCC.setColumns(10);
 
 		button_PanelPC_AsignarCCC = new JButton("Asignar");
+		button_PanelPC_AsignarCCC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Controller.PCaCCC();
+			}
+		});
 		button_PanelPC_AsignarCCC.setBounds(408, 352, 89, 23);
 		panelPC.add(button_PanelPC_AsignarCCC);
 
@@ -238,11 +257,16 @@ public class UI {
 		textField_PanelPC_Reunion.setBounds(240, 384, 144, 20);
 		panelPC.add(textField_PanelPC_Reunion);
 
-		lblReunion = new JLabel("Reunion");
+		lblReunion = new JLabel("Agenda");
 		lblReunion.setBounds(158, 387, 46, 14);
 		panelPC.add(lblReunion);
 
 		button_PanelPC_AsignarReunion = new JButton("Asignar");
+		button_PanelPC_AsignarReunion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Controller.PcAgendaCCC();
+			}
+		});
 		button_PanelPC_AsignarReunion.setBounds(410, 383, 89, 23);
 		panelPC.add(button_PanelPC_AsignarReunion);
 
@@ -251,6 +275,11 @@ public class UI {
 		panelPC.add(lblEstado);
 
 		btnModificar = new JButton("Modificar");
+		btnModificar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Controller.modEstadoPC();
+			}
+		});
 		btnModificar.setBounds(410, 415, 89, 23);
 		panelPC.add(btnModificar);
 
@@ -264,6 +293,11 @@ public class UI {
 		panelPC.add(lblValoracion);
 
 		JButton button_PanelPC_Valorar = new JButton("Valorar");
+		button_PanelPC_Valorar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Controller.valorarPC();
+			}
+		});
 		button_PanelPC_Valorar.setBounds(553, 501, 89, 23);
 		panelPC.add(button_PanelPC_Valorar);
 
@@ -669,11 +703,14 @@ public class UI {
 		botonAgendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelAgendas.setVisible(true);
+				
 				panelActas.setVisible(false);
 				panelCCC.setVisible(false);
 				panelDatos.setVisible(false);
 				panelNuevoMiembro.setVisible(false);
 				panelPerfil.setVisible(false);
+				panelPC.setVisible(false);
+				panelPCnueva.setVisible(false);
 			}
 		});
 		botonAgendas.setBounds(25, 11, 87, 23);
@@ -700,6 +737,9 @@ public class UI {
 				panelNuevoMiembro.setVisible(false);
 				panelBajaMiembro.setVisible(false);
 				panelPerfil.setVisible(false);
+				panelPC.setVisible(false);
+				panelPCnueva.setVisible(false);
+				
 				panelLogin.setVisible(true);
 			}
 		});
@@ -711,33 +751,59 @@ public class UI {
 			public void actionPerformed(ActionEvent arg0) {
 				Controller.mostrarPerfil();
 				panelPerfil.setVisible(true);
+				
 				panelActas.setVisible(false);
 				panelAgendas.setVisible(false);
 				panelCCC.setVisible(false);
 				panelDatos.setVisible(false);
 				panelNuevoMiembro.setVisible(false);
+				panelPC.setVisible(false);
+				panelPCnueva.setVisible(false);
 			}
 		});
 		buttonMiPerfil.setBounds(783, 11, 89, 23);
 		panelPrincipal.add(buttonMiPerfil);
+		
+		JButton botonPeticiones = new JButton("Peticiones");
+		botonPeticiones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelPC.setVisible(true);
+				
+				panelActas.setVisible(false);				
+				panelAgendas.setVisible(false);
+				panelCCC.setVisible(false);
+				panelDatos.setVisible(false);
+				panelNuevoMiembro.setVisible(false);
+				panelPerfil.setVisible(false);				
+				panelPCnueva.setVisible(false);
+			}
+		});
+		botonPeticiones.setBounds(391, 11, 97, 23);
+		panelPrincipal.add(botonPeticiones);
 		botonActas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelActas.setVisible(true);
+				
 				panelAgendas.setVisible(false);
 				panelCCC.setVisible(false);
 				panelDatos.setVisible(false);
 				panelNuevoMiembro.setVisible(false);
 				panelPerfil.setVisible(false);
+				panelPC.setVisible(false);
+				panelPCnueva.setVisible(false);
 			}
 		});
 		botonCCC.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panelActas.setVisible(false);
-				panelAgendas.setVisible(false);
 				panelCCC.setVisible(true);
 				panelDatos.setVisible(true);
+				
+				panelActas.setVisible(false);
+				panelAgendas.setVisible(false);				
 				panelNuevoMiembro.setVisible(false);
 				panelPerfil.setVisible(false);
+				panelPC.setVisible(false);
+				panelPCnueva.setVisible(false);
 			}
 		});
 		panelAgendas.setLayout(null);
