@@ -26,7 +26,7 @@ public class ConectorBD {
 		catch (Exception e) {
 			System.out.println("No se ha podido conectar a la base de datos.");
 		}
-		//Este método sólo se le llama cuando se desean hacer las pruebas unitarias
+		//Este metodo solo se le llama cuando se desean hacer las pruebas unitarias
 		//pruebas.PU.PU_ConectorBD();
 	}
 
@@ -219,7 +219,7 @@ public class ConectorBD {
 							+"', hora_inicio='"+ agenda.getHoraInicio()+"', ccc='"+ agenda.getCcc().getNombreCCC()
 							+"' where `cod_agenda`='"+agenda.getCodAgenda()+"' limit 1;");
 				}else{
-					System.out.println("El código de Agenda todavía no existe en la base de Datos." +
+					System.out.println("El codigo de Agenda todavía no existe en la base de Datos." +
 							"\n Para crear una agenda nueva codAgenda debe de ser null.");
 				}
 			}
@@ -244,7 +244,7 @@ public class ConectorBD {
 				agenda.setProposito(resultado.getString("proposito"));		
 			}
 		}catch (Exception e){
-			System.out.println("Error al intentar obtener la Agenda con código: "+ agenda.getCodAgenda());
+			System.out.println("Error al intentar obtener la Agenda con codigo: "+ agenda.getCodAgenda());
 		}
 	}
 
@@ -264,7 +264,7 @@ public class ConectorBD {
 				agenda.setProposito(resultado.getString("proposito"));		
 			}
 		}catch (Exception e){
-			System.out.println("Error al intentar obtener la Agenda con código: "+ agenda.getCodAgenda());
+			System.out.println("Error al intentar obtener la Agenda con codigo: "+ agenda.getCodAgenda());
 		}
 	}
 
@@ -354,7 +354,7 @@ public class ConectorBD {
 				pc.setAgenda(agenda);
 			}
 		}catch (Exception e){
-			System.out.println("Error al intentar obtener la PC con código: "+ pc.getCodPC());
+			System.out.println("Error al intentar obtener la PC con codigo: "+ pc.getCodPC());
 		}
 	}
         
@@ -382,7 +382,7 @@ public class ConectorBD {
 							"', ausencias='"+acta.getAusencias()+"', resultados='"+acta.getResultados()
 							+"' where `cod_acta`='"+acta.getCodActa()+"' limit 1;");
 				}else{
-					System.out.println("El código de Acta todavía no existe en la base de Datos." +
+					System.out.println("El codigo de Acta todavía no existe en la base de Datos." +
 							"\n Para crear un acta nueva codActa debe de ser null.");
 				}
 			}
@@ -402,7 +402,7 @@ public class ConectorBD {
 				extractAgenda(agenda);
 			}
 		}catch (Exception E){
-			System.out.println("Error al intentar obtener el Acta con código: "+ acta.getCodActa());
+			System.out.println("Error al intentar obtener el Acta con codigo: "+ acta.getCodActa());
 		}
 	}
 
