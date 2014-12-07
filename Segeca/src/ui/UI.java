@@ -203,6 +203,7 @@ public class UI {
 		
 		panelPCnueva = new JPanel();
 		panelPCnueva.setBounds(0, 44, 994, 620);
+		panelPCnueva.setVisible(false);
 		frame.getContentPane().add(panelPCnueva);
 		panelPCnueva.setLayout(null);
 
@@ -244,37 +245,30 @@ public class UI {
 		panelPCnueva.add(lblDocumentos_1);
 
 		textArea_PanelPCnueva_Prioridad = new JTextField();
-		textArea_PanelPCnueva_Prioridad.setEditable(false);
 		textArea_PanelPCnueva_Prioridad.setBounds(233, 217, 105, 20);
 		panelPCnueva.add(textArea_PanelPCnueva_Prioridad);
 
 		textArea_PanelPCnueva_Fecha = new JTextField();
-		textArea_PanelPCnueva_Fecha.setEditable(false);
 		textArea_PanelPCnueva_Fecha.setBounds(233, 100, 105, 20);
 		panelPCnueva.add(textArea_PanelPCnueva_Fecha);
 
 		textArea_PanelPCnueva_CDAgenda = new JTextField();
-		textArea_PanelPCnueva_CDAgenda.setEditable(false);
 		textArea_PanelPCnueva_CDAgenda.setBounds(233, 268, 105, 20);
 		panelPCnueva.add(textArea_PanelPCnueva_CDAgenda);
 
 		textField_PanelPCnueva_CCC = new JTextField();
-		textField_PanelPCnueva_CCC.setEditable(false);
 		textField_PanelPCnueva_CCC.setBounds(233, 298, 153, 20);
 		panelPCnueva.add(textField_PanelPCnueva_CCC);
 
 		textArea_PanelPCnueva_Documentos = new JTextField();
-		textArea_PanelPCnueva_Documentos.setEditable(false);
 		textArea_PanelPCnueva_Documentos.setBounds(233, 409, 153, 20);
 		panelPCnueva.add(textArea_PanelPCnueva_Documentos);
 
 		textPane_PanelPCnueva_Descripcion = new JTextPane();
-		textPane_PanelPCnueva_Descripcion.setEditable(false);
 		textPane_PanelPCnueva_Descripcion.setBounds(233, 131, 303, 50);
 		panelPCnueva.add(textPane_PanelPCnueva_Descripcion);
 
 		textArea_PanelPCnueva_Motivo = new JTextField();
-		textArea_PanelPCnueva_Motivo.setEditable(false);
 		textArea_PanelPCnueva_Motivo.setBounds(233, 187, 303, 20);
 		panelPCnueva.add(textArea_PanelPCnueva_Motivo);
 
@@ -292,12 +286,10 @@ public class UI {
 		panelPCnueva.add(lblEmail_2);
 
 		textArea_PanelPCnueva_Email = new JTextField();
-		textArea_PanelPCnueva_Email.setEditable(false);
 		textArea_PanelPCnueva_Email.setBounds(233, 242, 105, 20);
 		panelPCnueva.add(textArea_PanelPCnueva_Email);
 
 		textPane_PanelPCnueva_Valoracion = new JTextPane();
-		textPane_PanelPCnueva_Valoracion.setEditable(false);
 		textPane_PanelPCnueva_Valoracion.setBounds(233, 328, 303, 50);
 		panelPCnueva.add(textPane_PanelPCnueva_Valoracion);
 
