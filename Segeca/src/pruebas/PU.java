@@ -8,6 +8,8 @@ package pruebas;
 
 import static Conector.ConectorBD.*;
 import def.*;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 import static ui.Controller.*;
 import ui.UI;
 
@@ -28,7 +30,7 @@ public class PU {
         UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
         UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
         // Llamamos a la funcion a testear
-        prepararAgenda();
+        System.out.println("La función ha devuelto el valor de: " + prepararAgenda());
 
         /* Prueba 2, prueba con error */
         System.out.println("**** Prueba 2: Preparacion de agenda 2 ****");
@@ -41,7 +43,7 @@ public class PU {
         UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
         UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
         // Llamamos a la funcion a testear
-        prepararAgenda();
+        System.out.println("La función ha devuelto el valor de: " + prepararAgenda());
         // debe devolver error porque la fecha es posterior a la actual 2012<2014
 
         /* Prueba 3, prueba con error */
@@ -55,7 +57,7 @@ public class PU {
         UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
         UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
         // Llamamos a la funcion a testear
-        prepararAgenda();
+        System.out.println("La función ha devuelto el valor de: " + prepararAgenda());
         // debe devolver error porque la hora de fin es anterior a la hora de inicio
 
         /* Prueba 4, prueba con error */
@@ -69,7 +71,7 @@ public class PU {
         UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
         UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
         // Llamamos a la funcion a testear
-        prepararAgenda();
+        System.out.println("La función ha devuelto el valor de: " + prepararAgenda());
         // debe devolver error porque la fecha no es valida
 
         /* Prueba 5, prueba con error */
@@ -83,7 +85,7 @@ public class PU {
         UI.textFieldPropositoAgendas.setText("Planificar el proyecto");
         UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
         // Llamamos a la funcion a testear
-        prepararAgenda();
+        System.out.println("La función ha devuelto el valor de: " + prepararAgenda());
         // debe devolver error porque la hora de inicio no es valida
 
         /* Prueba 6 */
@@ -94,7 +96,7 @@ public class PU {
         UI.textFieldAusencias.setText("Javier, Nacho");
         UI.textFieldResultados.setText("Asignacion de tareas a los participantes.");
         // Llamamos a la funcion a testear
-        prepararActa();
+        System.out.println("La función ha devuelto el valor de: " + prepararActa());
 
         /* Prueba 7 */
         System.out.println("**** Prueba 7: Alta de nuevo CCC ****");
@@ -102,13 +104,15 @@ public class PU {
         UI.textFieldNombreCCC.setText("CCC_SEGECA");
         UI.textFieldAdministrador.setText("Pepe");
         UI.textFieldPresidente.setText("Martin");
-        UI.textFieldSecretario.setText("Oscar");	
+        UI.textFieldSecretario.setText("Oscar");
         // Llamamos a la funcion a testear
-        altaCCC();
+        System.out.println("La función ha devuelto el valor de: " + altaCCC());
 
         /* Prueba 8 */
         System.out.println("**** Prueba 8: Baja de CCC existente ****");
-        bajaCCC();
+        // Establecemos el JComboBox
+        UI.comboBoxCCC.addItem("CCC_SEGECA");
+        System.out.println("La función ha devuelto el valor de: " + bajaCCC());
 
         /* Prueba 9 */
         System.out.println("**** Prueba 9: ModificaciÃ³n de miembro de CCC ****");
@@ -116,9 +120,10 @@ public class PU {
         UI.textField_PanelMiembro_CCC.setText("CCC_1");
         UI.textField_PanelMiembro_Email.setText("email@ejemplo.es");
         UI.textField_PanelMiembro_Nombre.setText("Oscar");
+        UI.textField_PanelMiembro_Nick.setText("kx3r");
         UI.textField_PanelMiembro_Telefono.setText("666123456");
         // Llamamos a la funcion a testear
-        modMiembrosCCC();
+        System.out.println("La función ha devuelto el valor de: " + modMiembrosCCC());
 
         /* Prueba 10 */
         System.out.println("**** Prueba 10: ModificaciÃ³n de miembro de CCC 2 ****");
@@ -126,9 +131,10 @@ public class PU {
         UI.textField_PanelMiembro_CCC.setText("CCC_1");
         UI.textField_PanelMiembro_Email.setText("email@ejemplo.es");
         UI.textField_PanelMiembro_Nombre.setText("Oscar");
+        UI.textField_PanelMiembro_Nick.setText("kx3r");
         UI.textField_PanelMiembro_Telefono.setText("666456");
         // Llamamos a la funcion a testear
-        modMiembrosCCC();
+        System.out.println("La función ha devuelto el valor de: " + modMiembrosCCC());
         // debe devolver error, porque el numero de telefono no es valido
 
         /* Prueba 11 */
@@ -140,12 +146,39 @@ public class PU {
         UI.textField_PanelMiembro_Nombre.setText("Oscar");
         UI.textField_PanelMiembro_Telefono.setText("666456123");
         //Llamamos a la funcion a testear
-        altaPersonaCCC();
+        System.out.println("La función ha devuelto el valor de: " + altaPersonaCCC());
 
         /* Prueba 12 */
         System.out.println("**** Prueba 12: Baja miembro en un CCC ****");
-        bajaPersonaCCC();
-
+        // Establecemos el parámetro
+        UI.textField_PanelBajaMiembro_Nick.setText("Marco");  
+        System.out.println("La función ha devuelto el valor de: " + bajaPersonaCCC());
+        
+        // Pruebas ciclo 2
+        
+        // Prueba 13
+        System.out.println("**** Prueba 13: Asignación de un CCC a una petición de cambio registrada****");
+        JComboBox CCCs = new JComboBox(); //SUSTITUIR POR EL COMBOBOX FINAL
+        CCCs.addItem("CCC_1");
+        System.out.println("La función ha devuelto el valor de: " + PCaCCC(1));
+        
+        // Prueba 14
+        System.out.println("**** Prueba 14: Asignación de petición de cambio a agenda****");
+        
+        JTextField descripPC = new JTextField(); // SUSTITUIR POR EL COMBOBOX FINAL
+        descripPC.setText("Introducción del plan de GCS a línea base.");       
+        JComboBox listaEstados = new JComboBox(); //SUSTITUIR POR EL COMBOBOX FINAL
+        listaEstados.addItem("Abierta");
+        JTextField fechaPC = new JTextField(); //SUSTITUIR POR EL TEXTFIELD FINAL
+        fechaPC.setText("7/12/2014");
+        JTextField motivoPC = new JTextField(); //SUSTITUIR POR EL TEXTFIELD FINAL
+        motivoPC.setText("Actualización de la línea base.");
+        JTextField prior = new JTextField(); //SUSTITUIR POR EL TEXTFIELD FINAL
+        motivoPC.setText("Alta");
+        JComboBox listaCCCs = new JComboBox(); //SUSTITUIR POR EL COMBOBOX FINAL
+        listaCCCs.addItem("CCC_1");
+        
+        System.out.println("La función ha devuelto el valor de: " + PcAgendaCCC(4));
     }
 
     	public static void PU_ConectorBD(){
