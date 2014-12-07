@@ -10,11 +10,15 @@ public class Pc implements Serializable {
 	private String descripcion;
 	private String prioridad;
 	private String fecha;
-	private String estado;
+	private Estado estado;
 	private String valoracion;
 	private String documentos;
 	private Ccc ccc;
 	private Agenda agenda;
+	
+	public enum Estado {
+		ABIERTA, APROBADA, DESAPROBADA, EN_IMPLEMENTACION, CERRADA
+	}
 
 	public Pc() {
 	}
@@ -71,11 +75,11 @@ public class Pc implements Serializable {
 		this.fecha = fecha;
 	}
 
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 
