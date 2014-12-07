@@ -1,9 +1,13 @@
 package ui;
 
 import def.*;
+
 import java.text.*;
 import java.util.*;
+
 import javax.swing.*;
+
+import Conector.ConectorBD;
 import pruebas.stubs;
 
 
@@ -21,8 +25,13 @@ public class Controller {
         //pruebas.PI.pruebaIntegración();
         //bd.desconectar();
     }
+       
 
-    /* Requisito 1.2 */
+    public static Conector.ConectorBD getBd() {
+		return bd;
+	}
+
+	/* Requisito 1.2 */
     public static int prepararAgenda() {
         // comprobamos que los datos recibidos sean correctos
         if (!comprobarAgenda()) {
@@ -471,8 +480,7 @@ public class Controller {
         Pc pc = new Pc(codPC);
 
         //JTextField correspondiente a valoracion
-        JTextField valoracionPC ;
-        
+        JTextField valoracionPC = null ;        
         String valoracion = valoracionPC.getText(); //JTextField correspondiente
         
         if (valoracion == null) {
@@ -516,7 +524,7 @@ public class Controller {
     public static boolean login(){
     	boolean resultado = true;
     	String nick = UI.textField_PanelLogin_User.getText(); //Nombre/Nick de usuario
-    	String password = UI.passwordField_PanelLogin_Password.getText();//Password de usuario
+    	String password = new String(UI.passwordField_PanelLogin_Password.getPassword());//Password de usuario
     	Persona persona = new Persona(nick);
     	bd.extractPersona(persona);
     	if(password.equals(persona.getPassword())){//Se inicia sesión con el usuario correspondiente
@@ -534,8 +542,9 @@ public class Controller {
     public static boolean registro(){
     	boolean resultado = false;
     	String nick = UI.textField_PanelRegistro_Usuario.getText();
-    	String password = UI.passwordField_PanelRegistro_Password.getText();
-    	if(!password.equals(UI.passwordField_PanelRegistro_ConfPassword.getText())){
+    	String password = new String(UI.passwordField_PanelRegistro_Password.getPassword());
+    	String passwordConfirmation = new String(UI.passwordField_PanelRegistro_ConfPassword.getPassword());
+    	if(!password.equals(passwordConfirmation)){
     		JOptionPane.showMessageDialog(null, "La password no coincide", "Error", JOptionPane.INFORMATION_MESSAGE);
     	}
     	else{//Registrar usuario    	
@@ -596,26 +605,20 @@ public class Controller {
         Collection<Persona> personas = selected.getPersonasCollection();
         String nombresPersonas = "";
         Iterator<Persona> itPersonas = personas.iterator();
-        int c = 0;
         while (itPersonas.hasNext()) {
             nombresPersonas += "<" + itPersonas.next().getNombre() + "> ";
-            c++;
         }
         Collection<Agenda> agendas = selected.getAgendaCollection();
         String nombresAgendas = "";
         Iterator<Agenda> itAgendas = agendas.iterator();
-        c = 0;
         while (itAgendas.hasNext()) {
             nombresAgendas += "<" + itAgendas.next().getFecha() + "> ";
-            c++;
         }
         Collection<Pc> pcs = selected.getPcCollection();
         String nombresPcs = "";
         Iterator<Pc> itPcs = pcs.iterator();
-        c = 0;
         while (itPcs.hasNext()) {
             nombresPcs += "<" + itPcs.next().getFecha() + "> ";
-            c++;
         }
         UI.textPane_PanelCCC_Miembros.setText(nombresPersonas);
         UI.textPane_PanelCCC_Agendas.setText(nombresAgendas);
@@ -626,7 +629,7 @@ public class Controller {
     //Rellenar info Miembro
     public static void memberSelected() {
     	Persona persona = new Persona(UI.textField_PanelMiembro_Nick.getText());
-        bd.extractPersona(persona);
+    	bd.extractPersona(persona);
         if(persona.getPassword()==null){
         	JOptionPane.showMessageDialog(null, "El nick introducido no esta registrado en la base de datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -640,7 +643,7 @@ public class Controller {
     //Rellenar info perfil
     public static void mostrarPerfil(){
     	 Persona persona = new Persona(sesion);
-         bd.extractPersona(persona);
+    	 bd.extractPersona(persona);
          UI.textArea_PanelPerfil_Nick.setText(persona.getNick());
          UI.textField_PanelPerfil_Nombre.setText(persona.getNombre());
          UI.textField_PanelPerfil_Email.setText(persona.getEmail());

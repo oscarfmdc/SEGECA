@@ -2,12 +2,13 @@ package Conector;
 
 import java.sql.*;
 import java.util.*;
+
 import def.*;
 
 public class ConectorBD {
 
-	private static Connection conexion;
-	private static Statement statement;
+	private Connection conexion;
+	private Statement statement;
 
 	public ConectorBD(String host,String nombreBD, String usuario, String password) {
 		//nombreBD = "SEGECA";
@@ -41,44 +42,44 @@ public class ConectorBD {
 	/*
 	 * PERSONA
 	 */
-        public static void addPersonaCCC(Persona persona){
-            try{
-                statement.executeUpdate("insert into `Personas` set telefono='"+persona.getTelefono()+
-                "', email='"+persona.getEmail()+"', CCC='"+persona.getCcc().getNombreCCC()+"', nombre='"+
-                persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"';");
-            }catch (Exception e){
-                System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
-                System.out.println("La persona a introducir era: "+ persona.getNick());
-            }
-	}
-        
-	public static void editPerson(Persona persona){
-            try{
-                statement.executeUpdate("update `Personas` set telefono="+persona.getTelefono()+
-		", email='"+persona.getEmail()+"', nombre='"+ persona.getNombre()+
-                "' where `nick`='"+persona.getNick()+"' limit 1;");
-                if (persona.getCcc().getNombreCCC()!=null){
-                    statement.executeUpdate("update `Personas` set CCC='"+persona.getCcc().getNombreCCC()+"' where `nick`='"+persona.getNick()+"' limit 1;");                    
-                }
-                if (persona.getPermisos()!=null){
-                    statement.executeUpdate("update `Personas` set permisos='"+persona.getPermisos()+"' where `nick`='"+persona.getNick()+"' limit 1;");                    
-                }
-            }catch (Exception e){
-                System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
-                System.out.println("La persona a introducir era: "+ persona.getNick());
-            }
-	}
-        
-        public static void registroPersona(def.Persona persona){
+	public void addPersonaCCC(Persona persona){
 		try{
-                    statement.executeUpdate("insert into `Personas` set `nick`='"+persona.getNick()+"', password='"+ persona.getPassword()+"';");
-                
-                }catch (Exception e){
+			statement.executeUpdate("insert into `Personas` set telefono='"+persona.getTelefono()+
+					"', email='"+persona.getEmail()+"', CCC='"+persona.getCcc().getNombreCCC()+"', nombre='"+
+					persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"';");
+		}catch (Exception e){
+			System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
+			System.out.println("La persona a introducir era: "+ persona.getNick());
+		}
+	}
+
+	public void editPerson(Persona persona){
+		try{
+			statement.executeUpdate("update `Personas` set telefono="+persona.getTelefono()+
+					", email='"+persona.getEmail()+"', nombre='"+ persona.getNombre()+
+					"' where `nick`='"+persona.getNick()+"' limit 1;");
+			if (persona.getCcc().getNombreCCC()!=null){
+				statement.executeUpdate("update `Personas` set CCC='"+persona.getCcc().getNombreCCC()+"' where `nick`='"+persona.getNick()+"' limit 1;");                    
+			}
+			if (persona.getPermisos()!=null){
+				statement.executeUpdate("update `Personas` set permisos='"+persona.getPermisos()+"' where `nick`='"+persona.getNick()+"' limit 1;");                    
+			}
+		}catch (Exception e){
+			System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
+			System.out.println("La persona a introducir era: "+ persona.getNick());
+		}
+	}
+
+	public void registroPersona(def.Persona persona){
+		try{
+			statement.executeUpdate("insert into `Personas` set `nick`='"+persona.getNick()+"', password='"+ persona.getPassword()+"';");
+
+		}catch (Exception e){
 			System.out.println("No se han podido registrar a"+ persona.getNick()+" con éxito");
 		}
-        }
-        
-	public static void extractPersona(def.Persona persona){
+	}
+
+	public void extractPersona(def.Persona persona){
 		try{
 			ResultSet resultadoPersona = statement.executeQuery("select * from Personas where nick='"+ persona.getNick() +"'");
 			if (resultadoPersona.next()){
@@ -95,7 +96,7 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la persona con nick "+ persona.getNick());
 		}
 	}
-	public static void deletePersonaCCC(String persona){
+	public void deletePersonaCCC(String persona){
 		try {
 			statement.executeUpdate("delete from `Personas` where `nick`='"+ persona +"' limit 1");
 		} catch (SQLException e) {
@@ -108,7 +109,7 @@ public class ConectorBD {
 	/*
 	 * CCC
 	 */
-	public static void createCCC(Ccc ccc){
+	public void createCCC(Ccc ccc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from CCC where nombre_CCC='"+ ccc.getNombreCCC() +"'");
 			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
@@ -126,7 +127,7 @@ public class ConectorBD {
 		}
 	}
 
-	public static void extractCCC(def.Ccc ccc){
+	public void extractCCC(def.Ccc ccc){
 		LinkedList<def.Persona> listaPersonas= new LinkedList<def.Persona>();
 		LinkedList<def.Agenda> listaAgendas= new LinkedList<def.Agenda>();
 		LinkedList<def.Pc> listaPc= new LinkedList<def.Pc>();
@@ -179,7 +180,7 @@ public class ConectorBD {
 		}
 	}
 
-	public static void deleteCCC(String nombreCcc){
+	public void deleteCCC(String nombreCcc){
 		try {
 			statement.executeUpdate("delete from `CCC` where `nombre_CCC`='"+ nombreCcc +"' limit 1");
 		} catch (SQLException e) {
@@ -188,7 +189,7 @@ public class ConectorBD {
 	}
 
 	//Obtener listado de CCC
-	public static LinkedList<String> extraerListaCCC(){
+	public LinkedList<String> extraerListaCCC(){
 		LinkedList<String> lista = new LinkedList<String>();
 		try{
 			ResultSet resultado = statement.executeQuery("select * from CCC");
@@ -204,7 +205,7 @@ public class ConectorBD {
 	/*
 	 * AGENDA
 	 */
-	public static void createAgenda(Agenda agenda){
+	public void createAgenda(Agenda agenda){
 		try{
 			if (agenda.getCodAgenda() == null){
 				statement.executeUpdate("insert into `Agenda` set lugar='"+agenda.getLugar()+"', proposito='"+agenda.getProposito()
@@ -228,7 +229,7 @@ public class ConectorBD {
 		}
 	}
 
-	public static void extractAgenda(def.Agenda agenda){
+	public void extractAgenda(def.Agenda agenda){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Agenda where cod_agenda='"+ agenda.getCodAgenda() +"'");
 			if (resultado.next()){
@@ -246,9 +247,9 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la Agenda con código: "+ agenda.getCodAgenda());
 		}
 	}
-	
+
 	//ESTA BUSCANDO POR FECHA PARA QUE FUNCIONE LA PRESENTACION
-	public static void extractAgendaX(def.Agenda agenda){
+	public void extractAgendaX(def.Agenda agenda){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Agenda where fecha='"+ agenda.getFecha() +"'");
 			if (resultado.next()){
@@ -267,7 +268,7 @@ public class ConectorBD {
 		}
 	}
 
-	public static void deleteAgenda(int codAgenda){
+	public void deleteAgenda(int codAgenda){
 		try {
 			statement.executeUpdate("delete from `Agenda` where `cod_agenda`='"+ codAgenda +"' limit 1");
 		} catch (SQLException e) {
@@ -279,52 +280,52 @@ public class ConectorBD {
 	 * PC
 	 */
 
-        public static void addPC(Pc pc){
+	public void addPC(Pc pc){
 		try{
-				statement.executeUpdate("insert into `PC` set descripcion='"+pc.getDescripcion()+"', fecha='"+pc.getFecha()
-						+"', motivo='"+pc.getMotivo()+"', estado='"+pc.getEstado()+"', prioridad='"+pc.getPrioridad()+"'");
-                }catch (Exception e){
-                    System.out.println("Error al intentar insertar la PC con motivo: '"+ pc.getMotivo()+"'");
-                }
-        }
-        
-        public static void addPCagendaCCC(Pc pc){
-            try{
-				statement.executeUpdate("update `PC` set descripcion='"+pc.getDescripcion()+"', fecha='"+pc.getFecha()
-						+"', motivo='"+pc.getMotivo()+"', estado='"+pc.getEstado()+"', prioridad='"+pc.getPrioridad()+
-                                        "', CCC='"+pc.getCcc().getNombreCCC()+"', agenda='"+pc.getAgenda().getCodAgenda()+
-                                        "' where `cod_PC`='"+pc.getCodPC()+"' limit 1;");
-                }catch (Exception e){
-                    System.out.println("Error al intentar insertar la PC con motivo: '"+ pc.getMotivo()+"'");
-                }
-        }
-        
-        public static void addPCaCCC(Pc pc){
-            try{
-		statement.executeUpdate("update `PC` set CCC='" +pc.getCcc().getNombreCCC() + "' where `cod_PC`='"+pc.getCodPC()+"' limit 1;");
-            }catch (Exception e){
-                System.out.println("Error al intentar actualizar el ccc de la PC con motivo: '"+ pc.getMotivo()+"'");
-            }
-        }
-        
-        public static void valorarPC(Pc pc){
-            try{
-		statement.executeUpdate("update `PC` set valoracion='" +pc.getValoracion()+ "' where `cod_PC`='"+ pc.getCodPC()+"' limit 1;");
-            }catch (Exception e){
-                System.out.println("Error al intentar actualizar la valoración de la PC con id: '"+ pc.getCodPC()+"'");
-            }
-        }
-        
-        
-        public static void modEstadoPC(Pc pc){
-            try{
-		statement.executeUpdate("update `PC` set estado='" +pc.getEstado() + "' where `cod_PC`='"+ pc.getCodPC() +"' limit 1;");
-            }catch (Exception e){
-                System.out.println("Error al intentar actualizar la valoración de la PC con id: '"+ pc.getCodPC()+"'");
-            }
-        }
-	
-        public static void extractPc(Pc pc){
+			statement.executeUpdate("insert into `PC` set descripcion='"+pc.getDescripcion()+"', fecha='"+pc.getFecha()
+					+"', motivo='"+pc.getMotivo()+"', estado='"+pc.getEstado()+"', prioridad='"+pc.getPrioridad()+"'");
+		}catch (Exception e){
+			System.out.println("Error al intentar insertar la PC con motivo: '"+ pc.getMotivo()+"'");
+		}
+	}
+
+	public void addPCagendaCCC(Pc pc){
+		try{
+			statement.executeUpdate("update `PC` set descripcion='"+pc.getDescripcion()+"', fecha='"+pc.getFecha()
+					+"', motivo='"+pc.getMotivo()+"', estado='"+pc.getEstado()+"', prioridad='"+pc.getPrioridad()+
+					"', CCC='"+pc.getCcc().getNombreCCC()+"', agenda='"+pc.getAgenda().getCodAgenda()+
+					"' where `cod_PC`='"+pc.getCodPC()+"' limit 1;");
+		}catch (Exception e){
+			System.out.println("Error al intentar insertar la PC con motivo: '"+ pc.getMotivo()+"'");
+		}
+	}
+
+	public void addPCaCCC(Pc pc){
+		try{
+			statement.executeUpdate("update `PC` set CCC='" +pc.getCcc().getNombreCCC() + "' where `cod_PC`='"+pc.getCodPC()+"' limit 1;");
+		}catch (Exception e){
+			System.out.println("Error al intentar actualizar el ccc de la PC con motivo: '"+ pc.getMotivo()+"'");
+		}
+	}
+
+	public void valorarPC(Pc pc){
+		try{
+			statement.executeUpdate("update `PC` set valoracion='" +pc.getValoracion()+ "' where `cod_PC`='"+ pc.getCodPC()+"' limit 1;");
+		}catch (Exception e){
+			System.out.println("Error al intentar actualizar la valoración de la PC con id: '"+ pc.getCodPC()+"'");
+		}
+	}
+
+
+	public void modEstadoPC(Pc pc){
+		try{
+			statement.executeUpdate("update `PC` set estado='" +pc.getEstado() + "' where `cod_PC`='"+ pc.getCodPC() +"' limit 1;");
+		}catch (Exception e){
+			System.out.println("Error al intentar actualizar la valoración de la PC con id: '"+ pc.getCodPC()+"'");
+		}
+	}
+
+	public void extractPc(Pc pc){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from PC where cod_PC='"+ pc.getCodPC() +"'");
 			if (resultado.next()){
@@ -333,7 +334,7 @@ public class ConectorBD {
 				pc.setDescripcion(resultado.getString("descripcion"));
 				pc.setDocumentos(resultado.getString("documentos"));
 				pc.setEmail(resultado.getString("email"));
-				pc.setEstado(resultado.getString("estado"));
+				pc.setEstado((def.Pc.Estado)resultado.getObject("estado"));
 				pc.setFecha(resultado.getString("fecha"));
 				pc.setMotivo(resultado.getString("motivo"));
 				pc.setPrioridad(resultado.getString("prioridad"));
@@ -346,11 +347,11 @@ public class ConectorBD {
 			System.out.println("Error al intentar obtener la PC con código: "+ pc.getCodPC());
 		}
 	}
-        
+
 	/*
 	 * ACTA
 	 */
-	public static void createActa(Acta acta){
+	public void createActa(Acta acta){
 		try{
 			if(acta.getCodActa() == null){
 				statement.executeUpdate("insert into `Acta` set agenda='"+acta.getAgenda().getCodAgenda()+
@@ -372,7 +373,7 @@ public class ConectorBD {
 			System.out.println("El acta a introducir era: "+ acta.toString());
 		}
 	}
-	public static void extractActa(Acta acta){
+	public void extractActa(Acta acta){
 		try{
 			ResultSet resultado = statement.executeQuery("select * from Acta where cod_acta='"+ acta.getCodActa() +"'");
 			if (resultado.next()){
@@ -387,7 +388,7 @@ public class ConectorBD {
 		}
 	}
 
-	public static void deleteActa(int codActa){
+	public void deleteActa(int codActa){
 		try {
 			statement.executeUpdate("delete from `Acta` where `cod_acta`='"+ codActa +"' limit 1");
 		} catch (SQLException e) {
@@ -395,7 +396,7 @@ public class ConectorBD {
 		}
 	}
 
-	public static int getCodLastAgenda(){
+	public int getCodLastAgenda(){
 		ResultSet resultado;
 		try {
 			resultado = statement.executeQuery("select * from Agenda order by cod_agenda desc limit 1");
@@ -409,7 +410,7 @@ public class ConectorBD {
 		return 0;
 	}
 
-	public static int getCodLastActa(){
+	public int getCodLastActa(){
 		ResultSet resultado;
 		try {
 			resultado = statement.executeQuery("select * from Acta order by cod_acta desc limit 1");

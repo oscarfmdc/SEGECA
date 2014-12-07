@@ -14,7 +14,6 @@ import java.awt.Font;
 import java.awt.SystemColor;
 
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;

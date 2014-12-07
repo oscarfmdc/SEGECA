@@ -6,9 +6,9 @@
 
 package pruebas;
 
-import static Conector.ConectorBD.*;
 import def.*;
 import static ui.Controller.*;
+import ui.Controller;
 import ui.UI;
 
 /**
@@ -23,11 +23,11 @@ public class PI {
 
 	/*
     En la prueba 1 le pasamos los datos necesarios a Controller
-    para que llame al conectorBD y realmente se introduzca el CCC
-    en la base de datos.
+    para que llame al conectorBD y realmente se introduzca el CCC en la base de datos.
     Después comprobamos que el CCC está almacenado en la base de Datos.
 	 */
 	private static boolean pruebaI1(){
+		
 		boolean resultado = true;
 		UI.textFieldNombreCCC.setText("CCC_SEGECA");
 		UI.textFieldAdministrador.setText("Pepe");
@@ -37,7 +37,7 @@ public class PI {
 		altaCCC();
 		Ccc CCC1 = new Ccc();
 		CCC1.setNombreCCC("CCC_SEGECA");
-		extractCCC(CCC1);
+		Controller.getBd().extractCCC(CCC1);
 
 		if (!CCC1.getAdministrador().equals("Pepe")){
 			resultado = false;
@@ -65,8 +65,8 @@ public class PI {
 		UI.textFieldParticipantesAgendas.setText("Marcos,Oscar");
 		prepararAgenda();
 		Agenda a1 = new Agenda();
-		a1.setCodAgenda(getCodLastAgenda());
-		extractAgenda(a1);
+		a1.setCodAgenda(Controller.getBd().getCodLastAgenda());
+		Controller.getBd().extractAgenda(a1);
 
 		if (!a1.getCcc().getNombreCCC().equals("CCC_SEGECA")){
 			resultado = false;
