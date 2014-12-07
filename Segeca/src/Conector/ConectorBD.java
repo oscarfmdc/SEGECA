@@ -41,24 +41,34 @@ public class ConectorBD {
 	/*
 	 * PERSONA
 	 */
-	public static void createPersona(def.Persona persona){
-		try{
-			ResultSet resultado = statement.executeQuery("select * from Personas where nick='"+ persona.getNick() +"'");
-			if (resultado.next()){//Si ya estaba este usuario actualizamos sus campos
-				statement.executeUpdate("update `Personas` set telefono="+persona.getTelefono()+
-						", email='"+persona.getEmail()+"', CCC='"+persona.getCcc().getNombreCCC()+"', nombre='"+
-						persona.getNombre()+"', permisos='"+ persona.getPermisos()+"' where `nick`='"+persona.getNick()+"' limit 1;");
-			}else{//Si no, lo introuducimos por primera vez
-				statement.executeUpdate("insert into `Personas` set telefono='"+persona.getTelefono()+
-						"', email='"+persona.getEmail()+"', CCC='"+persona.getCcc().getNombreCCC()+"', nombre='"+
-						persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"';");
-			}
-		}catch (Exception e){
-			System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
-			System.out.println("La persona a introducir era: "+ persona.getNick() + ";"+ persona.getCcc().getNombreCCC());
-		}
+        public static void addPersonaCCC(Persona persona){
+            try{
+                statement.executeUpdate("insert into `Personas` set telefono='"+persona.getTelefono()+
+                "', email='"+persona.getEmail()+"', CCC='"+persona.getCcc().getNombreCCC()+"', nombre='"+
+                persona.getNombre()+"', permisos='"+ persona.getPermisos() +"', `nick`='"+persona.getNick()+"';");
+            }catch (Exception e){
+                System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
+                System.out.println("La persona a introducir era: "+ persona.getNick());
+            }
 	}
-
+        
+	public static void editPerson(Persona persona){
+            try{
+                statement.executeUpdate("update `Personas` set telefono="+persona.getTelefono()+
+		", email='"+persona.getEmail()+"', nombre='"+ persona.getNombre()+
+                "' where `nick`='"+persona.getNick()+"' limit 1;");
+                if (persona.getCcc().getNombreCCC()!=null){
+                    statement.executeUpdate("update `Personas` set CCC='"+persona.getCcc().getNombreCCC()+"' where `nick`='"+persona.getNick()+"' limit 1;");                    
+                }
+                if (persona.getPermisos()!=null){
+                    statement.executeUpdate("update `Personas` set permisos='"+persona.getPermisos()+"' where `nick`='"+persona.getNick()+"' limit 1;");                    
+                }
+            }catch (Exception e){
+                System.out.println("No se han podido introducir los datos de 'Persona' con éxito");
+                System.out.println("La persona a introducir era: "+ persona.getNick());
+            }
+	}
+        
         public static void registroPersona(def.Persona persona){
 		try{
                     statement.executeUpdate("insert into `Personas` set `nick`='"+persona.getNick()+"', password='"+ persona.getPassword()+"';");
@@ -93,12 +103,7 @@ public class ConectorBD {
 		}
 	}
 
-	public static void addPersonaCCC(Persona persona){
-		createPersona(persona);
-	}
-	public static void editPerson(Persona persona){
-		createPersona(persona);
-	}
+
 
 	/*
 	 * CCC
@@ -420,7 +425,5 @@ public class ConectorBD {
 }
 /*
  * Prioritario:
- * No Prioritario(Siguiente iteración):
- * Introducir PC 
  * resto de deletes
  */
