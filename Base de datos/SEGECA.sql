@@ -47,7 +47,9 @@ CREATE TABLE IF NOT EXISTS `SEGECA`.`PC` (
 `prioridad` varchar(100),
 `fecha` varchar(10),
 `agenda` int,
-`estado` enum ('aceptada','rechazada','aplazada','pendiente','implantada','retirada'),
+/* Los estados que había antes del enum que se ha hecho en la clase PC
+'aceptada','rechazada','aplazada','pendiente','implantada','retirada' */
+`estado` enum ('ABIERTA', 'APROBADA', 'DESAPROBADA', 'EN_IMPLEMENTACION', 'CERRADA'),
 `CCC` varchar(100),
 `valoracion` varchar(100),
 `documentos` varchar(100),

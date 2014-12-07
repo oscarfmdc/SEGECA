@@ -189,7 +189,11 @@ public class PU {
 		System.out.println("Prueba 5. Introducción y extracción de agenda: " + pruebaBD5());
 		System.out.println("Prueba 6. Modificación de agenda: " + pruebaBD6());
 		System.out.println("Prueba 7. Introducción y extracción de Acta: " + pruebaBD7());
-		System.out.println("Prueba 8. Modificación de Acta: " + pruebaBD8());
+		System.out.println("Prueba 8. Modificación de acta: " + pruebaBD8());
+                System.out.println("Prueba 9. Introducción y extracción de PC: " + pruebaBD9());
+                System.out.println("Prueba 10. Asignación de CCC a PC: " + pruebaBD10());
+                System.out.println("Prueba 11. Asignación de agenda a PC: " + pruebaBD11());
+                System.out.println("Prueba 12. Modificación de campo valoración en PC: " + pruebaBD12());
 
 		//Devolvemos la base de Datos a su estado inicial
 		deleteActa(getCodLastActa());
@@ -198,6 +202,7 @@ public class PU {
 		deleteAgenda(getCodLastAgenda());
 		deleteCCC("CCC1");
 		deletePersonaCCC("nom1");
+                deletePc(getCodLastPc());
 		deleteCCC("CCC2");		
 	}
 
@@ -271,7 +276,7 @@ public class PU {
 		p1.setTelefono(123456789);
 		p2.setNick("nom1");
 
-		createPersona(p1);
+		addPersonaCCC(p1);
 		extractPersona(p2);
 
 		if (!p1.getCcc().getNombreCCC().equals(p2.getCcc().getNombreCCC())){
@@ -310,7 +315,7 @@ public class PU {
 		p1.setTelefono(987654321);
 		p2.setNick("nom1");
 
-		createPersona(p1);
+		editPerson(p1);
 		extractPersona(p2);
 
 		if (!p1.getCcc().getNombreCCC().equals(p2.getCcc().getNombreCCC())){
@@ -328,7 +333,7 @@ public class PU {
 		if (!p1.getPermisos().equals(p2.getPermisos())){
 			resultado = false;
 		}
-		if (p1.getTelefono()!=(p2.getTelefono())){
+		if (p1.getTelefono()!=p2.getTelefono()){
 			resultado = false;
 		}
 		return resultado;
@@ -476,4 +481,88 @@ public class PU {
 
 		return resultado;
 	}
+        
+        //Introducción y extracción de PC
+        private static boolean pruebaBD9(){
+            boolean resultado = true;
+            Pc pc1 = new Pc();
+            Pc pc2 = new Pc();
+            pc1.setDescripcion("Descripción 1");
+            pc1.setFecha("29/08/2015");
+            pc1.setMotivo("Motivo1");
+            pc1.setEstado(Pc.Estado.ABIERTA);
+            pc1.setPrioridad("Alta");
+
+            addPC(pc1);
+            pc2.setCodPC(getCodLastPc());
+            extractPc(pc2);
+
+            if(!pc1.getDescripcion().equals(pc2.getDescripcion())){
+                resultado = false;
+            }
+            if(!pc1.getFecha().equals(pc2.getFecha())){
+                resultado = false;
+            }
+            if(!pc1.getMotivo().equals(pc2.getMotivo())){
+                resultado = false;
+            }
+            if(!pc1.getEstado().toString().equals(pc2.getEstado().toString())){
+                resultado = false;
+            }
+            if(!pc1.getPrioridad().equals(pc2.getPrioridad())){
+                resultado = false;
+            }
+            return resultado;
+        }
+        
+        //Asignación de CCC a PC
+        private static boolean pruebaBD10(){
+            boolean resultado = true;
+            Pc pc1 = new Pc(getCodLastPc());
+            Pc pc2 = new Pc(getCodLastPc());
+            Ccc CCC2 = new Ccc("CCC2");
+
+            extractPc(pc1);
+            pc1.setCcc(CCC2);
+            addPCaCCC(pc1);
+            extractPc(pc2);
+
+            if(!pc1.getCcc().getNombreCCC().equals(pc2.getCcc().getNombreCCC())){
+                    resultado = false;
+                }            
+            return resultado;
+        }
+        
+        private static boolean pruebaBD11(){
+            boolean resultado = true;
+            Pc pc1 = new Pc(getCodLastPc());
+            Pc pc2 = new Pc(getCodLastPc());
+            Agenda a1 = new Agenda(getCodLastAgenda());
+            
+            extractPc(pc1);
+            pc1.setAgenda(a1);
+            addPCagendaCCC(pc1);
+            extractPc(pc2);
+            
+            if(!pc1.getAgenda().getCodAgenda().equals(pc2.getAgenda().getCodAgenda())){
+                   resultado = false;
+            }            
+            return resultado;
+        }
+        
+        //Modificación de campo valoración
+        private static boolean pruebaBD12(){
+        boolean resultado = true;
+        Pc pc1 = new Pc(getCodLastPc());
+        Pc pc2 = new Pc(getCodLastPc());
+        pc1.setValoracion("Valoracion1");
+        
+        valorarPC(pc1);
+        extractPc(pc2);
+        
+        if(!pc1.getValoracion().equals(pc2.getValoracion())){
+                   resultado = false;
+            } 
+        return resultado;
+        }
 }
