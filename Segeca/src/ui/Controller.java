@@ -349,9 +349,9 @@ public class Controller {
         pc.setCodPC(codPC);
         
         // Stub de la BBDD: comentar en la version final
-        stubs.PCaCCC(pc);
+        //stubs.PCaCCC(pc);
         
-        //bd.addPCaCCC(pc); // metodo que debe añadir o cambiar el cod de CCC de la PC
+        bd.addPCaCCC(pc); // metodo que debe añadir o cambiar el cod de CCC de la PC
         JOptionPane.showMessageDialog(null, "Asignacion PC al CCC corecta.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
         return 0;
@@ -406,9 +406,9 @@ public class Controller {
         pc.setAgenda(ag);
         
         // Stub de la bbdd.C Comentar en la versión final
-        stubs.PcAgendaCCC(pc);
+        //stubs.PcAgendaCCC(pc);
         // Método que añadirá una PC con los parámetros que hemos establecido
-        //bd.addPCagendaCCC(pc);
+        bd.addPCagendaCCC(pc);
         
         JOptionPane.showMessageDialog(null, "Se ha asignado correctamente una petición de cambio a la reunión correspondiente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
         return 0;
