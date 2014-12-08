@@ -63,8 +63,7 @@ public class Controller {
 
 		// Metodo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
 		bd.createAgenda(ag);
-		bd.extractAgendaX(ag);//ESTA BUSCANDO POR FECHA\\\\\\\\\\\\CAMBIAR////////////////
-		UI.label_PanelOutput_Output.setText("Output:   CÃƒÂ³digo de Agenda = " + ag.getCodAgenda());
+		UI.label_PanelOutput_Output.setText("Output:   Código de Agenda = " + bd.getCodLastAgenda());
 		//Stub para simular el modulo, en la version final comentar
 		//stubs.createAgenda(ag);
 
@@ -154,6 +153,8 @@ public class Controller {
 
 			//Metodo que crea el acta en la BD
 			bd.createActa(acta);
+			
+			UI.label_PanelOutput_Output.setText("Output:   Código de Acta = " + bd.getCodLastActa());
 
 			JOptionPane.showMessageDialog(null, "El acta se ha preparado correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
@@ -346,7 +347,7 @@ public class Controller {
 
 	// AsignaciÃ³n de PC registrada a un CCC
 	public static int PCaCCC() {
-
+		
 		Pc pc = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
 		// nos deben pasar el codPC para asignarle el CCC que eliga el usuario
 
@@ -360,14 +361,18 @@ public class Controller {
 		}
 
 		// creamos un objeto Ccc con el nombre del CCC que ha seleccionado el usuario
-		Ccc newCCC = new Ccc();
-		newCCC.setNombreCCC(cccPC);
+		Ccc newCCC = new Ccc(cccPC);
+		bd.extractCCC(newCCC);
+		if(newCCC.getPresidente()==null){
+			JOptionPane.showMessageDialog(null, "El CCC indicado no existe", "Error", JOptionPane.ERROR_MESSAGE);
+			return -1;
+		}
 		pc.setCcc(newCCC);
 
 		// Stub de la BBDD: comentar en la version final
 		//stubs.PCaCCC(pc);
 
-		//bd.addPCaCCC(pc); // metodo que debe aÃƒÂ±adir o cambiar el cod de CCC de la PC
+		bd.addPCaCCC(pc); // metodo que debe añadir o cambiar el cod de CCC de la PC
 		JOptionPane.showMessageDialog(null, "Asignacion PC al CCC corecta.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
 		return 0;
@@ -385,9 +390,15 @@ public class Controller {
 		Agenda ag = new Agenda();
 		int codAgenda = Integer.valueOf(UI.textField_PanelPC_Reunion.getText());
 		if(!(codAgenda > 0)){
-			JOptionPane.showMessageDialog(null, "El cÃ³digo de agenda introducido es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "El código de agenda introducido es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+			return -1;
 		}
 		ag.setCodAgenda(codAgenda);
+		bd.extractAgenda(ag);
+		if(ag.getFecha()==null){
+			JOptionPane.showMessageDialog(null, "El código de agenda introducido es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+			return -1;
+		}
 
 		pc.setAgenda(ag);
 
@@ -396,7 +407,7 @@ public class Controller {
 		// Metodo que aÃƒÂ±adirÃƒÂ¡ una PC con los parÃƒÂ¡metros que hemos establecido
 		bd.addPCagendaCCC(pc);
 
-		JOptionPane.showMessageDialog(null, "Se ha asignado correctamente una peticiÃƒÂ³n de cambio a la reuniÃƒÂ³n correspondiente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Se ha asignado correctamente una petición de cambio a la reunión correspondiente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 		return 0;
 	}
 
@@ -405,9 +416,7 @@ public class Controller {
 	public static int altaPC() {
 		Pc pc = new Pc();
 
-		pc.setCodPC(0);
-
-		// Jtextfield con la descripciÃ³n de la PC
+		// Jtextfield con la descripción de la PC
 		JTextPane descripcionPC = UI.textPane_PanelPCnueva_Descripcion;
 		String descripcion = descripcionPC.getText();
 
@@ -443,8 +452,15 @@ public class Controller {
 		//Prioridad PC
 		JTextField priorPC = UI.textArea_PanelPCnueva_Prioridad;
 		pc.setPrioridad(priorPC.getText());
+		
+		//Documentos PC
+		pc.setDocumentos(UI.textArea_PanelPCnueva_Documentos.getText());
+		
+		//Email
+		pc.setEmail(UI.textArea_PanelPCnueva_Email.getText());
 
 		bd.addPC(pc); // metodo que crea una PC inicial
+		UI.label_PanelOutput_Output.setText("Output: Número de petición = "+bd.getCodLastPc());
 		JOptionPane.showMessageDialog(null, "Se ha dado de alta una nueva PC.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
 		return 0;
