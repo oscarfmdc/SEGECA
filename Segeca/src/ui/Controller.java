@@ -64,7 +64,7 @@ public class Controller {
 		// Metodo que cree la agenda en la bbdd dado una instancia de clase agenda (enrique)
 		bd.createAgenda(ag);
 		bd.extractAgendaX(ag);//ESTA BUSCANDO POR FECHA\\\\\\\\\\\\CAMBIAR////////////////
-		UI.label_PanelOutput_Output.setText("Output:   CÃ³digo de Agenda = " + ag.getCodAgenda());
+		UI.label_PanelOutput_Output.setText("Output:   CÃƒÂ³digo de Agenda = " + ag.getCodAgenda());
 		//Stub para simular el modulo, en la version final comentar
 		//stubs.createAgenda(ag);
 
@@ -108,7 +108,7 @@ public class Controller {
 		Date parsedHoraIn = null;
 		Date parsedHoraFin = null;
 
-		// Comprobamos que la hora de inicio es anterior a la hora de fin de la reuniÃƒÂ³n
+		// Comprobamos que la hora de inicio es anterior a la hora de fin de la reuniÃƒÆ’Ã‚Â³n
 		try {
 			SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm", Locale.getDefault());
 			formatoHora.setLenient(false);
@@ -174,7 +174,7 @@ public class Controller {
 			ccc.setPresidente(UI.textFieldPresidente.getText());
 			ccc.setSecretario(UI.textFieldSecretario.getText());
 
-			// lista de miembros esta vacÃƒÂ­o
+			// lista de miembros esta vacÃƒÆ’Ã‚Â­o
 			bd.createCCC(ccc);
 
 			JOptionPane.showMessageDialog(null, "Se ha creado correctamente un nuevo CCC.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
@@ -210,10 +210,10 @@ public class Controller {
 		//permisos
 		persona.setPermisos(UI.textField_PanelMiembro_Permisos.getText());
 
-		// Modificamos la persona con los parÃƒÂ¡mtetros correspondientes, (enrique)        
+		// Modificamos la persona con los parÃƒÆ’Ã‚Â¡mtetros correspondientes, (enrique)        
 		bd.editPerson(persona);
 
-		JOptionPane.showMessageDialog(null, "Se ha aÃ±adido el miembro al CCC correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Se ha aÃƒÂ±adido el miembro al CCC correctamente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
 		return 0;
 	}
@@ -344,7 +344,7 @@ public class Controller {
 
 	/* Requisito 3.1 */
 
-	// Asignación de PC registrada a un CCC
+	// AsignaciÃ³n de PC registrada a un CCC
 	public static int PCaCCC() {
 
 		Pc pc = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
@@ -367,36 +367,36 @@ public class Controller {
 		// Stub de la BBDD: comentar en la version final
 		//stubs.PCaCCC(pc);
 
-		//bd.addPCaCCC(pc); // metodo que debe aÃ±adir o cambiar el cod de CCC de la PC
+		//bd.addPCaCCC(pc); // metodo que debe aÃƒÂ±adir o cambiar el cod de CCC de la PC
 		JOptionPane.showMessageDialog(null, "Asignacion PC al CCC corecta.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
 		return 0;
 	}
 
 	/* Requisito 3.2 */
-	// Método que asignará una petición de cambio a una reunión de un CCC que se celebre con posterioridad
-	// IINTERFAZ: TENÉIS QUE MOSTRAR TODAS LAS REUNIONES DEL CCC QUE NO SE HAYAN CELEBRADO Y PASARNOS EL CODIGO DE LA AGENDA
+	// MÃ©todo que asignarÃ¡ una peticiÃ³n de cambio a una reuniÃ³n de un CCC que se celebre con posterioridad
+	// IINTERFAZ: TENÃ‰IS QUE MOSTRAR TODAS LAS REUNIONES DEL CCC QUE NO SE HAYAN CELEBRADO Y PASARNOS EL CODIGO DE LA AGENDA
 	public static int PcAgendaCCC() {
 
 		Pc pc = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
 		bd.extractPc(pc);
 
-		//Establecemos el código de la agenda
+		//Establecemos el cÃ³digo de la agenda
 		Agenda ag = new Agenda();
 		int codAgenda = Integer.valueOf(UI.textField_PanelPC_Reunion.getText());
 		if(!(codAgenda > 0)){
-			JOptionPane.showMessageDialog(null, "El código de agenda introducido es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "El cÃ³digo de agenda introducido es incorrecto", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		ag.setCodAgenda(codAgenda);
 
 		pc.setAgenda(ag);
 
-		// Stub de la bbdd.C Comentar en la versiÃ³n final
+		// Stub de la bbdd.C Comentar en la versiÃƒÂ³n final
 		//stubs.PcAgendaCCC(pc);
-		// Metodo que aÃ±adirÃ¡ una PC con los parÃ¡metros que hemos establecido
+		// Metodo que aÃƒÂ±adirÃƒÂ¡ una PC con los parÃƒÂ¡metros que hemos establecido
 		bd.addPCagendaCCC(pc);
 
-		JOptionPane.showMessageDialog(null, "Se ha asignado correctamente una peticiÃ³n de cambio a la reuniÃ³n correspondiente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(null, "Se ha asignado correctamente una peticiÃƒÂ³n de cambio a la reuniÃƒÂ³n correspondiente", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 		return 0;
 	}
 
@@ -407,7 +407,7 @@ public class Controller {
 
 		pc.setCodPC(0);
 
-		// Jtextfield con la descripción de la PC
+		// Jtextfield con la descripciÃ³n de la PC
 		JTextPane descripcionPC = UI.textPane_PanelPCnueva_Descripcion;
 		String descripcion = descripcionPC.getText();
 
@@ -419,7 +419,7 @@ public class Controller {
 		}
 
 		// Comprobacion Fecha
-		JTextField fechaPC = UI.textArea_PanelPCnueva_Email; //JTextField;
+		JTextField fechaPC = UI.textArea_PanelPCnueva_Fecha; //JTextField;
 		if (!isFechaValida(fechaPC.getText())) {
 			return -1;
 		} else {
@@ -451,8 +451,8 @@ public class Controller {
 	}
 
 	/* Requisito 3.4 */
-	// Método que introduce una valoración en una PC
-	// Interfaz: ES NECESARIO QUE NOS PASÉIS EL CÓDIGO DE LA PC QUE QUERÍA MODIFICAR EL USUARIO
+	// MÃ©todo que introduce una valoraciÃ³n en una PC
+	// Interfaz: ES NECESARIO QUE NOS PASÃ‰IS EL CÃ“DIGO DE LA PC QUE QUERÃ�A MODIFICAR EL USUARIO
 	public static int valorarPC() {
 		Pc pc = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
 		bd.extractPc(pc);
@@ -467,7 +467,7 @@ public class Controller {
 			pc.setValoracion(valoracion);
 		}
 
-		// Metodo que aÃ±ade valoracion a una PC
+		// Metodo que aÃƒÂ±ade valoracion a una PC
 		bd.valorarPC(pc);
 		JOptionPane.showMessageDialog(null, "Se ha introducido la valoracion de dicha PC correctamente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
 
@@ -502,7 +502,7 @@ public class Controller {
 		String password = new String(UI.passwordField_PanelLogin_Password.getPassword());//Password de usuario
 		Persona persona = new Persona(nick);
 		bd.extractPersona(persona);
-		if(password.equals(persona.getPassword())){//Se inicia sesiÃ³n con el usuario correspondiente
+		if(password.equals(persona.getPassword())){//Se inicia sesiÃƒÂ³n con el usuario correspondiente
 			sesion = nick;
 		}
 		else{//Si los datos no son correctos se muestra un mensaje de error
@@ -559,7 +559,7 @@ public class Controller {
 
 		persona.setEmail(UI.textField_PanelPerfil_Email.getText());
 
-		// ComprobaciÃ³n numero de telefono valido
+		// ComprobaciÃƒÂ³n numero de telefono valido
 		int telf = isTelefono(UI.textField_PanelPerfil_Telefono.getText());
 		persona.setTelefono(telf);
 
@@ -633,7 +633,7 @@ public class Controller {
 		Pc peticion = new Pc(Integer.valueOf(UI.textField_PanelPC_CodPC.getText()));
 		bd.extractPc(peticion);
 		if(peticion.getDescripcion()==null){
-			JOptionPane.showMessageDialog(null, "No existe ninguna petición asociada a ese código", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No existe ninguna peticiÃ³n asociada a ese cÃ³digo", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		else{//La peticion existe
 			UI.textArea_PanelPC_Fecha.setText(peticion.getFecha());//Fecha
