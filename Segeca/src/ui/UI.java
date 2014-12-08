@@ -18,10 +18,13 @@ import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
+
 import def.Pc.Estado;
 
 public class UI {
@@ -159,14 +162,14 @@ public class UI {
 		initialize();
 	}
 
-	static void initialize() {
+	public static void initialize() {
 
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1000, 751);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+		
 		//Panel Actas
 		panelActas = new JPanel();
 		panelActas.setBounds(0, 44, 994, 620);
@@ -388,8 +391,8 @@ public class UI {
 		btnModificar.setBounds(410, 415, 89, 23);
 		panelPC.add(btnModificar);
 
-		comboBox_PanelPC_Estado = new JComboBox();
-		comboBox_PanelPC_Estado.setModel(new DefaultComboBoxModel(Estado.values()));
+		comboBox_PanelPC_Estado = new JComboBox<Estado>();
+		comboBox_PanelPC_Estado.setModel(new DefaultComboBoxModel<Estado>(Estado.values()));
 		comboBox_PanelPC_Estado.setBounds(240, 418, 144, 20);
 		panelPC.add(comboBox_PanelPC_Estado);
 
