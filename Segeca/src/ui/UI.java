@@ -26,6 +26,10 @@ import javax.swing.JTextArea;
 import javax.swing.DefaultComboBoxModel;
 
 import def.Pc.Estado;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import java.awt.Color;
+import javax.swing.border.TitledBorder;
 
 public class UI {
 
@@ -121,7 +125,7 @@ public class UI {
 	public static JTextArea textArea_PanelPerfil_Nick;
 	public static JTextArea textArea_PanelPerfil_CCC;
 	public static JTextArea textArea_PanelPerfil_Permisos;
-	
+
 
 	//PanelPC
 	static JPanel panelPC;
@@ -143,7 +147,7 @@ public class UI {
 	public static JTextPane textPane_PanelPC_Descripcion;
 	public static JTextPane textPane_PanelPC_Valoracion;
 	private static JButton btnNewButton_1;
-	
+
 	//PanelPCnueva
 	static JPanel panelPCnueva;
 	public static JTextField textArea_PanelPCnueva_Prioridad;
@@ -152,7 +156,7 @@ public class UI {
 	public static JTextPane textPane_PanelPCnueva_Descripcion;
 	public static JTextField textArea_PanelPCnueva_Email;
 	public static JTextField textArea_PanelPCnueva_Motivo;
-	
+
 
 
 	public UI() {
@@ -162,46 +166,69 @@ public class UI {
 	public static void initialize() {
 
 		frame = new JFrame();
+		frame.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
+		frame.getContentPane().setBackground(new Color(135, 206, 250));
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1000, 751);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		//Panel Actas
 		panelActas = new JPanel();
+		panelActas.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
+		panelActas.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelActas.setBounds(0, 44, 994, 620);
 		panelActas.setVisible(false);
 
 		//Panel Agendas
 		panelAgendas = new JPanel();
+		panelAgendas.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
+		panelAgendas.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelAgendas.setBounds(0, 44, 994, 620);
 		panelAgendas.setVisible(false);
 
 		//Panel Principal
 		panelPrincipal = new JPanel();
+		panelPrincipal.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelPrincipal.setBounds(0, 0, 994, 44);
-		panelPrincipal.setBackground(SystemColor.activeCaption);
+		panelPrincipal.setBackground(Color.BLACK);
 		panelPrincipal.setVisible(false);
 
 		//Panel CCC
 		panelCCC = new JPanel();
+		panelCCC.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
+		panelCCC.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelCCC.setBounds(0, 44, 994, 620);
 		panelCCC.setLayout(null);
 		panelCCC.setVisible(false);
 
 		panelNuevoMiembro = new JPanel();
+		panelNuevoMiembro.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
+		panelNuevoMiembro.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelNuevoMiembro.setBounds(0, 44, 994, 620);
 		panelNuevoMiembro.setVisible(false);
 
 		panelPerfil = new JPanel();
+		panelPerfil.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
+		panelPerfil.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelPerfil.setBounds(0, 44, 994, 620);
 		panelPerfil.setVisible(false);
 
 		panelBajaMiembro = new JPanel();
+		panelBajaMiembro.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
+		panelBajaMiembro.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelBajaMiembro.setBounds(0, 44, 994, 620);
 		panelBajaMiembro.setVisible(false);
-		
+
+		panelPC = new JPanel();
+		panelPC.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
+		panelPC.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panelPC.setBounds(0, 44, 994, 620);
+		panelPC.setVisible(false);
+
 		panelPCnueva = new JPanel();
+		panelPCnueva.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
+		panelPCnueva.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panelPCnueva.setBounds(0, 44, 994, 620);
 		panelPCnueva.setVisible(false);
 		frame.getContentPane().add(panelPCnueva);
@@ -268,7 +295,7 @@ public class UI {
 		textArea_PanelPCnueva_Email = new JTextField();
 		textArea_PanelPCnueva_Email.setBounds(241, 303, 218, 20);
 		panelPCnueva.add(textArea_PanelPCnueva_Email);
-		
+
 		JButton btnCancelar_1 = new JButton("Cancelar");
 		btnCancelar_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -278,10 +305,6 @@ public class UI {
 		});
 		btnCancelar_1.setBounds(403, 397, 89, 23);
 		panelPCnueva.add(btnCancelar_1);
-
-		panelPC = new JPanel();
-		panelPC.setBounds(0, 44, 994, 620);
-		panelPC.setVisible(false);
 		frame.getContentPane().add(panelPC);
 		panelPC.setLayout(null);
 
@@ -312,14 +335,14 @@ public class UI {
 		button_PanelPC_Nueva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelPCnueva.setVisible(true);
-				
+
 				panelPC.setVisible(false);
-                panelActas.setVisible(false);
-                panelAgendas.setVisible(false);
-                panelCCC.setVisible(false);
-                panelDatos.setVisible(false);
-                panelNuevoMiembro.setVisible(false);
-                panelPerfil.setVisible(false);
+				panelActas.setVisible(false);
+				panelAgendas.setVisible(false);
+				panelCCC.setVisible(false);
+				panelDatos.setVisible(false);
+				panelNuevoMiembro.setVisible(false);
+				panelPerfil.setVisible(false);
 			}
 		});
 		button_PanelPC_Nueva.setBounds(454, 95, 89, 23);
@@ -794,7 +817,7 @@ public class UI {
 		botonAgendas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelAgendas.setVisible(true);
-				
+
 				panelActas.setVisible(false);
 				panelCCC.setVisible(false);
 				panelDatos.setVisible(false);
@@ -830,7 +853,7 @@ public class UI {
 				panelPerfil.setVisible(false);
 				panelPC.setVisible(false);
 				panelPCnueva.setVisible(false);
-				
+
 				panelLogin.setVisible(true);
 			}
 		});
@@ -842,7 +865,7 @@ public class UI {
 			public void actionPerformed(ActionEvent arg0) {
 				Controller.mostrarPerfil();
 				panelPerfil.setVisible(true);
-				
+
 				panelActas.setVisible(false);
 				panelAgendas.setVisible(false);
 				panelCCC.setVisible(false);
@@ -858,7 +881,7 @@ public class UI {
 		botonPeticiones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelPC.setVisible(true);
-				
+
 				panelActas.setVisible(false);		
 				panelAgendas.setVisible(false);
 				panelCCC.setVisible(false);
@@ -873,7 +896,7 @@ public class UI {
 		botonActas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panelActas.setVisible(true);
-				
+
 				panelAgendas.setVisible(false);
 				panelCCC.setVisible(false);
 				panelDatos.setVisible(false);
@@ -887,7 +910,7 @@ public class UI {
 			public void actionPerformed(ActionEvent arg0) {
 				panelCCC.setVisible(true);
 				panelDatos.setVisible(true);
-				
+
 				panelActas.setVisible(false);
 				panelAgendas.setVisible(false);				
 				panelNuevoMiembro.setVisible(false);
@@ -1043,13 +1066,15 @@ public class UI {
 		});
 
 		panelOutput = new JPanel();
+		panelOutput.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelOutput.setBounds(0, 666, 994, 54);
 		panelOutput.setVisible(false);
 		frame.getContentPane().add(panelOutput);
-		panelOutput.setBackground(SystemColor.activeCaptionBorder);
+		panelOutput.setBackground(Color.BLACK);
 		panelOutput.setLayout(null);
 
-		label_PanelOutput_Output = new JLabel("Output");
+		label_PanelOutput_Output = new JLabel("Output:");
+		label_PanelOutput_Output.setForeground(Color.GREEN);
 		label_PanelOutput_Output.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		label_PanelOutput_Output.setBounds(27, 11, 935, 26);
 		panelOutput.add(label_PanelOutput_Output);
